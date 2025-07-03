@@ -75,7 +75,7 @@ export default function AppSidebar() {
   }, [isOpen]);
 
   return (
-    <Sidebar collapsible='icon'>
+    <Sidebar collapsible='icon' variant='sidebar'>
       <SidebarHeader>
         <OrgSwitcher
           tenants={tenants}
