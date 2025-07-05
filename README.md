@@ -1,115 +1,115 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/9113740/201498864-2a900c64-d88f-4ed4-b5cf-770bcb57e1f5.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/9113740/201498152-b171abb8-9225-487a-821c-6ff49ee48579.png">
-</picture>
+# Jobbsiffror
 
-<div align="center"><strong>Next.js Admin Dashboard Starter Template With Shadcn-ui</strong></div>
-<div align="center">Built with the Next.js 15 App Router</div>
+<div align="center"><strong>Swedish Job Statistics Dashboard</strong></div>
+<div align="center">Built with Next.js 15 and modern web technologies</div>
 <br />
 <div align="center">
-<a href="https://dub.sh/shadcn-dashboard">View Demo</a>
-<span>
+<a href="https://jobbsiffror.se">Visit jobbsiffror.se</a>
 </div>
 
 ## Overview
 
-This is a starter template using the following stack:
+Jobbsiffror is a read-only web application that displays Swedish economic data, primarily job numbers for various professions and regions. The application provides interactive visualizations and analytics to help users understand employment trends across Sweden.
 
-- Framework - [Next.js 15](https://nextjs.org/13)
-- Language - [TypeScript](https://www.typescriptlang.org)
-- Auth - [Clerk](https://go.clerk.com/ILdYhn7)
-- Error tracking - [<picture><img alt="Sentry" src="public/assets/sentry.svg">
-        </picture>](https://sentry.io/for/nextjs/?utm_source=github&utm_medium=paid-community&utm_campaign=general-fy26q2-nextjs&utm_content=github-banner-project-tryfree)
-- Styling - [Tailwind CSS v4](https://tailwindcss.com)
-- Components - [Shadcn-ui](https://ui.shadcn.com)
-- Schema Validations - [Zod](https://zod.dev)
-- State Management - [Zustand](https://zustand-demo.pmnd.rs)
-- Search params state manager - [Nuqs](https://nuqs.47ng.com/)
-- Tables - [Tanstack Data Tables](https://ui.shadcn.com/docs/components/data-table) • [Dice table](https://www.diceui.com/docs/components/data-table)
-- Forms - [React Hook Form](https://ui.shadcn.com/docs/components/form)
-- Command+k interface - [kbar](https://kbar.vercel.app/)
-- Linting - [ESLint](https://eslint.org)
-- Pre-commit Hooks - [Husky](https://typicode.github.io/husky/)
-- Formatting - [Prettier](https://prettier.io)
+### Tech Stack
 
-_If you are looking for a Tanstack start dashboard template, here is the [repo](https://git.new/tanstack-start-dashboard)._
+- **Framework** - [Next.js 15](https://nextjs.org) with App Router
+- **Language** - [TypeScript](https://www.typescriptlang.org)
+- **Styling** - [Tailwind CSS v4](https://tailwindcss.com)
+- **Components** - [Shadcn-ui](https://ui.shadcn.com) (Radix UI)
+- **Data Visualization** - [Recharts](https://recharts.org)
+- **State Management** - [Zustand](https://zustand-demo.pmnd.rs)
+- **Search Params** - [Nuqs](https://nuqs.47ng.com/)
+- **Tables** - [Tanstack React Table](https://tanstack.com/table)
+- **Forms** - [React Hook Form](https://react-hook-form.com) with [Zod](https://zod.dev)
+- **Command Interface** - [kbar](https://kbar.vercel.app/)
+- **Error Tracking** - [Sentry](https://sentry.io) (optional)
+- **Linting** - [ESLint](https://eslint.org)
+- **Formatting** - [Prettier](https://prettier.io)
 
-## Pages
+## Data Source
 
-| Pages                                                                                 | Specifications                                                                                                                                                                                                                                                          |
-| :------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Signup / Signin](https://go.clerk.com/ILdYhn7)      | Authentication with **Clerk** provides secure authentication and user management with multiple sign-in options including passwordless authentication, social logins, and enterprise SSO - all designed to enhance security while delivering a seamless user experience. |
-| [Dashboard (Overview)](https://shadcn-dashboard.kiranism.dev/dashboard)    | Cards with Recharts graphs for analytics. Parallel routes in the overview sections feature independent loading, error handling, and isolated component rendering. |
-| [Product](https://shadcn-dashboard.kiranism.dev/dashboard/product)         | Tanstack tables with server side searching, filter, pagination by Nuqs which is a Type-safe search params state manager in nextjs                                                                                                                                       |
-| [Product/new](https://shadcn-dashboard.kiranism.dev/dashboard/product/new) | A Product Form with shadcn form (react-hook-form + zod).                                                                                                                                                                                                                |
-| [Profile](https://shadcn-dashboard.kiranism.dev/dashboard/profile)         | Clerk's full-featured account management UI that allows users to manage their profile and security settings                                                                                                                                                             |
-| [Kanban Board](https://shadcn-dashboard.kiranism.dev/dashboard/kanban)     | A Drag n Drop task management board with dnd-kit and zustand to persist state locally.                                                                                                                                                                                  |
-| [Not Found](https://shadcn-dashboard.kiranism.dev/dashboard/notfound)      | Not Found Page Added in the root level                                                                                                                                                                                                                                  |
-| [Global Error](https://sentry.io/for/nextjs/?utm_source=github&utm_medium=paid-community&utm_campaign=general-fy26q2-nextjs&utm_content=github-banner-project-tryfree)           | A centralized error page that captures and displays errors across the application. Integrated with **Sentry** to log errors, provide detailed reports, and enable replay functionality for better debugging. |
+The application fetches data from Swedish government public APIs that provide employment statistics. Key considerations:
 
-## Feature based organization
+- **Rate Limited**: APIs have usage limits that must be respected
+- **Large Datasets**: Responses can contain substantial amounts of data
+- **Caching Strategy**: Heavy reliance on caching to minimize API calls and improve performance
+- **No Persistence**: No local database storage, data is cached temporarily
+
+## Architecture
+
+Feature-based organization structure:
 
 ```plaintext
 src/
-├── app/ # Next.js App Router directory
-│ ├── (auth)/ # Auth route group
-│ │ ├── (signin)/
-│ ├── (dashboard)/ # Dashboard route group
-│ │ ├── layout.tsx
-│ │ ├── loading.tsx
-│ │ └── page.tsx
-│ └── api/ # API routes
-│
-├── components/ # Shared components
-│ ├── ui/ # UI components (buttons, inputs, etc.)
-│ └── layout/ # Layout components (header, sidebar, etc.)
-│
-├── features/ # Feature-based modules
-│ ├── feature/
-│ │ ├── components/ # Feature-specific components
-│ │ ├── actions/ # Server actions
-│ │ ├── schemas/ # Form validation schemas
-│ │ └── utils/ # Feature-specific utilities
-│ │
-├── lib/ # Core utilities and configurations
-│ ├── auth/ # Auth configuration
-│ ├── db/ # Database utilities
-│ └── utils/ # Shared utilities
-│
-├── hooks/ # Custom hooks
-│ └── use-debounce.ts
-│
-├── stores/ # Zustand stores
-│ └── dashboard-store.ts
-│
-└── types/ # TypeScript types
-└── index.ts
+├── app/                    # Next.js App Router
+│   ├── dashboard/         # Dashboard pages and layouts
+│   └── api/               # API routes for data fetching
+├── components/            # Shared UI components
+│   ├── ui/               # Base UI components
+│   └── layout/           # Layout components
+├── features/             # Feature-specific modules
+│   ├── overview/         # Dashboard overview
+│   ├── products/         # Data management
+│   └── kanban/           # Task management
+├── lib/                  # Core utilities
+├── hooks/                # Custom React hooks
+├── types/                # TypeScript definitions
+└── constants/            # Application constants
 ```
 
 ## Getting Started
 
-> [!NOTE]  
-> We are using **Next 15** with **React 19**, follow these steps:
+### Prerequisites
 
-Clone the repo:
+- Node.js 18+ 
+- pnpm (recommended package manager)
 
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd jobbsiffror
 ```
-git clone https://github.com/Kiranism/next-shadcn-dashboard-starter.git
+
+2. Install dependencies:
+```bash
+pnpm install
 ```
 
-- `pnpm install` ( we have legacy-peer-deps=true added in the .npmrc)
-- Create a `.env.local` file by copying the example environment file:
-  `cp env.example.txt .env.local`
-- Add the required environment variables to the `.env.local` file.
-- `pnpm run dev`
+3. Create environment file:
+```bash
+cp env.example.txt .env.local
+```
 
-##### Environment Configuration Setup
+4. Configure environment variables in `.env.local`
 
-To configure the environment for this project, refer to the `env.example.txt` file. This file contains the necessary environment variables required for authentication and error tracking.
+5. Start development server:
+```bash
+pnpm dev
+```
 
-You should now be able to access the application at http://localhost:3000.
+The application will be available at `http://localhost:3000`
 
-> [!WARNING]
-> After cloning or forking the repository, be cautious when pulling or syncing with the latest changes, as this may result in breaking conflicts.
+### Development Commands
 
-Cheers! 🥂
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm lint:fix` - Fix linting issues and format code
+- `pnpm format` - Format code with Prettier
+
+## Features
+
+- **Interactive Dashboard**: Overview of Swedish employment data with charts and analytics
+- **Data Visualization**: Dynamic charts showing job trends by profession and region
+- **Advanced Filtering**: Search and filter capabilities for exploring data
+- **Responsive Design**: Mobile-friendly interface
+- **Theme Support**: Dark and light mode themes
+- **Performance Optimized**: Efficient data fetching and caching strategies
+
+## License
+
+This project is licensed under the MIT License.
