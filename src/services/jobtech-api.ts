@@ -1,6 +1,10 @@
 import { VacancyRecord } from '@/types/vacancy-record';
 import { JobTechSearchResponse } from '@/types/jobtech-api';
 import { monthToDateRange } from '@/lib/date-utils';
+import {
+  getOccupationCode as getOccupationCodeFromSlug,
+  getRegionCode as getRegionCodeFromSlug
+} from '@/lib/taxonomy-mappings';
 
 export class JobTechAPIError extends Error {
   constructor(
@@ -79,13 +83,19 @@ export async function GetVacancies(
   }
 }
 
-// Placeholder functions - will be implemented in Task 002
+// Real mapping functions using taxonomy mappings
 function getRegionCode(region: string): string {
-  // TODO: implement mapping from region slug to region code
-  return region;
+  const code = getRegionCodeFromSlug(region);
+  if (!code) {
+    throw new Error(`Unknown region: ${region}`);
+  }
+  return code;
 }
 
 function getOccupationCode(occupation: string): string {
-  // TODO: implement mapping from occupation slug to occupation code
-  return occupation;
+  const code = getOccupationCodeFromSlug(occupation);
+  if (!code) {
+    throw new Error(`Unknown occupation: ${occupation}`);
+  }
+  return code;
 }

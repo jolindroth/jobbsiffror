@@ -47,9 +47,9 @@ describe('GetVacancies', () => {
       json: async () => ({ ...mockApiResponse, total: { value: 5678 } })
     } as Response);
 
-    const result = await GetVacancies('2024-01', 'stockholm');
+    const result = await GetVacancies('2024-01', 'stockholms-län');
 
-    expect(result).toHaveProperty('region', 'stockholm');
+    expect(result).toHaveProperty('region', 'stockholms-län');
     expect(result).toHaveProperty('month', '2024-01');
     expect(result).toHaveProperty('count', 5678);
   });
@@ -60,9 +60,13 @@ describe('GetVacancies', () => {
       json: async () => ({ ...mockApiResponse, total: { value: 3456 } })
     } as Response);
 
-    const result = await GetVacancies('2024-01', undefined, 'systemutvecklare');
+    const result = await GetVacancies(
+      '2024-01',
+      undefined,
+      'mjukvaru-systemutvecklare'
+    );
 
-    expect(result).toHaveProperty('occupation', 'systemutvecklare');
+    expect(result).toHaveProperty('occupation', 'mjukvaru-systemutvecklare');
     expect(result).toHaveProperty('region', 'all');
     expect(result).toHaveProperty('count', 3456);
   });
@@ -75,12 +79,12 @@ describe('GetVacancies', () => {
 
     const result = await GetVacancies(
       '2024-01',
-      'stockholm',
-      'systemutvecklare'
+      'stockholms-län',
+      'mjukvaru-systemutvecklare'
     );
 
-    expect(result).toHaveProperty('region', 'stockholm');
-    expect(result).toHaveProperty('occupation', 'systemutvecklare');
+    expect(result).toHaveProperty('region', 'stockholms-län');
+    expect(result).toHaveProperty('occupation', 'mjukvaru-systemutvecklare');
     expect(result).toHaveProperty('count', 789);
   });
 
@@ -90,7 +94,11 @@ describe('GetVacancies', () => {
       json: async () => mockApiResponse
     } as Response);
 
-    await GetVacancies('2024-01', 'stockholm', 'systemutvecklare');
+    await GetVacancies(
+      '2024-01',
+      'stockholms-län',
+      'mjukvaru-systemutvecklare'
+    );
 
     expect(mockFetch).toHaveBeenCalledWith(
       expect.stringContaining('https://historical.api.jobtechdev.se/search'),
@@ -102,8 +110,8 @@ describe('GetVacancies', () => {
     const callUrl = mockFetch.mock.calls[0][0] as string;
     expect(callUrl).toContain('historical-from=2024-01-01T00%3A00%3A00');
     expect(callUrl).toContain('historical-to=2024-01-31T23%3A59%3A59');
-    expect(callUrl).toContain('region=stockholm');
-    expect(callUrl).toContain('occupation-group=systemutvecklare');
+    expect(callUrl).toContain('region=01');
+    expect(callUrl).toContain('occupation-group=2512');
   });
 
   it('should add country filter when no region specified', async () => {

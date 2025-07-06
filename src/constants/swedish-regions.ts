@@ -1,26 +1,11 @@
 // Import data from JSON file
 import regionsData from './regions.json';
 
-// Helper function to create URL-friendly slugs
-function createUrlSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[åä]/g, 'a')
-    .replace(/[ö]/g, 'o')
-    .replace(/[é]/g, 'e')
-    .replace(/\s+län$/i, '') // Remove "län" suffix
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-    .trim()
-    .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-}
-
-// Generate Swedish regions with URL slugs
+// Swedish regions with explicit URL slugs from JSON
 export const SWEDISH_REGIONS = regionsData.map((region) => ({
   code: region.id,
   name: region.name,
-  urlSlug: createUrlSlug(region.name)
+  urlSlug: region.urlSlug
 }));
 
 // Generate mappings from the regions array

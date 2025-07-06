@@ -1,25 +1,11 @@
 // Import data from JSON file
 import occupationGroupsData from './occupation-groups.json';
 
-// Helper function to create URL-friendly slugs
-function createUrlSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[åä]/g, 'a')
-    .replace(/[ö]/g, 'o')
-    .replace(/[é]/g, 'e')
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-    .trim()
-    .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-}
-
-// Generate occupation groups with URL slugs
+// Occupation groups with explicit URL slugs from JSON
 export const OCCUPATION_GROUPS = occupationGroupsData.map((group) => ({
   id: group.id,
   name: group.name,
-  urlSlug: createUrlSlug(group.name)
+  urlSlug: group.urlSlug
 }));
 
 // Generate mappings from the occupation groups array

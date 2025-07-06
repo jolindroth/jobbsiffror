@@ -37,3 +37,4 @@ export type SidebarNavItem = NavItemWithChildren;
 // Export vacancy-related types
 export * from './vacancy-record';
 export * from './jobtech-api';
+export * from './taxonomy';
