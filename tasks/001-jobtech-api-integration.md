@@ -65,7 +65,7 @@ export function monthToDateRange(month: string): { from: string; to: string } {
 
 **Install date-fns dependency:**
 ```bash
-npm install date-fns
+pnpm add date-fns
 ```
 
 ### 3. Create Main API Service
