@@ -1,0 +1,23 @@
+[
+  {"id": "23", "name": "Jämtlands län"},
+  {"id": "08", "name": "Kalmar län"},
+  {"id": "17", "name": "Värmlands län"},
+  {"id": "01", "name": "Stockholms län"},
+  {"id": "20", "name": "Dalarnas län"},
+  {"id": "19", "name": "Västmanlands län"},
+  {"id": "06", "name": "Jönköpings län"},
+  {"id": "13", "name": "Hallands län"},
+  {"id": "25", "name": "Norrbottens län"},
+  {"id": "07", "name": "Kronobergs län"},
+  {"id": "04", "name": "Södermanlands län"},
+  {"id": "18", "name": "Örebro län"},
+  {"id": "03", "name": "Uppsala län"},
+  {"id": "24", "name": "Västerbottens län"},
+  {"id": "05", "name": "Östergötlands län"},
+  {"id": "21", "name": "Gävleborgs län"},
+  {"id": "12", "name": "Skåne län"},
+  {"id": "10", "name": "Blekinge län"},
+  {"id": "09", "name": "Gotlands län"},
+  {"id": "22", "name": "Västernorrlands län"},
+  {"id": "14", "name": "Västra Götalands län"}
+] 
