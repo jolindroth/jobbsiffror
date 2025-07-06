@@ -34,7 +34,7 @@ export interface JobTechSearchResponse {
 export interface JobTechHit {
   _source: {
     workplace_address?: {
-      municipality_code?: string;
+      region_code?: string;
     };
     occupation_group?: {
       concept_id?: string;
@@ -92,8 +92,11 @@ export async function GetVacancies(
   
   // Add filters if provided (you'll implement these mappings later)
   if (region) {
-    params.set('municipality', getRegionCode(region));
+    params.set('region', getRegionCode(region));
+  } else {
+    params.set('country', '199')
   }
+
   if (occupation) {
     params.set('occupation-group', getOccupationCode(occupation));
   }

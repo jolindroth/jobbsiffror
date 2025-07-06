@@ -4,7 +4,7 @@
 Create the lookup tables and mapping functions that convert between friendly URL names (like "stockholm", "systemutvecklare") and API taxonomy codes.
 
 ## What You'll Build
-- Swedish municipality/region mappings
+- Swedish region mappings
 - Occupation group mappings from existing JSON file
 - Bidirectional lookup functions
 
@@ -36,30 +36,34 @@ export const CODE_TO_OCCUPATION: Record<string, string> = {
 };
 ```
 
-### 2. Create Swedish Municipality Mappings
+### 2. Create Swedish Region Mappings
 **File**: `src/constants/swedish-regions.ts`
 ```typescript
-// Swedish municipalities with their codes
-export const SWEDISH_MUNICIPALITIES = [
-  { code: "0114", name: "Upplands Väsby", urlSlug: "upplands-vasby", county: "Stockholm" },
-  { code: "0115", name: "Vallentuna", urlSlug: "vallentuna", county: "Stockholm" },
-  { code: "0180", name: "Stockholm", urlSlug: "stockholm", county: "Stockholm" },
-  { code: "1480", name: "Göteborg", urlSlug: "goteborg", county: "Västra Götaland" },
-  { code: "1280", name: "Malmö", urlSlug: "malmo", county: "Skåne" },
-  // ... add all 290 Swedish municipalities
+// Swedish regions with their codes (using major cities/counties as regions)
+export const SWEDISH_REGIONS = [
+  { code: "01", name: "Stockholm", urlSlug: "stockholm" },
+  { code: "14", name: "Västra Götaland", urlSlug: "vastra-gotaland" },
+  { code: "12", name: "Skåne", urlSlug: "skane" },
+  { code: "03", name: "Uppsala", urlSlug: "uppsala" },
+  { code: "04", name: "Södermanland", urlSlug: "sodermanland" },
+  // ... add all 21 Swedish counties (län)
 ];
 
 export const REGION_TO_CODE: Record<string, string> = {
-  "stockholm": "0180",
-  "goteborg": "1480",
-  "malmo": "1280",
-  // ... generate from SWEDISH_MUNICIPALITIES
+  "stockholm": "01",
+  "vastra-gotaland": "14",
+  "skane": "12",
+  "uppsala": "03",
+  "sodermanland": "04",
+  // ... generate from SWEDISH_REGIONS
 };
 
 export const CODE_TO_REGION: Record<string, string> = {
-  "0180": "stockholm",
-  "1480": "goteborg", 
-  "1280": "malmo",
+  "01": "stockholm",
+  "14": "vastra-gotaland", 
+  "12": "skane",
+  "03": "uppsala",
+  "04": "sodermanland",
   // ... reverse mapping
 };
 ```
@@ -192,15 +196,15 @@ Extract from existing file: `docs/occupation-groups.json`
 - Generate URL-friendly slugs (lowercase, replace spaces with dashes)
 - Create bidirectional mappings
 
-### Swedish Municipalities  
-Use official Swedish municipality codes:
-- 290 municipalities total
-- Each has unique 4-digit code
-- Group by county (län) for better organization
+### Swedish Regions  
+Use Swedish county (län) codes:
+- 21 counties total
+- Each has unique 2-digit code
+- Counties represent the regional level we need
 
 ## Acceptance Criteria
 - [ ] All occupation groups from JSON file are mapped with URL slugs
-- [ ] All major Swedish municipalities have mappings (at least top 50)
+- [ ] All 21 Swedish counties (regions) have mappings
 - [ ] Bidirectional lookup functions work correctly
 - [ ] Validation functions return correct boolean values
 - [ ] GetVacancies service uses real mappings instead of placeholders

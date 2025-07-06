@@ -134,7 +134,7 @@ function capitalizeFirst(str: string): string {
 **File**: `src/components/region-select.tsx`
 ```typescript
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { SWEDISH_MUNICIPALITIES } from '@/constants/swedish-regions';
+import { SWEDISH_REGIONS } from '@/constants/swedish-regions';
 
 interface RegionSelectProps {
   value: string;
@@ -143,14 +143,9 @@ interface RegionSelectProps {
 }
 
 export function RegionSelect({ value, onValueChange, disabled }: RegionSelectProps) {
-  // Group municipalities by county for better organization
-  const municipalitiesByCounty = SWEDISH_MUNICIPALITIES.reduce((acc, municipality) => {
-    if (!acc[municipality.county]) {
-      acc[municipality.county] = [];
-    }
-    acc[municipality.county].push(municipality);
-    return acc;
-  }, {} as Record<string, typeof SWEDISH_MUNICIPALITIES>);
+  // Sort regions alphabetically
+  const sortedRegions = SWEDISH_REGIONS
+    .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
 
   return (
     <Select value={value} onValueChange={onValueChange} disabled={disabled}>
@@ -160,19 +155,10 @@ export function RegionSelect({ value, onValueChange, disabled }: RegionSelectPro
       <SelectContent>
         <SelectItem value="all">Alla regioner</SelectItem>
         
-        {Object.entries(municipalitiesByCounty).map(([county, municipalities]) => (
-          <div key={county}>
-            <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
-              {county}
-            </div>
-            {municipalities
-              .sort((a, b) => a.name.localeCompare(b.name, 'sv'))
-              .map((municipality) => (
-                <SelectItem key={municipality.code} value={municipality.urlSlug}>
-                  {municipality.name}
-                </SelectItem>
-              ))}
-          </div>
+        {sortedRegions.map((region) => (
+          <SelectItem key={region.code} value={region.urlSlug}>
+            {region.name}
+          </SelectItem>
         ))}
       </SelectContent>
     </Select>
@@ -486,7 +472,7 @@ export function FilterPresets() {
 ```
 
 ## Acceptance Criteria
-- [ ] Region dropdown shows all Swedish municipalities grouped by county
+- [ ] Region dropdown shows all Swedish regions (counties)
 - [ ] Occupation dropdown shows all occupation groups alphabetically
 - [ ] Changing filters navigates to new URL and triggers server re-render
 - [ ] Active filters are displayed as removable tags
