@@ -1,0 +1,127 @@
+{
+      "relevance": 1,
+      "id": "49c402b8a1d02edd6e65028de94592fe864e45bf",
+      "external_id": null,
+      "original_id": "29353578",
+      "label": "[]",
+      "webpage_url": "https://arbetsformedlingen.se/platsbanken/annonser/49c402b8a1d02edd6e65028de94592fe864e45bf",
+      "logo_url": null,
+      "headline": "Pizzabaggare",
+      "application_deadline": "2025-01-17T23:59:59",
+      "number_of_vacancies": 1,
+      "description": {
+        "text": "Vi söker dig som kan baka pizza och är stresstålig.",
+        "text_formatted": null,
+        "company_information": null,
+        "needs": null,
+        "requirements": null,
+        "conditions": null
+      },
+      "employment_type": {
+        "concept_id": "PFZr_Syz_cUq",
+        "label": "Vanlig anställning",
+        "legacy_ams_taxonomy_id": "1"
+      },
+      "salary_type": {
+        "concept_id": "oG8G_9cW_nRf",
+        "label": "Fast månads- vecko- eller timlön",
+        "legacy_ams_taxonomy_id": "1"
+      },
+      "salary_description": null,
+      "duration": {
+        "concept_id": "a7uU_j21_mkL",
+        "label": "Tills vidare",
+        "legacy_ams_taxonomy_id": "1"
+      },
+      "working_hours_type": {
+        "concept_id": "6YE1_gAC_R2G",
+        "label": "Heltid",
+        "legacy_ams_taxonomy_id": "1"
+      },
+      "scope_of_work": {
+        "min": 100,
+        "max": 100
+      },
+      "access": null,
+      "employer": {
+        "phone_number": null,
+        "email": null,
+        "url": null,
+        "organization_number": null,
+        "name": "Tokat, Kemal",
+        "workplace": "Tokat Kemal"
+      },
+      "application_details": {
+        "information": null,
+        "reference": null,
+        "email": null,
+        "via_af": false,
+        "url": null,
+        "other": null
+      },
+      "experience_required": true,
+      "access_to_own_car": false,
+      "driving_license_required": false,
+      "driving_license": null,
+      "occupation": {
+        "concept_id": "9YaE_Syg_5ZB",
+        "label": "Pizzabagare",
+        "legacy_ams_taxonomy_id": "5505"
+      },
+      "occupation_group": {
+        "concept_id": "a8gg_ktU_w8V",
+        "label": "Pizzabagare m.fl.",
+        "legacy_ams_taxonomy_id": "9411"
+      },
+      "occupation_field": {
+        "concept_id": "ScKy_FHB_7wT",
+        "label": "Hotell, restaurang, storhushåll",
+        "legacy_ams_taxonomy_id": "7"
+      },
+      "workplace_address": {
+        "municipality": "Hagfors",
+        "municipality_code": "1783",
+        "municipality_concept_id": "qk9a_g5U_sAH",
+        "region": "Värmlands län",
+        "region_code": "17",
+        "region_concept_id": "EVVp_h6U_GSZ",
+        "country": "Sverige",
+        "country_code": "199",
+        "country_concept_id": "i46j_HmG_v64",
+        "street_address": "Storgatan 9",
+        "postcode": "68332",
+        "city": "Hagfors",
+        "coordinates": [
+          13.69460639600943,
+          60.03535406714136
+        ]
+      },
+      "must_have": {
+        "skills": [],
+        "languages": [],
+        "work_experiences": [],
+        "education": [],
+        "education_level": []
+      },
+      "nice_to_have": {
+        "skills": [],
+        "languages": [],
+        "work_experiences": [
+          {
+            "weight": 5,
+            "concept_id": "9YaE_Syg_5ZB",
+            "label": "Pizzabagare",
+            "legacy_ams_taxonomy_id": "5505"
+          }
+        ],
+        "education": [],
+        "education_level": []
+      },
+      "application_contacts": [],
+      "publication_date": "2024-12-31T23:31:12",
+      "last_publication_date": "2025-01-17T23:59:59",
+      "removed": false,
+      "removed_date": null,
+      "source_type": "VIA_ANNONSERA",
+      "timestamp": 1735684272855
+}
