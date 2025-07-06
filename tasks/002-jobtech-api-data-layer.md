@@ -1,362 +1,221 @@
-# Task 002: JobTech API Data Layer Implementation
+# Task 002: Build Static Data Mappings
 
-## Overview
-Implement the core data layer service that fetches and transforms JobTech Historical Vacancies API data into our simplified VacancyRecord model. This service will handle month-specific queries, taxonomy mapping, and response aggregation.
+## Goal
+Create the lookup tables and mapping functions that convert between friendly URL names (like "stockholm", "systemutvecklare") and API taxonomy codes.
 
-## Data Model
+## What You'll Build
+- Swedish municipality/region mappings
+- Occupation group mappings from existing JSON file
+- Bidirectional lookup functions
+
+## Steps
+
+### 1. Extract Occupation Groups
+**File**: `src/constants/occupation-groups.ts`
 ```typescript
-interface VacancyRecord {
-  month: string;      // "2024-01" 
-  region: string;     // "stockholm" (friendly name)
-  occupation: string; // "systemutvecklare" (friendly name)
-  count: number;      // total vacancies for this combination
-}
+// Extract data from docs/occupation-groups.json
+export const OCCUPATION_GROUPS = [
+  { id: "110", name: "Officerare", urlSlug: "officerare" },
+  { id: "1111", name: "Politiker", urlSlug: "politiker" },
+  { id: "2512", name: "Systemutvecklare", urlSlug: "systemutvecklare" },
+  // ... extract all from JSON file
+];
 
-// Primary service function
-function GetVacancies(
-  month: string, 
-  region?: string, 
-  occupation?: string
-): Promise<VacancyRecord[]>
-```
-
-## API Integration Requirements
-
-### 1. Month to Date Range Conversion
-```typescript
-// Convert month string to JobTech API date range
-function monthToDateRange(month: string): { from: string; to: string } {
-  // Input: "2024-01"
-  // Output: { 
-  //   from: "2024-01-01T00:00:00", 
-  //   to: "2024-01-31T23:59:59" 
-  // }
-}
-```
-
-### 2. Taxonomy Mapping
-Create bidirectional mappings between friendly names and API codes:
-
-#### Region Mapping
-```typescript
-// From URL-friendly names to municipality/region codes
-const REGION_TO_CODE: Record<string, string> = {
-  "stockholm": "0180",     // Stockholm municipality
-  "goteborg": "1480",      // Göteborg municipality
-  "malmo": "1280",         // Malmö municipality
-  // ... all Swedish municipalities
-};
-
-// Reverse mapping for display
-const CODE_TO_REGION: Record<string, string> = {
-  "0180": "stockholm",
-  "1480": "goteborg",
-  // ...
-};
-```
-
-#### Occupation Mapping
-```typescript
-// From URL-friendly names to occupation-group codes
-const OCCUPATION_TO_CODE: Record<string, string> = {
+export const OCCUPATION_TO_CODE: Record<string, string> = {
+  "officerare": "110",
+  "politiker": "1111", 
   "systemutvecklare": "2512",
-  "sjukskoterska": "2223", 
-  "lastbilsforare": "8332",
-  // ... from occupation-groups.json
+  // ... generate from OCCUPATION_GROUPS
 };
 
-// Reverse mapping
-const CODE_TO_OCCUPATION: Record<string, string> = {
-  "2512": "systemutvecklare",
-  "2223": "sjukskoterska",
-  // ...
+export const CODE_TO_OCCUPATION: Record<string, string> = {
+  "110": "officerare",
+  "1111": "politiker",
+  "2512": "systemutvecklare", 
+  // ... reverse mapping
 };
 ```
 
-### 3. API Query Construction
+### 2. Create Swedish Municipality Mappings
+**File**: `src/constants/swedish-regions.ts`
 ```typescript
-async function queryJobTechAPI(params: {
-  month: string;
-  region?: string;
-  occupation?: string;
-}): Promise<JobTechSearchResponse> {
-  
-  const { from, to } = monthToDateRange(params.month);
-  const searchParams = new URLSearchParams({
-    'historical-from': from,
-    'historical-to': to,
-    'limit': '100',  // Max per request
-    'offset': '0'
+// Swedish municipalities with their codes
+export const SWEDISH_MUNICIPALITIES = [
+  { code: "0114", name: "Upplands Väsby", urlSlug: "upplands-vasby", county: "Stockholm" },
+  { code: "0115", name: "Vallentuna", urlSlug: "vallentuna", county: "Stockholm" },
+  { code: "0180", name: "Stockholm", urlSlug: "stockholm", county: "Stockholm" },
+  { code: "1480", name: "Göteborg", urlSlug: "goteborg", county: "Västra Götaland" },
+  { code: "1280", name: "Malmö", urlSlug: "malmo", county: "Skåne" },
+  // ... add all 290 Swedish municipalities
+];
+
+export const REGION_TO_CODE: Record<string, string> = {
+  "stockholm": "0180",
+  "goteborg": "1480",
+  "malmo": "1280",
+  // ... generate from SWEDISH_MUNICIPALITIES
+};
+
+export const CODE_TO_REGION: Record<string, string> = {
+  "0180": "stockholm",
+  "1480": "goteborg", 
+  "1280": "malmo",
+  // ... reverse mapping
+};
+```
+
+### 3. Create Lookup Functions  
+**File**: `src/lib/taxonomy-mappings.ts`
+```typescript
+import { OCCUPATION_TO_CODE, CODE_TO_OCCUPATION } from '@/constants/occupation-groups';
+import { REGION_TO_CODE, CODE_TO_REGION } from '@/constants/swedish-regions';
+
+export function getOccupationCode(urlSlug: string): string | null {
+  return OCCUPATION_TO_CODE[urlSlug] || null;
+}
+
+export function getOccupationName(code: string): string | null {
+  return CODE_TO_OCCUPATION[code] || null;
+}
+
+export function getRegionCode(urlSlug: string): string | null {
+  return REGION_TO_CODE[urlSlug] || null;
+}
+
+export function getRegionName(code: string): string | null {
+  return CODE_TO_REGION[code] || null;
+}
+
+export function validateOccupation(urlSlug: string): boolean {
+  return urlSlug in OCCUPATION_TO_CODE;
+}
+
+export function validateRegion(urlSlug: string): boolean {
+  return urlSlug in REGION_TO_CODE;
+}
+```
+
+### 4. Update Main Service to Use Mappings
+**File**: `src/services/jobtech-api.ts` (update existing)
+```typescript
+import { getOccupationCode, getRegionCode } from '@/lib/taxonomy-mappings';
+
+// Replace placeholder functions with real mappings
+function getRegionCode(region: string): string {
+  const code = getRegionCode(region);
+  if (!code) {
+    throw new Error(`Unknown region: ${region}`);
+  }
+  return code;
+}
+
+function getOccupationCode(occupation: string): string {
+  const code = getOccupationCode(occupation);
+  if (!code) {
+    throw new Error(`Unknown occupation: ${occupation}`);
+  }
+  return code;
+}
+```
+
+### 5. Update GetVacancies to Use Real Mappings
+**File**: `src/services/jobtech-api.ts` (update existing functions)
+```typescript
+import { 
+  getOccupationCode as getOccupationCodeFromSlug, 
+  getRegionCode as getRegionCodeFromSlug 
+} from '@/lib/taxonomy-mappings';
+
+// Update the placeholder functions to use real mappings
+function getRegionCode(region: string): string {
+  const code = getRegionCodeFromSlug(region);
+  if (!code) {
+    throw new Error(`Unknown region: ${region}`);
+  }
+  return code;
+}
+
+function getOccupationCode(occupation: string): string {
+  const code = getOccupationCodeFromSlug(occupation);
+  if (!code) {
+    throw new Error(`Unknown occupation: ${occupation}`);
+  }
+  return code;
+}
+
+// Note: No complex transformResponse function needed!
+// The API provides pre-aggregated totals via data.total.value
+// GetVacancies simply returns:
+// {
+//   month,
+//   region: region || 'all',
+//   occupation: occupation || 'all', 
+//   count: data.total.value
+// }
+```
+
+### 6. Add Tests
+**File**: `src/lib/__tests__/taxonomy-mappings.test.ts`
+```typescript
+import { 
+  getOccupationCode, 
+  getOccupationName,
+  getRegionCode,
+  getRegionName,
+  validateOccupation,
+  validateRegion
+} from '../taxonomy-mappings';
+
+describe('taxonomy mappings', () => {
+  it('should map occupation names to codes', () => {
+    expect(getOccupationCode('systemutvecklare')).toBe('2512');
+    expect(getOccupationCode('unknown')).toBeNull();
   });
-
-  // Add optional filters
-  if (params.region) {
-    const regionCode = REGION_TO_CODE[params.region];
-    if (regionCode) {
-      searchParams.set('municipality', regionCode);
-    }
-  }
-
-  if (params.occupation) {
-    const occupationCode = OCCUPATION_TO_CODE[params.occupation];
-    if (occupationCode) {
-      searchParams.set('occupation-group', occupationCode);
-    }
-  }
-
-  const response = await fetch(
-    `https://historical.api.jobtechdev.se/search?${searchParams}`,
-    { 
-      next: { revalidate: 3600 * 24 * 30 } // 30 day cache - historical data never changes
-    }
-  );
-
-  return response.json();
-}
-```
-
-### 4. Response Aggregation
-Transform API response into VacancyRecord format:
-
-```typescript
-function aggregateResponse(
-  apiResponse: JobTechSearchResponse,
-  month: string,
-  region?: string,
-  occupation?: string
-): VacancyRecord[] {
   
-  if (region && occupation) {
-    // Both filters applied - return single record
-    return [{
-      month,
-      region,
-      occupation,
-      count: apiResponse.hits.total.value
-    }];
-  }
-  
-  if (region) {
-    // Region filter applied - group by occupation
-    const occupationCounts = new Map<string, number>();
-    
-    for (const hit of apiResponse.hits.hits) {
-      const occupationCode = hit._source.occupation_group?.concept_id;
-      const occupationName = CODE_TO_OCCUPATION[occupationCode] || 'other';
-      
-      occupationCounts.set(occupationName, 
-        (occupationCounts.get(occupationName) || 0) + 1
-      );
-    }
-    
-    return Array.from(occupationCounts).map(([occupation, count]) => ({
-      month,
-      region,
-      occupation,
-      count
-    }));
-  }
-  
-  if (occupation) {
-    // Occupation filter applied - group by region
-    const regionCounts = new Map<string, number>();
-    
-    for (const hit of apiResponse.hits.hits) {
-      const municipalityCode = hit._source.workplace_address?.municipality_code;
-      const regionName = CODE_TO_REGION[municipalityCode] || 'other';
-      
-      regionCounts.set(regionName, 
-        (regionCounts.get(regionName) || 0) + 1
-      );
-    }
-    
-    return Array.from(regionCounts).map(([region, count]) => ({
-      month,
-      region,
-      occupation,
-      count
-    }));
-  }
-  
-  // No filters - group by both region and occupation
-  const combinationCounts = new Map<string, number>();
-  
-  for (const hit of apiResponse.hits.hits) {
-    const municipalityCode = hit._source.workplace_address?.municipality_code;
-    const occupationCode = hit._source.occupation_group?.concept_id;
-    
-    const regionName = CODE_TO_REGION[municipalityCode] || 'other';
-    const occupationName = CODE_TO_OCCUPATION[occupationCode] || 'other';
-    const key = `${regionName}:${occupationName}`;
-    
-    combinationCounts.set(key, 
-      (combinationCounts.get(key) || 0) + 1
-    );
-  }
-  
-  return Array.from(combinationCounts).map(([key, count]) => {
-    const [region, occupation] = key.split(':');
-    return { month, region, occupation, count };
+  it('should map region names to codes', () => {
+    expect(getRegionCode('stockholm')).toBe('0180');
+    expect(getRegionCode('unknown')).toBeNull();
   });
-}
-```
-
-### 5. Pagination Handling
-Handle API limit of 100 results per request:
-
-```typescript
-async function getAllVacancies(params: {
-  month: string;
-  region?: string;
-  occupation?: string;
-}): Promise<VacancyRecord[]> {
   
-  let allHits: JobTechHit[] = [];
-  let offset = 0;
-  const limit = 100;
-  
-  while (true) {
-    const response = await queryJobTechAPI({ ...params, offset, limit });
-    allHits.push(...response.hits.hits);
-    
-    // Check if we have all results
-    if (allHits.length >= response.hits.total.value || response.hits.hits.length < limit) {
-      break;
-    }
-    
-    offset += limit;
-    
-    // Safety check - API max offset is 2000
-    if (offset >= 2000) {
-      console.warn(`Reached maximum offset (2000) for query: ${JSON.stringify(params)}`);
-      break;
-    }
-  }
-  
-  // Create synthetic response with all hits
-  const completeResponse = {
-    hits: {
-      total: { value: allHits.length },
-      hits: allHits
-    }
-  };
-  
-  return aggregateResponse(completeResponse, params.month, params.region, params.occupation);
-}
+  it('should validate occupation names', () => {
+    expect(validateOccupation('systemutvecklare')).toBe(true);
+    expect(validateOccupation('invalid')).toBe(false);
+  });
+});
 ```
 
-## File Structure
-```
-src/
-├── services/
-│   └── jobtech-api.ts           # Main service implementation
-├── lib/
-│   ├── taxonomy-mappings.ts     # Region and occupation mappings
-│   └── date-utils.ts            # Month to date range conversion
-├── types/
-│   ├── vacancy-record.ts        # VacancyRecord interface
-│   └── jobtech-api.ts          # JobTech API response types
-```
+## Data Sources
 
-## Implementation Steps
+### Occupation Groups
+Extract from existing file: `docs/occupation-groups.json`
+- Parse JSON array of `{id, name}` objects
+- Generate URL-friendly slugs (lowercase, replace spaces with dashes)
+- Create bidirectional mappings
 
-### Phase 1: Basic Service Setup (2 hours)
-1. Create `VacancyRecord` interface and export from types
-2. Implement `monthToDateRange` utility function
-3. Create basic `GetVacancies` function with single API call
-4. Add TypeScript interfaces for JobTech API responses
+### Swedish Municipalities  
+Use official Swedish municipality codes:
+- 290 municipalities total
+- Each has unique 4-digit code
+- Group by county (län) for better organization
 
-### Phase 2: Taxonomy Integration (2 hours)
-1. Build region mappings from Swedish municipality data
-2. Create occupation mappings from `docs/occupation-groups.json`
-3. Implement bidirectional lookup functions
-4. Add validation for unknown region/occupation codes
+## Acceptance Criteria
+- [ ] All occupation groups from JSON file are mapped with URL slugs
+- [ ] All major Swedish municipalities have mappings (at least top 50)
+- [ ] Bidirectional lookup functions work correctly
+- [ ] Validation functions return correct boolean values
+- [ ] GetVacancies service uses real mappings instead of placeholders
+- [ ] Unit tests pass for all mapping functions
+- [ ] No complex aggregation logic needed (API provides totals)
 
-### Phase 3: Response Aggregation (2 hours)
-1. Implement `aggregateResponse` function with all filter scenarios
-2. Handle edge cases (unknown codes, empty responses)
-3. Add comprehensive error handling
-4. Test with various filter combinations
+## Files Created/Updated
+- `src/constants/occupation-groups.ts` (new)
+- `src/constants/swedish-regions.ts` (new)  
+- `src/lib/taxonomy-mappings.ts` (new)
+- `src/services/jobtech-api.ts` (updated)
+- `src/lib/__tests__/taxonomy-mappings.test.ts` (new)
 
-### Phase 4: Pagination & Optimization (1 hour)
-1. Implement pagination handling for large result sets
-2. Add request caching and deduplication
-3. Optimize for common queries
-4. Add request timeout and retry logic
-
-## Error Handling
-
-### API Failures
-```typescript
-class JobTechAPIError extends Error {
-  constructor(
-    message: string,
-    public status: number,
-    public params: any
-  ) {
-    super(message);
-  }
-}
-
-// Implement retry logic with exponential backoff
-async function retryApiCall<T>(
-  fn: () => Promise<T>,
-  maxRetries = 3
-): Promise<T> {
-  // Implementation with exponential backoff
-}
-```
-
-### Validation
-```typescript
-function validateParams(params: {
-  month: string;
-  region?: string;
-  occupation?: string;
-}): void {
-  // Validate month format (YYYY-MM)
-  // Validate region exists in mapping
-  // Validate occupation exists in mapping
-}
-```
-
-## Caching Strategy
-
-### Cache Keys
-```typescript
-function getCacheKey(month: string, region?: string, occupation?: string): string {
-  return `vacancies:${month}:${region || 'all'}:${occupation || 'all'}`;
-}
-```
-
-### Cache Duration
-- **Historical data**: 30 days (never changes)
-- **Recent months**: 1 hour (may have late additions)
-- **Failed requests**: 5 minutes (for retry logic)
-
-## Testing Strategy
-
-### Unit Tests
-- Test month to date range conversion
-- Test taxonomy mapping functions
-- Test response aggregation logic
-- Test pagination handling
-
-### Integration Tests
-- Test real API calls with various filter combinations
-- Test caching behavior
-- Test error handling and retries
-
-## Performance Targets
-- **Single month query**: < 500ms response time
-- **Area chart (12 months)**: < 6 seconds total (12 sequential calls)
-- **Cache hit ratio**: > 80% for popular combinations
-- **Memory usage**: < 50MB for taxonomy mappings
-
-## Success Criteria
-1. **Correct data**: VacancyRecord accurately represents filtered vacancy counts
-2. **All filter combinations**: Support no filters, region only, occupation only, both
-3. **Reliable caching**: Long-term cache for historical data
-4. **Error resilience**: Graceful handling of API failures and rate limits
-5. **Performance**: Fast enough for real-time dashboard usage
-6. **Type safety**: Full TypeScript coverage with proper API response types
+## Next Steps
+After this task:
+- Task 003 will extract and migrate dashboard components
+- Task 004 will create the URL routing structure
+- Task 005 will build the client filter components

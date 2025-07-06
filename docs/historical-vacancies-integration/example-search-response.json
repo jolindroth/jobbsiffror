@@ -1,4 +1,14 @@
 {
+    "total": {
+      "value": 6753960
+    },
+    "positions": 12778204,
+    "query_time_in_millis": 383,
+    "result_time_in_millis": 393,
+    "stats": [],
+    "freetext_concepts": {},
+    "hits": [
+{
       "relevance": 1,
       "id": "49c402b8a1d02edd6e65028de94592fe864e45bf",
       "external_id": null,
@@ -124,4 +134,6 @@
       "removed_date": null,
       "source_type": "VIA_ANNONSERA",
       "timestamp": 1735684272855
+    }
+  ]
 }
