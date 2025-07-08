@@ -57,67 +57,97 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
   };
 
   return (
-    <div className="bg-card border rounded-lg p-6 mb-8">
-      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Region Filter */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              Region
-            </label>
-            <RegionSelect 
-              value={currentRegion || 'all'} 
-              onValueChange={handleRegionChange}
-              disabled={isNavigating}
-            />
+    <div className="relative">
+      <div className="bg-card border rounded-lg p-6 mb-8">
+        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Region Filter */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                Region
+              </label>
+              <RegionSelect 
+                value={currentRegion || 'all'} 
+                onValueChange={handleRegionChange}
+                disabled={isNavigating}
+              />
+            </div>
+
+            {/* Occupation Filter */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Briefcase className="h-4 w-4" />
+                Yrkesgrupp
+              </label>
+              <OccupationSelect 
+                value={currentOccupation || 'all'} 
+                onValueChange={handleOccupationChange}
+                disabled={isNavigating}
+              />
+            </div>
+
+            {/* Date Range Filter */}
+            <div className="space-y-2">
+              <DateRangePicker 
+                from={searchParams.from ? new Date(searchParams.from) : undefined}
+                to={searchParams.to ? new Date(searchParams.to) : undefined}
+                onDateRangeChange={handleDateRangeChange}
+              />
+            </div>
           </div>
 
-          {/* Occupation Filter */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Briefcase className="h-4 w-4" />
-              Yrkesgrupp
-            </label>
-            <OccupationSelect 
-              value={currentOccupation || 'all'} 
-              onValueChange={handleOccupationChange}
-              disabled={isNavigating}
-            />
+          {/* Action Buttons */}
+          <div className="flex gap-2">
+            {(currentRegion || currentOccupation || searchParams.from || searchParams.to) && (
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  handleClearFilters();
+                  setSearchParams({ from: null, to: null });
+                }}
+                disabled={isNavigating}
+              >
+                Rensa filter
+              </Button>
+            )}
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-2">
-          {(currentRegion || currentOccupation) && (
-            <Button 
-              variant="outline" 
-              onClick={handleClearFilters}
-              disabled={isNavigating}
-            >
-              Rensa filter
-            </Button>
-          )}
-        </div>
+        {/* Active Filters Display */}
+        {(currentRegion || currentOccupation || searchParams.from || searchParams.to) && (
+          <div className="mt-4 pt-4 border-t">
+            <div className="flex flex-wrap gap-2">
+              <span className="text-sm text-muted-foreground">Aktiva filter:</span>
+              {currentRegion && (
+                <FilterTag 
+                  label={capitalizeFirst(currentRegion)}
+                  onRemove={() => handleRegionChange('all')}
+                />
+              )}
+              {currentOccupation && (
+                <FilterTag 
+                  label={capitalizeFirst(currentOccupation)}
+                  onRemove={() => handleOccupationChange('all')}
+                />
+              )}
+              {(searchParams.from || searchParams.to) && (
+                <FilterTag 
+                  label="Datumfilter"
+                  onRemove={() => setSearchParams({ from: null, to: null })}
+                />
+              )}
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Active Filters Display */}
-      {(currentRegion || currentOccupation) && (
-        <div className="mt-4 pt-4 border-t">
-          <div className="flex flex-wrap gap-2">
-            <span className="text-sm text-muted-foreground">Aktiva filter:</span>
-            {currentRegion && (
-              <FilterTag 
-                label={capitalizeFirst(currentRegion)}
-                onRemove={() => handleRegionChange('all')}
-              />
-            )}
-            {currentOccupation && (
-              <FilterTag 
-                label={capitalizeFirst(currentOccupation)}
-                onRemove={() => handleOccupationChange('all')}
-              />
-            )}
+      
+      {/* Loading overlay */}
+      {isNavigating && (
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center rounded-lg">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
+            Laddar...
           </div>
         </div>
       )}
