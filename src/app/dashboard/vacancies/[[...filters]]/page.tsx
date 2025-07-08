@@ -25,6 +25,8 @@ import {
 } from '@/lib/chart-data-transformers';
 import { parseFilters } from '@/lib/filter-parser';
 import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
+import { SWEDISH_REGIONS } from '@/constants/swedish-regions';
+import { OCCUPATION_GROUPS } from '@/constants/occupation-groups';
 
 interface VacanciesPageProps {
   params: Promise<{ filters?: string[] }>;
@@ -264,20 +266,34 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  // Generate static pages for popular combinations
-  // Note: with optional catch-all routes, empty filters is handled automatically
-  const popularCombinations = [
-    { filters: ['stockholm'] },
-    { filters: ['goteborg'] },
-    { filters: ['malmo'] },
-    { filters: ['systemutvecklare'] },
-    { filters: ['sjukskoterska'] },
-    { filters: ['stockholm', 'systemutvecklare'] },
-    { filters: ['goteborg', 'systemutvecklare'] },
-    { filters: ['stockholm', 'sjukskoterska'] }
-  ];
+  // Generate static pages for SEO-friendly routes using real data
+  const staticParams: { filters?: string[] }[] = [];
 
-  return popularCombinations;
+  // Add root page (no filters)
+  staticParams.push({ filters: undefined });
+
+  // Add all regions
+  const majorRegions = SWEDISH_REGIONS.slice(0, 10) // Limit to top 10 regions for performance
+    .map((region) => ({ filters: [region.urlSlug] }));
+  staticParams.push(...majorRegions);
+
+  // Add popular occupations
+  const popularOccupations = OCCUPATION_GROUPS.slice(0, 15) // Top 15 occupations for SEO
+    .map((occupation) => ({ filters: [occupation.urlSlug] }));
+  staticParams.push(...popularOccupations);
+
+  // Add popular combinations (major regions + top occupations)
+  const topRegions = SWEDISH_REGIONS.slice(0, 3); // Stockholm, Göteborg, Malmö areas
+  const topOccupations = OCCUPATION_GROUPS.slice(0, 5); // Top 5 occupations
+
+  const combinations = topRegions.flatMap((region) =>
+    topOccupations.map((occupation) => ({
+      filters: [region.urlSlug, occupation.urlSlug]
+    }))
+  );
+  staticParams.push(...combinations);
+
+  return staticParams;
 }
 
 // Helper functions

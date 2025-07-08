@@ -44,18 +44,23 @@ Feature-based organization structure:
 src/
 ├── app/                    # Next.js App Router
 │   ├── dashboard/         # Dashboard pages and layouts
-│   └── api/               # API routes for data fetching
+│   │   ├── vacancies/     # Main job statistics with dynamic filtering
+│   │   ├── product/       # Data management
+│   │   ├── kanban/        # Task management
+│   │   └── profile/       # User profile
+│   └── auth/              # Authentication pages
 ├── components/            # Shared UI components
-│   ├── ui/               # Base UI components
+│   ├── ui/               # Base UI components (Shadcn-ui)
 │   └── layout/           # Layout components
 ├── features/             # Feature-specific modules
-│   ├── overview/         # Dashboard overview
+│   ├── overview/         # Chart components and data visualization
 │   ├── products/         # Data management
 │   └── kanban/           # Task management
-├── lib/                  # Core utilities
+├── lib/                  # Core utilities and API services
 ├── hooks/                # Custom React hooks
 ├── types/                # TypeScript definitions
-└── constants/            # Application constants
+├── constants/            # Swedish regions, occupations, and app constants
+└── services/            # External API integrations (JobTech API)
 ```
 
 ## Getting Started
@@ -103,9 +108,10 @@ The application will be available at `http://localhost:3000`
 
 ## Features
 
-- **Interactive Dashboard**: Overview of Swedish employment data with charts and analytics
-- **Data Visualization**: Dynamic charts showing job trends by profession and region
-- **Advanced Filtering**: Search and filter capabilities for exploring data
+- **Dynamic Vacancies Dashboard**: Swedish employment data with URL-based filtering by region and occupation
+- **Data Visualization**: Interactive charts showing job trends by profession and region over time
+- **SEO-Friendly Routes**: Dynamic URLs like `/dashboard/vacancies/stockholm/systemutvecklare` for better search visibility
+- **Advanced Filtering**: Date range, region, and occupation filtering with URL persistence
 - **Responsive Design**: Mobile-friendly interface
 - **Theme Support**: Dark and light mode themes
 - **Performance Optimized**: Efficient data fetching and caching strategies

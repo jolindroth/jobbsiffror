@@ -114,14 +114,16 @@ src/
 ## Key Features & Pages
 
 ### Main Navigation
-- **Dashboard** (`/dashboard/overview`): Main analytics dashboard
+- **Vacancies** (`/dashboard/vacancies`): Main job statistics dashboard with dynamic filtering
 - **Product** (`/dashboard/product`): Data management interface
 - **Kanban** (`/dashboard/kanban`): Task management (if enabled)
 - **Profile** (`/dashboard/profile`): User profile (if auth enabled)
 
-### Dashboard Components
-- **Overview Page**: Statistics cards, charts, and recent activity
+### Vacancies Dashboard Components
+- **Dynamic Filtering**: URL-based filtering by region, occupation, and date range
 - **Data Visualization**: Area charts, bar graphs, pie charts using Recharts
+- **Statistics Cards**: Real-time job market statistics and trends
+- **SEO-Friendly URLs**: Dynamic routes like `/dashboard/vacancies/stockholm/systemutvecklare`
 - **Advanced Tables**: Sortable, filterable data tables with Tanstack React Table
 - **Theme System**: Dark/light mode with system preference detection
 
