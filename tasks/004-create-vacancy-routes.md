@@ -1,21 +1,21 @@
 # Task 004: Create Vacancy Routes Structure
 
 ## Goal
-Build the new URL structure with dynamic routes for SEO-friendly vacancy pages using React Server Components.
+Build the new URL structure with dynamic routes for SEO-friendly vacancy pages using React Server Components, compatible with Next.js 15 and integrated with Task 003 architecture.
 
 ## What You'll Build
-- `/vacancies/[...filters]/page.tsx` - Dynamic routes for all filter combinations
-- URL filter parsing logic
+- `/vacancies/[[...filters]]/page.tsx` - Optional catch-all dynamic routes (Next.js 15 compatible)
+- URL filter parsing logic with searchParams support
 - SEO metadata generation
-- Integration with VacancyDashboard component
+- Integration with existing chart components from Task 003
 
 ## Steps
 
 ### 1. Create Route Structure
-**Directory**: `src/app/vacancies/[...filters]/`
+**Directory**: `src/app/vacancies/[[...filters]]/`
 
-Create these files:
-- `page.tsx` - Main page component (RSC)
+Create these files (using optional catch-all):
+- `page.tsx` - Main page component (RSC, Next.js 15 compatible)
 - `loading.tsx` - Loading state
 - `error.tsx` - Error boundary
 - `not-found.tsx` - 404 page
@@ -29,7 +29,7 @@ export interface ParsedFilters {
   dateRange?: string;
 }
 
-export function parseFilters(filters: string[]): ParsedFilters {
+export function parseFilters(filters: string[] | undefined): ParsedFilters {
   const result: ParsedFilters = {};
   
   if (!filters || filters.length === 0) {
@@ -44,21 +44,21 @@ export function parseFilters(filters: string[]): ParsedFilters {
   if (filters.length === 1) {
     const filter = filters[0];
     
-    // Check if it's a region or occupation
-    if (isValidRegion(filter)) {
+    // Check if it's a region or occupation using our validation functions
+    if (validateRegion(filter)) {
       result.region = filter;
-    } else if (isValidOccupation(filter)) {
+    } else if (validateOccupation(filter)) {
       result.occupation = filter;
     }
   } else if (filters.length === 2) {
     // Assume first is region, second is occupation
     const [possibleRegion, possibleOccupation] = filters;
     
-    if (isValidRegion(possibleRegion)) {
+    if (validateRegion(possibleRegion)) {
       result.region = possibleRegion;
     }
     
-    if (isValidOccupation(possibleOccupation)) {
+    if (validateOccupation(possibleOccupation)) {
       result.occupation = possibleOccupation;
     }
   }
@@ -80,34 +80,57 @@ export function buildFilterUrl(filters: ParsedFilters): string {
   return `/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
 }
 
-// Import validation functions from taxonomy mappings
-function isValidRegion(slug: string): boolean {
-  // Import from taxonomy mappings
-  return true; // Placeholder
-}
-
-function isValidOccupation(slug: string): boolean {
-  // Import from taxonomy mappings
-  return true; // Placeholder
-}
+// Import validation functions from our existing taxonomy mappings
+import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 ```
 
 ### 3. Create Main Page Component
-**File**: `src/app/vacancies/[...filters]/page.tsx`
+**File**: `src/app/vacancies/[[...filters]]/page.tsx`
 ```typescript
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { VacancyDashboard } from '@/components/vacancy-dashboard';
-import { VacancyFilters } from '@/components/vacancy-filters';
+import PageContainer from '@/components/layout/page-container';
+import { Badge } from '@/components/ui/badge';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardFooter
+} from '@/components/ui/card';
+import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
+import { AreaGraph } from '@/features/overview/components/area-graph';
+import { BarGraph } from '@/features/overview/components/bar-graph';
+import { PieGraph } from '@/features/overview/components/pie-graph';
+import { RecentSales } from '@/features/overview/components/recent-sales';
 import { GetVacancies } from '@/services/jobtech-api';
-import { parseFilters, buildFilterUrl } from '@/lib/filter-parser';
+import { getDefaultFromDate, getDefaultToDate } from '@/lib/date-utils';
+import {
+  transformToAreaChart,
+  transformToBarChart,
+  transformToPieChart,
+  calculateSummaryStats
+} from '@/lib/chart-data-transformers';
+import { parseFilters } from '@/lib/filter-parser';
 import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 
 interface VacanciesPageProps {
-  params: { filters: string[] };
+  params: Promise<{ filters?: string[] }>;
+  searchParams: Promise<{
+    from?: string;
+    to?: string;
+  }>;
 }
 
-export default async function VacanciesPage({ params }: VacanciesPageProps) {
+export default async function VacanciesPage({ 
+  params: paramsPromise, 
+  searchParams: searchParamsPromise 
+}: VacanciesPageProps) {
+  // Await params and searchParams for Next.js 15 compatibility
+  const params = await paramsPromise;
+  const searchParams = await searchParamsPromise;
+  
   const { region, occupation } = parseFilters(params.filters);
   
   // Validate filters
@@ -119,49 +142,111 @@ export default async function VacanciesPage({ params }: VacanciesPageProps) {
     notFound();
   }
   
-  // Get last 12 months of time series data for the current filters
-  const currentDate = new Date();
-  const timeSeriesData = [];
-  
-  for (let i = 11; i >= 0; i--) {
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
-    const month = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+  // Get date range from search params or use defaults (last 12 months)
+  const dateFrom = searchParams.from || getDefaultFromDate();
+  const dateTo = searchParams.to || getDefaultToDate();
+
+  try {
+    // Single API call for dashboard data using enhanced GetVacancies
+    const dashboardData = await GetVacancies(dateFrom, dateTo, region, occupation);
     
-    try {
-      const monthData = await GetVacancies(month, region, occupation);
-      timeSeriesData.push(monthData); // Single VacancyRecord per month
-    } catch (error) {
-      console.error(`Failed to fetch data for ${month}:`, error);
-      // Continue with other months
-    }
+    // Transform data for different chart types
+    const areaChartData = transformToAreaChart(dashboardData);
+    const barChartData = transformToBarChart(dashboardData, region ? 'occupation' : 'region');
+    const pieChartData = transformToPieChart(dashboardData, region ? 'occupation' : 'region');
+    
+    // Calculate summary statistics
+    const stats = calculateSummaryStats(dashboardData);
+
+    return (
+      <PageContainer>
+        <div className='flex flex-1 flex-col space-y-2'>
+          <div className='flex items-center justify-between space-y-2'>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              {buildPageTitle(region, occupation)}
+            </h2>
+          </div>
+
+          {/* Statistics Cards */}
+          <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
+            <Card className='@container/card'>
+              <CardHeader>
+                <CardDescription>Totala Lediga Jobb</CardDescription>
+                <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+                  {stats.totalVacancies.toLocaleString('sv-SE')}
+                </CardTitle>
+                <CardAction>
+                  <Badge variant='outline'>
+                    {stats.monthOverMonthChange > 0 ? <IconTrendingUp /> : <IconTrendingDown />}
+                    {stats.monthOverMonthChange > 0 ? '+' : ''}{stats.monthOverMonthChange.toFixed(1)}%
+                  </Badge>
+                </CardAction>
+              </CardHeader>
+              <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+                <div className='line-clamp-1 flex gap-2 font-medium'>
+                  {stats.monthOverMonthChange > 0 ? 'Ökning' : 'Minskning'} från förra månaden{' '}
+                  {stats.monthOverMonthChange > 0 ? <IconTrendingUp className='size-4' /> : <IconTrendingDown className='size-4' />}
+                </div>
+                <div className='text-muted-foreground'>
+                  Baserat på senaste data
+                </div>
+              </CardFooter>
+            </Card>
+
+            {/* Additional stats cards... */}
+          </div>
+
+          {/* Charts Grid */}
+          <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
+            <div className='col-span-4'>
+              <BarGraph 
+                data={barChartData}
+                title={region ? 'Jobb per Yrke' : 'Jobb per Region'}
+                description={`Fördelning av lediga jobb ${region ? 'inom olika yrken' : 'över regioner'}`}
+              />
+            </div>
+            <div className='col-span-4 md:col-span-3'>
+              <RecentSales />
+            </div>
+            <div className='col-span-4'>
+              <AreaGraph 
+                data={areaChartData}
+                title='Lediga Jobb Över Tid'
+                description='Månadsvis utveckling av jobbmarknaden'
+              />
+            </div>
+            <div className='col-span-4 md:col-span-3'>
+              <PieGraph 
+                data={pieChartData}
+                title='Fördelning av Jobb'
+                description={`Procentuell fördelning ${region ? 'per yrke' : 'per region'}`}
+              />
+            </div>
+          </div>
+        </div>
+      </PageContainer>
+    );
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    
+    // Show error state
+    return (
+      <PageContainer>
+        <div className='flex flex-1 flex-col items-center justify-center space-y-4'>
+          <h2 className='text-2xl font-bold tracking-tight'>
+            Kunde inte ladda data
+          </h2>
+          <p className='text-muted-foreground'>
+            Ett fel uppstod när jobbstatistiken skulle hämtas. Försök igen senare.
+          </p>
+        </div>
+      </PageContainer>
+    );
   }
-  
-  return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-          {buildPageTitle(region, occupation)}
-        </h1>
-        <p className="text-muted-foreground">
-          {buildPageDescription(region, occupation)}
-        </p>
-      </div>
-      
-      <VacancyFilters 
-        currentRegion={region}
-        currentOccupation={occupation}
-      />
-      
-      <VacancyDashboard 
-        timeSeriesData={timeSeriesData}
-        region={region}
-        occupation={occupation}
-      />
-    </div>
-  );
 }
 
-export async function generateMetadata({ params }: VacanciesPageProps): Promise<Metadata> {
+export async function generateMetadata({ params: paramsPromise }: VacanciesPageProps): Promise<Metadata> {
+  const params = await paramsPromise;
   const { region, occupation } = parseFilters(params.filters);
   
   const title = buildPageTitle(region, occupation);
@@ -209,7 +294,7 @@ function capitalizeFirst(str: string): string {
 ```
 
 ### 4. Create Loading Component
-**File**: `src/app/vacancies/[...filters]/loading.tsx`
+**File**: `src/app/vacancies/[[...filters]]/loading.tsx`
 ```typescript
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -254,7 +339,7 @@ export default function Loading() {
 ```
 
 ### 5. Create Error Component
-**File**: `src/app/vacancies/[...filters]/error.tsx`
+**File**: `src/app/vacancies/[[...filters]]/error.tsx`
 ```typescript
 'use client';
 
@@ -291,7 +376,7 @@ export default function Error({ error, reset }: ErrorProps) {
 ```
 
 ### 6. Create Not Found Component
-**File**: `src/app/vacancies/[...filters]/not-found.tsx`
+**File**: `src/app/vacancies/[[...filters]]/not-found.tsx`
 ```typescript
 import { Button } from '@/components/ui/button';
 
@@ -311,12 +396,12 @@ export default function NotFound() {
 ```
 
 ### 7. Add Static Generation for Popular Routes
-**File**: `src/app/vacancies/[...filters]/page.tsx` (add to existing file)
+**File**: `src/app/vacancies/[[...filters]]/page.tsx` (add to existing file)
 ```typescript
 export async function generateStaticParams() {
   // Generate static pages for popular combinations
+  // Note: with optional catch-all routes, empty filters is handled automatically
   const popularCombinations = [
-    { filters: [] }, // Root page
     { filters: ['stockholm'] },
     { filters: ['goteborg'] },
     { filters: ['malmo'] },
@@ -337,8 +422,9 @@ export async function generateStaticParams() {
 import { redirect } from 'next/navigation';
 
 export default function VacanciesRootPage() {
-  // Redirect to the catch-all route with no filters
-  redirect('/vacancies/');
+  // With optional catch-all routes, this page might not be needed
+  // But we can redirect to ensure consistency
+  redirect('/vacancies');
 }
 ```
 
@@ -413,10 +499,10 @@ function capitalizeFirst(str: string): string {
 - [ ] Breadcrumb navigation shows current location
 
 ## Files Created
-- `src/app/vacancies/[...filters]/page.tsx`
-- `src/app/vacancies/[...filters]/loading.tsx`
-- `src/app/vacancies/[...filters]/error.tsx`
-- `src/app/vacancies/[...filters]/not-found.tsx`
+- `src/app/vacancies/[[...filters]]/page.tsx`
+- `src/app/vacancies/[[...filters]]/loading.tsx`
+- `src/app/vacancies/[[...filters]]/error.tsx`
+- `src/app/vacancies/[[...filters]]/not-found.tsx`
 - `src/app/vacancies/page.tsx`
 - `src/lib/filter-parser.ts`
 - `src/components/vacancy-breadcrumbs.tsx`
@@ -424,5 +510,6 @@ function capitalizeFirst(str: string): string {
 ## Next Steps
 After this task:
 - Task 005 will build client filter components for interactivity
-- Routes will be ready to display real vacancy data
-- SEO-optimized URLs will be fully functional
+- Routes will be ready to display real vacancy data with Task 003 charts
+- SEO-optimized URLs will be fully functional with Next.js 15 compatibility
+- Date range filtering via searchParams will be supported

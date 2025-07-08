@@ -240,7 +240,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
+import { format, subMonths, subYears } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
 interface DateRangePickerProps {
@@ -300,8 +300,7 @@ export function DateRangePicker({ from, to, onDateRangeChange }: DateRangePicker
                 size="sm"
                 onClick={() => {
                   const today = new Date();
-                  const threeMonthsAgo = new Date(today);
-                  threeMonthsAgo.setMonth(today.getMonth() - 3);
+                  const threeMonthsAgo = subMonths(today, 3);
                   handleDateChange({ from: threeMonthsAgo, to: today });
                 }}
               >
@@ -312,8 +311,7 @@ export function DateRangePicker({ from, to, onDateRangeChange }: DateRangePicker
                 size="sm"
                 onClick={() => {
                   const today = new Date();
-                  const sixMonthsAgo = new Date(today);
-                  sixMonthsAgo.setMonth(today.getMonth() - 6);
+                  const sixMonthsAgo = subMonths(today, 6);
                   handleDateChange({ from: sixMonthsAgo, to: today });
                 }}
               >
@@ -324,8 +322,7 @@ export function DateRangePicker({ from, to, onDateRangeChange }: DateRangePicker
                 size="sm"
                 onClick={() => {
                   const today = new Date();
-                  const oneYearAgo = new Date(today);
-                  oneYearAgo.setFullYear(today.getFullYear() - 1);
+                  const oneYearAgo = subYears(today, 1);
                   handleDateChange({ from: oneYearAgo, to: today });
                 }}
               >
@@ -462,9 +459,9 @@ export function FilterPresets() {
 ```
 
 ### 10. Update Main Vacancy Page
-**File**: `src/app/vacancies/[...filters]/page.tsx` (add filters component)
+**File**: `src/app/vacancies/[[...filters]]/page.tsx` (add filters component)
 ```typescript
-// Add this before VacancyDashboard
+// Add this before the dashboard content
 <VacancyFilters 
   currentRegion={region}
   currentOccupation={occupation}
@@ -493,7 +490,7 @@ export function FilterPresets() {
 
 ## Files Updated
 - `src/lib/filter-parser.ts` (add buildFilterUrl function)
-- `src/app/vacancies/[...filters]/page.tsx` (add VacancyFilters component)
+- `src/app/vacancies/[[...filters]]/page.tsx` (add VacancyFilters component)
 
 ## Next Steps
 After this task, the complete vacancy filtering system will be functional:
