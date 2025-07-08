@@ -32,7 +32,9 @@ export function transformToBarChart(
   const grouped = records.reduce(
     (acc, record) => {
       const key = type === 'region' ? record.region : record.occupation;
-      if (key === 'all') return acc;
+
+      // Skip only if the key is explicitly 'all' or empty/null
+      if (!key || key === 'all') return acc;
 
       if (!acc[key]) {
         acc[key] = {
@@ -92,13 +94,24 @@ export function calculateSummaryStats(records: VacancyRecord[]): {
   const totalVacancies = records.reduce((sum, record) => sum + record.count, 0);
 
   // Calculate month-over-month change (comparing last 2 months)
-  const sortedRecords = records.sort((a, b) => a.month.localeCompare(b.month));
-  const latestMonth = sortedRecords[sortedRecords.length - 1];
-  const previousMonth = sortedRecords[sortedRecords.length - 2];
+  // Group records by month to get monthly totals
+  const monthlyTotals = records.reduce(
+    (acc, record) => {
+      acc[record.month] = (acc[record.month] || 0) + record.count;
+      return acc;
+    },
+    {} as Record<string, number>
+  );
+
+  const sortedMonths = Object.keys(monthlyTotals).sort();
+  const latestMonth = sortedMonths[sortedMonths.length - 1];
+  const previousMonth = sortedMonths[sortedMonths.length - 2];
 
   const monthOverMonthChange =
     latestMonth && previousMonth
-      ? ((latestMonth.count - previousMonth.count) / previousMonth.count) * 100
+      ? ((monthlyTotals[latestMonth] - monthlyTotals[previousMonth]) /
+          monthlyTotals[previousMonth]) *
+        100
       : 0;
 
   // Find most active region and occupation
@@ -106,13 +119,14 @@ export function calculateSummaryStats(records: VacancyRecord[]): {
   const occupationCounts = new Map<string, number>();
 
   records.forEach((record) => {
-    if (record.region !== 'all') {
+    // Only count regions/occupations that are not 'all' and not empty
+    if (record.region && record.region !== 'all') {
       regionCounts.set(
         record.region,
         (regionCounts.get(record.region) || 0) + record.count
       );
     }
-    if (record.occupation !== 'all') {
+    if (record.occupation && record.occupation !== 'all') {
       occupationCounts.set(
         record.occupation,
         (occupationCounts.get(record.occupation) || 0) + record.count

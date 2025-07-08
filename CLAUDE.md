@@ -20,18 +20,14 @@ Your purpose is to setup a detailed implementation plan under a folder "tasks". 
 
 ## Quick Start Commands
 
+ - Never start the server with pnpm dev
+
 ```bash
 # Install dependencies
 pnpm install
 
-# Start development server (with Turbopack)
-pnpm dev
-
 # Build for production
 pnpm build
-
-# Start production server
-pnpm start
 
 # Code quality
 pnpm lint          # Run ESLint
@@ -40,6 +36,8 @@ pnpm lint:strict   # Run ESLint with zero warnings tolerance
 pnpm format        # Format code with Prettier
 pnpm format:check  # Check code formatting
 ```
+
+
 
 ## Tech Stack & Architecture
 

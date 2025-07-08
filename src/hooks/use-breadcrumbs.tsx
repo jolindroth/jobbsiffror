@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
+import { getRegionBySlug } from '@/constants/swedish-regions';
+import { getOccupationBySlug } from '@/constants/occupation-groups';
 
 type BreadcrumbItem = {
   title: string;
@@ -35,12 +37,44 @@ export function useBreadcrumbs() {
     const segments = pathname.split('/').filter(Boolean);
     return segments.map((segment, index) => {
       const path = `/${segments.slice(0, index + 1).join('/')}`;
+
+      // Decode URL-encoded segment and get human-readable title
+      const decodedSegment = decodeURIComponent(segment);
+      const title = getHumanReadableTitle(decodedSegment);
+
       return {
-        title: segment.charAt(0).toUpperCase() + segment.slice(1),
+        title,
         link: path
       };
     });
   }, [pathname]);
 
   return breadcrumbs;
+}
+
+function getHumanReadableTitle(segment: string): string {
+  // Handle known static segments with Swedish labels
+  switch (segment.toLowerCase()) {
+    case 'dashboard':
+      return 'Dashboard';
+    case 'vacancies':
+      return 'Lediga jobb';
+    default:
+      break;
+  }
+
+  // Try to find in region mappings
+  const region = getRegionBySlug(segment);
+  if (region) {
+    return region.name;
+  }
+
+  // Try to find in occupation mappings
+  const occupation = getOccupationBySlug(segment);
+  if (occupation) {
+    return occupation.name;
+  }
+
+  // Fallback: capitalize first letter of decoded segment
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
 }

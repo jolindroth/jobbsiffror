@@ -27,6 +27,7 @@ import { parseFilters } from '@/lib/filter-parser';
 import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 import { SWEDISH_REGIONS } from '@/constants/swedish-regions';
 import { OCCUPATION_GROUPS } from '@/constants/occupation-groups';
+import { VacancyFilters } from '@/components/vacancy-filters';
 
 interface VacanciesPageProps {
   params: Promise<{ filters?: string[] }>;
@@ -44,14 +45,9 @@ export default async function VacanciesPage({
   const params = await paramsPromise;
   const searchParams = await searchParamsPromise;
 
-  const { region, occupation } = parseFilters(params.filters);
+  const { region, occupation, invalid } = parseFilters(params.filters);
 
-  // Validate filters
-  if (region && !validateRegion(region)) {
-    notFound();
-  }
-
-  if (occupation && !validateOccupation(occupation)) {
+  if (invalid) {
     notFound();
   }
 
@@ -90,6 +86,12 @@ export default async function VacanciesPage({
               {buildPageTitle(region, occupation)}
             </h2>
           </div>
+
+          {/* Filter Component */}
+          <VacancyFilters
+            currentRegion={region}
+            currentOccupation={occupation}
+          />
 
           {/* Statistics Cards */}
           <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
@@ -249,7 +251,24 @@ export async function generateMetadata({
   params: paramsPromise
 }: VacanciesPageProps): Promise<Metadata> {
   const params = await paramsPromise;
-  const { region, occupation } = parseFilters(params.filters);
+  const { region, occupation, invalid } = parseFilters(params.filters);
+
+  if (invalid) {
+    return {
+      title: 'Felaktig sökning - Jobbsiffror',
+      description: 'Den sökning du gjorde var ogiltig. Försök igen.',
+      robots: {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+          index: false,
+          follow: false,
+          noimageindex: true
+        }
+      }
+    };
+  }
 
   const title = buildPageTitle(region, occupation);
   const description = buildPageDescription(region, occupation);
