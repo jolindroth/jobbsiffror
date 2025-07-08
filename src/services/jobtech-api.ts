@@ -5,6 +5,7 @@ import {
   getOccupationCode as getOccupationCodeFromSlug,
   getRegionCode as getRegionCodeFromSlug
 } from '@/lib/taxonomy-mappings';
+import { eachMonthOfInterval, parseISO, format, startOfMonth } from 'date-fns';
 
 export class JobTechAPIError extends Error {
   constructor(
@@ -17,15 +18,14 @@ export class JobTechAPIError extends Error {
   }
 }
 
-export async function GetVacancies(
-  month: string,
+// Single month API call function
+async function GetVacanciesSingleMonth(
+  month: string, // Format: "2024-01"
   region?: string,
   occupation?: string
 ): Promise<VacancyRecord> {
-  // 1. Convert month to date range
   const { from, to } = monthToDateRange(month);
 
-  // 2. Build query parameters
   const params = new URLSearchParams({
     'historical-from': from,
     'historical-to': to,
@@ -33,7 +33,7 @@ export async function GetVacancies(
     offset: '0'
   });
 
-  // Add filters if provided (using placeholders for now)
+  // Add filters if provided
   if (region) {
     params.set('region', getRegionCode(region));
   } else {
@@ -44,7 +44,6 @@ export async function GetVacancies(
     params.set('occupation-group', getOccupationCode(occupation));
   }
 
-  // 3. Fetch from API
   try {
     const response = await fetch(
       `https://historical.api.jobtechdev.se/search?${params}`,
@@ -63,12 +62,11 @@ export async function GetVacancies(
 
     const data: JobTechSearchResponse = await response.json();
 
-    // 4. Return single VacancyRecord with aggregated count from API
     return {
       month,
       region: region || 'all',
       occupation: occupation || 'all',
-      count: data.total.value // API provides pre-aggregated total
+      count: data.total.value // Real count from API
     };
   } catch (error) {
     if (error instanceof JobTechAPIError) {
@@ -76,9 +74,77 @@ export async function GetVacancies(
     }
 
     throw new JobTechAPIError(
-      `Failed to fetch vacancy data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      `Failed to fetch vacancy data for month ${month}: ${error instanceof Error ? error.message : 'Unknown error'}`,
       0,
       { month, region, occupation }
+    );
+  }
+}
+
+export async function GetVacancies(
+  dateFrom: string,
+  dateTo: string,
+  region?: string,
+  occupation?: string
+): Promise<VacancyRecord[]> {
+  try {
+    // Parse date strings using date-fns
+    const startDate = parseISO(
+      dateFrom.includes('T') ? dateFrom.split('T')[0] : dateFrom
+    );
+    const endDate = parseISO(
+      dateTo.includes('T') ? dateTo.split('T')[0] : dateTo
+    );
+
+    // Generate array of months between start and end dates
+    const months = eachMonthOfInterval({
+      start: startOfMonth(startDate),
+      end: startOfMonth(endDate)
+    });
+
+    // Make separate API calls for each month to get real monthly data
+    const monthlyPromises = months.map((monthDate) => {
+      const monthString = format(monthDate, 'yyyy-MM');
+      return GetVacanciesSingleMonth(monthString, region, occupation);
+    });
+
+    // Execute all API calls and handle individual failures
+    const results = await Promise.allSettled(monthlyPromises);
+
+    const monthlyData: VacancyRecord[] = [];
+    const errors: string[] = [];
+
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        monthlyData.push(result.value);
+      } else {
+        const monthString = format(months[index], 'yyyy-MM');
+        errors.push(
+          `Failed to fetch data for ${monthString}: ${result.reason?.message || 'Unknown error'}`
+        );
+
+        // Add placeholder record with 0 count for failed months
+        monthlyData.push({
+          month: monthString,
+          region: region || 'all',
+          occupation: occupation || 'all',
+          count: 0
+        });
+      }
+    });
+
+    // Log errors but don't fail the entire request
+    if (errors.length > 0) {
+      console.warn('Some monthly data failed to fetch:', errors);
+    }
+
+    // Sort by month to ensure proper chronological order
+    return monthlyData.sort((a, b) => a.month.localeCompare(b.month));
+  } catch (error) {
+    throw new JobTechAPIError(
+      `Failed to fetch vacancy data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      0,
+      { dateFrom, dateTo, region, occupation }
     );
   }
 }

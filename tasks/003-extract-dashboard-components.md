@@ -11,7 +11,7 @@ Move existing dashboard components from the parallel routes structure to shared,
 ## Steps
 
 ### 1. Move Chart Components
-Move these files from `src/features/overview/components/` to `src/components/charts/`:
+Move these files from `src/features/overview/components/` to `src/components/charts/`, using MV. Literally move them.
 
 **Move Files:**
 - `area-graph.tsx` → `src/components/charts/area-chart.tsx`
