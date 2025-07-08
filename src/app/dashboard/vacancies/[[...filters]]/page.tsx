@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import PageContainer from '@/components/layout/page-container';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -13,7 +15,7 @@ import { AreaGraph } from '@/features/overview/components/area-graph';
 import { BarGraph } from '@/features/overview/components/bar-graph';
 import { PieGraph } from '@/features/overview/components/pie-graph';
 import { RecentSales } from '@/features/overview/components/recent-sales';
-import { GetVacancies } from '@/services/jobtech-api';
+import { GetHistoricalVacanciesByRange } from '@/services/jobtech-api';
 import { getDefaultFromDate, getDefaultToDate } from '@/lib/date-utils';
 import {
   transformToAreaChart,
@@ -21,30 +23,43 @@ import {
   transformToPieChart,
   calculateSummaryStats
 } from '@/lib/chart-data-transformers';
+import { parseFilters } from '@/lib/filter-parser';
+import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 
-interface OverviewPageProps {
+interface VacanciesPageProps {
+  params: Promise<{ filters?: string[] }>;
   searchParams: Promise<{
     from?: string;
     to?: string;
-    region?: string;
-    occupation?: string;
   }>;
 }
 
-export default async function OverviewPage({
+export default async function VacanciesPage({
+  params: paramsPromise,
   searchParams: searchParamsPromise
-}: OverviewPageProps) {
-  // Await searchParams in Next.js 15
+}: VacanciesPageProps) {
+  // Await params and searchParams for Next.js 15 compatibility
+  const params = await paramsPromise;
   const searchParams = await searchParamsPromise;
+
+  const { region, occupation } = parseFilters(params.filters);
+
+  // Validate filters
+  if (region && !validateRegion(region)) {
+    notFound();
+  }
+
+  if (occupation && !validateOccupation(occupation)) {
+    notFound();
+  }
+
   // Get date range from search params or use defaults (last 12 months)
   const dateFrom = searchParams.from || getDefaultFromDate();
   const dateTo = searchParams.to || getDefaultToDate();
-  const region = searchParams.region;
-  const occupation = searchParams.occupation;
 
   try {
-    // Single API call for dashboard data
-    const dashboardData = await GetVacancies(
+    // Single API call for dashboard data using enhanced GetVacancies
+    const dashboardData = await GetHistoricalVacanciesByRange(
       dateFrom,
       dateTo,
       region,
@@ -70,7 +85,7 @@ export default async function OverviewPage({
         <div className='flex flex-1 flex-col space-y-2'>
           <div className='flex items-center justify-between space-y-2'>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Sveriges jobbsiffror
+              {buildPageTitle(region, occupation)}
             </h2>
           </div>
 
@@ -226,4 +241,70 @@ export default async function OverviewPage({
       </PageContainer>
     );
   }
+}
+
+export async function generateMetadata({
+  params: paramsPromise
+}: VacanciesPageProps): Promise<Metadata> {
+  const params = await paramsPromise;
+  const { region, occupation } = parseFilters(params.filters);
+
+  const title = buildPageTitle(region, occupation);
+  const description = buildPageDescription(region, occupation);
+
+  return {
+    title: `${title} - Jobbsiffror`,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website'
+    }
+  };
+}
+
+export async function generateStaticParams() {
+  // Generate static pages for popular combinations
+  // Note: with optional catch-all routes, empty filters is handled automatically
+  const popularCombinations = [
+    { filters: ['stockholm'] },
+    { filters: ['goteborg'] },
+    { filters: ['malmo'] },
+    { filters: ['systemutvecklare'] },
+    { filters: ['sjukskoterska'] },
+    { filters: ['stockholm', 'systemutvecklare'] },
+    { filters: ['goteborg', 'systemutvecklare'] },
+    { filters: ['stockholm', 'sjukskoterska'] }
+  ];
+
+  return popularCombinations;
+}
+
+// Helper functions
+function buildPageTitle(region?: string, occupation?: string): string {
+  if (region && occupation) {
+    return `${capitalizeFirst(occupation)} jobb i ${capitalizeFirst(region)}`;
+  } else if (region) {
+    return `Lediga jobb i ${capitalizeFirst(region)}`;
+  } else if (occupation) {
+    return `${capitalizeFirst(occupation)} jobb i Sverige`;
+  } else {
+    return 'Sveriges jobbsiffror';
+  }
+}
+
+function buildPageDescription(region?: string, occupation?: string): string {
+  if (region && occupation) {
+    return `Se statistik och trender för ${occupation} jobb i ${region}. Aktuella siffror och utveckling över tid.`;
+  } else if (region) {
+    return `Översikt av alla lediga jobb i ${region}. Statistik, trender och jobbmöjligheter.`;
+  } else if (occupation) {
+    return `Statistik för ${occupation} jobb i hela Sverige. Se trender och regionala skillnader.`;
+  } else {
+    return 'Komplett översikt av lediga jobb i Sverige. Statistik, trender och analys av arbetsmarknaden.';
+  }
+}
+
+function capitalizeFirst(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

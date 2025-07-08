@@ -19,7 +19,7 @@ export class JobTechAPIError extends Error {
 }
 
 // Single month API call function
-async function GetVacanciesSingleMonth(
+async function GetHistoricalVacanciesByMonth(
   month: string, // Format: "2024-01"
   region?: string,
   occupation?: string
@@ -81,7 +81,7 @@ async function GetVacanciesSingleMonth(
   }
 }
 
-export async function GetVacancies(
+export async function GetHistoricalVacanciesByRange(
   dateFrom: string,
   dateTo: string,
   region?: string,
@@ -105,7 +105,7 @@ export async function GetVacancies(
     // Make separate API calls for each month to get real monthly data
     const monthlyPromises = months.map((monthDate) => {
       const monthString = format(monthDate, 'yyyy-MM');
-      return GetVacanciesSingleMonth(monthString, region, occupation);
+      return GetHistoricalVacanciesByMonth(monthString, region, occupation);
     });
 
     // Execute all API calls and handle individual failures

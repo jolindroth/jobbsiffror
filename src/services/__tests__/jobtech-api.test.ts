@@ -1,4 +1,4 @@
-import { GetVacancies, JobTechAPIError } from '../jobtech-api';
+import { GetHistoricalVacanciesByRange, JobTechAPIError } from '../jobtech-api';
 import { JobTechSearchResponse } from '@/types/jobtech-api';
 
 // Mock the external fetch
@@ -13,9 +13,15 @@ jest.mock('@/lib/date-utils', () => ({
   }))
 }));
 
-describe('GetVacancies', () => {
+describe('GetHistoricalVacanciesByRange', () => {
   beforeEach(() => {
     mockFetch.mockClear();
+    // Mock console.warn to avoid noise in test output
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   const mockApiResponse: JobTechSearchResponse = {
@@ -26,19 +32,21 @@ describe('GetVacancies', () => {
     hits: []
   };
 
-  it('should return a single vacancy record for a given month', async () => {
+  it('should return an array with a single vacancy record for a given month', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => mockApiResponse
     } as Response);
 
-    const result = await GetVacancies('2024-01');
+    const result = await GetHistoricalVacanciesByRange('2024-01', '2024-01');
 
-    expect(result).toHaveProperty('month', '2024-01');
-    expect(result).toHaveProperty('region', 'all');
-    expect(result).toHaveProperty('occupation', 'all');
-    expect(result).toHaveProperty('count', 12345);
-    expect(typeof result.count).toBe('number');
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toHaveProperty('month', '2024-01');
+    expect(result[0]).toHaveProperty('region', 'all');
+    expect(result[0]).toHaveProperty('occupation', 'all');
+    expect(result[0]).toHaveProperty('count', 12345);
+    expect(typeof result[0].count).toBe('number');
   });
 
   it('should handle region filter', async () => {
@@ -47,11 +55,16 @@ describe('GetVacancies', () => {
       json: async () => ({ ...mockApiResponse, total: { value: 5678 } })
     } as Response);
 
-    const result = await GetVacancies('2024-01', 'stockholms-län');
+    const result = await GetHistoricalVacanciesByRange(
+      '2024-01',
+      '2024-01',
+      'stockholms-län'
+    );
 
-    expect(result).toHaveProperty('region', 'stockholms-län');
-    expect(result).toHaveProperty('month', '2024-01');
-    expect(result).toHaveProperty('count', 5678);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toHaveProperty('region', 'stockholms-län');
+    expect(result[0]).toHaveProperty('month', '2024-01');
+    expect(result[0].count).toBe(5678);
   });
 
   it('should handle occupation filter', async () => {
@@ -60,15 +73,17 @@ describe('GetVacancies', () => {
       json: async () => ({ ...mockApiResponse, total: { value: 3456 } })
     } as Response);
 
-    const result = await GetVacancies(
+    const result = await GetHistoricalVacanciesByRange(
+      '2024-01',
       '2024-01',
       undefined,
       'mjukvaru-systemutvecklare'
     );
 
-    expect(result).toHaveProperty('occupation', 'mjukvaru-systemutvecklare');
-    expect(result).toHaveProperty('region', 'all');
-    expect(result).toHaveProperty('count', 3456);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toHaveProperty('occupation', 'mjukvaru-systemutvecklare');
+    expect(result[0]).toHaveProperty('region', 'all');
+    expect(result[0].count).toBe(3456);
   });
 
   it('should handle both filters', async () => {
@@ -77,15 +92,17 @@ describe('GetVacancies', () => {
       json: async () => ({ ...mockApiResponse, total: { value: 789 } })
     } as Response);
 
-    const result = await GetVacancies(
+    const result = await GetHistoricalVacanciesByRange(
+      '2024-01',
       '2024-01',
       'stockholms-län',
       'mjukvaru-systemutvecklare'
     );
 
-    expect(result).toHaveProperty('region', 'stockholms-län');
-    expect(result).toHaveProperty('occupation', 'mjukvaru-systemutvecklare');
-    expect(result).toHaveProperty('count', 789);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toHaveProperty('region', 'stockholms-län');
+    expect(result[0]).toHaveProperty('occupation', 'mjukvaru-systemutvecklare');
+    expect(result[0].count).toBe(789);
   });
 
   it('should build correct API URL with filters', async () => {
@@ -94,7 +111,8 @@ describe('GetVacancies', () => {
       json: async () => mockApiResponse
     } as Response);
 
-    await GetVacancies(
+    await GetHistoricalVacanciesByRange(
+      '2024-01',
       '2024-01',
       'stockholms-län',
       'mjukvaru-systemutvecklare'
@@ -120,28 +138,75 @@ describe('GetVacancies', () => {
       json: async () => mockApiResponse
     } as Response);
 
-    await GetVacancies('2024-01');
+    await GetHistoricalVacanciesByRange('2024-01', '2024-01');
 
     const callUrl = mockFetch.mock.calls[0][0] as string;
     expect(callUrl).toContain('country=199'); // Sweden
   });
 
-  it('should throw JobTechAPIError on API failure', async () => {
+  it('should handle API failure gracefully with placeholder data', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: false,
       status: 500
     } as Response);
 
-    await expect(GetVacancies('2024-01')).rejects.toThrow(
-      'API request failed: 500'
+    const result = await GetHistoricalVacanciesByRange('2024-01', '2024-01');
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toHaveProperty('month', '2024-01');
+    expect(result[0]).toHaveProperty('count', 0); // Placeholder count for failed request
+    expect(console.warn).toHaveBeenCalledWith(
+      'Some monthly data failed to fetch:',
+      expect.arrayContaining([
+        expect.stringContaining('Failed to fetch data for 2024-01')
+      ])
     );
   });
 
-  it('should throw JobTechAPIError on network failure', async () => {
+  it('should handle network failure gracefully with placeholder data', async () => {
     mockFetch.mockRejectedValueOnce(new Error('Network error'));
 
-    await expect(GetVacancies('2024-01')).rejects.toThrow(
-      'Failed to fetch vacancy data: Network error'
+    const result = await GetHistoricalVacanciesByRange('2024-01', '2024-01');
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toHaveProperty('month', '2024-01');
+    expect(result[0]).toHaveProperty('count', 0); // Placeholder count for failed request
+    expect(console.warn).toHaveBeenCalledWith(
+      'Some monthly data failed to fetch:',
+      expect.arrayContaining([
+        expect.stringContaining('Failed to fetch data for 2024-01')
+      ])
     );
+  });
+
+  it('should handle multiple months in date range', async () => {
+    // Mock responses for multiple months
+    mockFetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ ...mockApiResponse, total: { value: 1000 } })
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ ...mockApiResponse, total: { value: 2000 } })
+      } as Response);
+
+    const result = await GetHistoricalVacanciesByRange('2024-01', '2024-02');
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toHaveProperty('month', '2024-01');
+    expect(result[0].count).toBe(1000);
+    expect(result[1]).toHaveProperty('month', '2024-02');
+    expect(result[1].count).toBe(2000);
+  });
+
+  it('should return empty array for invalid date range', async () => {
+    const result = await GetHistoricalVacanciesByRange(
+      'invalid-date',
+      '2024-01'
+    );
+
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveLength(0);
   });
 });
