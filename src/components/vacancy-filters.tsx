@@ -4,10 +4,16 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MapPin, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from '@/components/ui/card';
 import { parseAsString, useQueryStates } from 'nuqs';
 import { DateRangePicker } from './date-range-picker';
-import { RegionSelect } from './region-select';
-import { OccupationSelect } from './occupation-select';
+import { RegionCombobox } from './region-combobox';
+import { OccupationCombobox } from './occupation-combobox';
 
 interface VacancyFiltersProps {
   currentRegion?: string;
@@ -59,9 +65,14 @@ export function VacancyFilters({
     router.push(url);
   };
 
-  const handleClearFilters = () => {
+  const handleClearFilters = async () => {
     setIsNavigating(true);
-    router.push('/dashboard/vacancies');
+
+    // Clear search params first
+    await setSearchParams({ from: null, to: null });
+
+    // Navigate to clean URL
+    router.replace('/dashboard/vacancies');
   };
 
   const handleDateRangeChange = (from?: Date, to?: Date) => {
@@ -72,68 +83,74 @@ export function VacancyFilters({
   };
 
   return (
-    <div className='relative'>
-      <div className='bg-card mb-8 rounded-lg border p-6'>
-        <div className='flex flex-col items-start gap-4 lg:flex-row lg:items-center'>
-          <div className='grid flex-1 grid-cols-1 gap-4 md:grid-cols-3'>
-            {/* Region Filter */}
-            <div className='space-y-2'>
-              <label className='flex items-center gap-2 text-sm font-medium'>
-                <MapPin className='h-4 w-4' />
-                Region
-              </label>
-              <RegionSelect
-                value={currentRegion || 'all'}
-                onValueChange={handleRegionChange}
-                disabled={isNavigating}
-              />
+    <div className='relative h-full'>
+      <Card className='@container/card h-full'>
+        <CardHeader>
+          <CardDescription>Filtrera sökningen</CardDescription>
+        </CardHeader>
+        <CardContent className='flex h-full px-8 py-4'>
+          <div className='flex w-full flex-col gap-4'>
+            <div className='grid flex-1 grid-cols-1 gap-4'>
+              {/* Region Filter */}
+              <div className='w-full space-y-2'>
+                <label className='flex items-center gap-2 text-sm font-medium'>
+                  <MapPin className='h-4 w-4' />
+                  Region
+                </label>
+                <div className='w-full'>
+                  <RegionCombobox
+                    value={currentRegion || 'all'}
+                    onValueChange={handleRegionChange}
+                    disabled={isNavigating}
+                  />
+                </div>
+              </div>
+
+              {/* Occupation Filter */}
+              <div className='space-y-2'>
+                <label className='flex items-center gap-2 text-sm font-medium'>
+                  <Briefcase className='h-4 w-4' />
+                  Yrkesgrupp
+                </label>
+                <div className='w-full'>
+                  <OccupationCombobox
+                    value={currentOccupation || 'all'}
+                    onValueChange={handleOccupationChange}
+                    disabled={isNavigating}
+                  />
+                </div>
+              </div>
+
+              {/* Date Range Filter */}
+              <div className='w-full'>
+                <DateRangePicker
+                  from={
+                    searchParams.from ? new Date(searchParams.from) : undefined
+                  }
+                  to={searchParams.to ? new Date(searchParams.to) : undefined}
+                  onDateRangeChange={handleDateRangeChange}
+                />
+              </div>
             </div>
 
-            {/* Occupation Filter */}
-            <div className='space-y-2'>
-              <label className='flex items-center gap-2 text-sm font-medium'>
-                <Briefcase className='h-4 w-4' />
-                Yrkesgrupp
-              </label>
-              <OccupationSelect
-                value={currentOccupation || 'all'}
-                onValueChange={handleOccupationChange}
-                disabled={isNavigating}
-              />
-            </div>
-
-            {/* Date Range Filter */}
-            <div className='space-y-2'>
-              <DateRangePicker
-                from={
-                  searchParams.from ? new Date(searchParams.from) : undefined
-                }
-                to={searchParams.to ? new Date(searchParams.to) : undefined}
-                onDateRangeChange={handleDateRangeChange}
-              />
+            {/* Action Buttons */}
+            <div className='flex gap-2'>
+              {(currentRegion ||
+                currentOccupation ||
+                searchParams.from ||
+                searchParams.to) && (
+                <Button
+                  variant='outline'
+                  onClick={handleClearFilters}
+                  disabled={isNavigating}
+                >
+                  Rensa filter
+                </Button>
+              )}
             </div>
           </div>
-
-          {/* Action Buttons */}
-          <div className='flex gap-2'>
-            {(currentRegion ||
-              currentOccupation ||
-              searchParams.from ||
-              searchParams.to) && (
-              <Button
-                variant='outline'
-                onClick={() => {
-                  handleClearFilters();
-                  setSearchParams({ from: null, to: null });
-                }}
-                disabled={isNavigating}
-              >
-                Rensa filter
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       {/* Loading overlay */}
       {isNavigating && (

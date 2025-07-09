@@ -79,121 +79,128 @@ export default async function VacanciesPage({
 
     return (
       <PageContainer>
-        <div className='flex flex-1 flex-col space-y-2'>
-          <div className='flex items-center justify-between space-y-2'>
+        <div className='flex flex-1 flex-col gap-4'>
+          <div className='flex items-center justify-between gap-y-2'>
             <h2 className='text-2xl font-bold tracking-tight'>
               {buildPageTitle(region, occupation)}
             </h2>
           </div>
 
-          {/* Filter Component */}
-          <VacancyFilters
-            currentRegion={region}
-            currentOccupation={occupation}
-          />
+          {/* Filter and Statistics Cards */}
+          <div className='grid grid-cols-1 gap-4 lg:grid-cols-[1fr_2fr]'>
+            {/* Filter Component */}
+            <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs'>
+              <VacancyFilters
+                currentRegion={region}
+                currentOccupation={occupation}
+              />
+            </div>
 
-          {/* Statistics Cards */}
-          <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
-            <Card className='@container/card'>
-              <CardHeader>
-                <CardDescription>Totala Lediga Jobb</CardDescription>
-                <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                  {stats.totalVacancies.toLocaleString('sv-SE')}
-                </CardTitle>
-                <CardAction>
-                  <Badge variant='outline'>
+            {/* Statistics Cards */}
+            <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2'>
+              <Card className='@container/card'>
+                <CardHeader>
+                  <CardDescription>Totala Lediga Jobb</CardDescription>
+                  <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+                    {stats.totalVacancies.toLocaleString('sv-SE')}
+                  </CardTitle>
+                  <CardAction>
+                    <Badge variant='outline'>
+                      {stats.monthOverMonthChange > 0 ? (
+                        <IconTrendingUp />
+                      ) : (
+                        <IconTrendingDown />
+                      )}
+                      {stats.monthOverMonthChange > 0 ? '+' : ''}
+                      {stats.monthOverMonthChange.toFixed(1)}%
+                    </Badge>
+                  </CardAction>
+                </CardHeader>
+                <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+                  <div className='line-clamp-1 flex gap-2 font-medium'>
+                    {stats.monthOverMonthChange > 0 ? 'Ökning' : 'Minskning'}{' '}
+                    från förra månaden{' '}
                     {stats.monthOverMonthChange > 0 ? (
-                      <IconTrendingUp />
+                      <IconTrendingUp className='size-4' />
                     ) : (
-                      <IconTrendingDown />
+                      <IconTrendingDown className='size-4' />
                     )}
-                    {stats.monthOverMonthChange > 0 ? '+' : ''}
-                    {stats.monthOverMonthChange.toFixed(1)}%
-                  </Badge>
-                </CardAction>
-              </CardHeader>
-              <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-                <div className='line-clamp-1 flex gap-2 font-medium'>
-                  {stats.monthOverMonthChange > 0 ? 'Ökning' : 'Minskning'} från
-                  förra månaden{' '}
-                  {stats.monthOverMonthChange > 0 ? (
-                    <IconTrendingUp className='size-4' />
-                  ) : (
-                    <IconTrendingDown className='size-4' />
-                  )}
-                </div>
-                <div className='text-muted-foreground'>
-                  Baserat på senaste data
-                </div>
-              </CardFooter>
-            </Card>
+                  </div>
+                  <div className='text-muted-foreground'>
+                    Baserat på senaste data
+                  </div>
+                </CardFooter>
+              </Card>
 
-            <Card className='@container/card'>
-              <CardHeader>
-                <CardDescription>Mest Aktiva Region</CardDescription>
-                <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                  {stats.mostActiveRegion || 'Ej tillgänglig'}
-                </CardTitle>
-                <CardAction>
-                  <Badge variant='outline'>
-                    <IconTrendingUp />
-                    #1
-                  </Badge>
-                </CardAction>
-              </CardHeader>
-              <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-                <div className='line-clamp-1 flex gap-2 font-medium'>
-                  Flest publicerade jobb <IconTrendingUp className='size-4' />
-                </div>
-                <div className='text-muted-foreground'>Regional aktivitet</div>
-              </CardFooter>
-            </Card>
+              <Card className='@container/card'>
+                <CardHeader>
+                  <CardDescription>Mest Aktiva Region</CardDescription>
+                  <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+                    {stats.mostActiveRegion || 'Ej tillgänglig'}
+                  </CardTitle>
+                  <CardAction>
+                    <Badge variant='outline'>
+                      <IconTrendingUp />
+                      #1
+                    </Badge>
+                  </CardAction>
+                </CardHeader>
+                <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+                  <div className='line-clamp-1 flex gap-2 font-medium'>
+                    Flest publicerade jobb <IconTrendingUp className='size-4' />
+                  </div>
+                  <div className='text-muted-foreground'>
+                    Regional aktivitet
+                  </div>
+                </CardFooter>
+              </Card>
 
-            <Card className='@container/card'>
-              <CardHeader>
-                <CardDescription>Mest Aktiva Yrke</CardDescription>
-                <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                  {stats.mostActiveOccupation || 'Ej tillgänglig'}
-                </CardTitle>
-                <CardAction>
-                  <Badge variant='outline'>
-                    <IconTrendingUp />
-                    #1
-                  </Badge>
-                </CardAction>
-              </CardHeader>
-              <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-                <div className='line-clamp-1 flex gap-2 font-medium'>
-                  Högst efterfrågan <IconTrendingUp className='size-4' />
-                </div>
-                <div className='text-muted-foreground'>
-                  Mest sökta kompetens
-                </div>
-              </CardFooter>
-            </Card>
+              <Card className='@container/card'>
+                <CardHeader>
+                  <CardDescription>Mest Aktiva Yrke</CardDescription>
+                  <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+                    {stats.mostActiveOccupation || 'Ej tillgänglig'}
+                  </CardTitle>
+                  <CardAction>
+                    <Badge variant='outline'>
+                      <IconTrendingUp />
+                      #1
+                    </Badge>
+                  </CardAction>
+                </CardHeader>
+                <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+                  <div className='line-clamp-1 flex gap-2 font-medium'>
+                    Högst efterfrågan <IconTrendingUp className='size-4' />
+                  </div>
+                  <div className='text-muted-foreground'>
+                    Mest sökta kompetens
+                  </div>
+                </CardFooter>
+              </Card>
 
-            <Card className='@container/card'>
-              <CardHeader>
-                <CardDescription>Senaste Uppdatering</CardDescription>
-                <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                  {stats.lastUpdated}
-                </CardTitle>
-                <CardAction>
-                  <Badge variant='outline'>
-                    <IconTrendingUp />
-                    Live
-                  </Badge>
-                </CardAction>
-              </CardHeader>
-              <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-                <div className='line-clamp-1 flex gap-2 font-medium'>
-                  Aktuell data <IconTrendingUp className='size-4' />
-                </div>
-                <div className='text-muted-foreground'>
-                  Uppdateras kontinuerligt
-                </div>
-              </CardFooter>
-            </Card>
+              <Card className='@container/card'>
+                <CardHeader>
+                  <CardDescription>Senaste Uppdatering</CardDescription>
+                  <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+                    {stats.lastUpdated}
+                  </CardTitle>
+                  <CardAction>
+                    <Badge variant='outline'>
+                      <IconTrendingUp />
+                      Live
+                    </Badge>
+                  </CardAction>
+                </CardHeader>
+                <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+                  <div className='line-clamp-1 flex gap-2 font-medium'>
+                    Aktuell data <IconTrendingUp className='size-4' />
+                  </div>
+                  <div className='text-muted-foreground'>
+                    Uppdateras kontinuerligt
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
           </div>
 
           {/* Charts Grid */}

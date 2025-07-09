@@ -1,402 +1,1454 @@
 [
-  {"id": "110", "name": "Officerare", "urlSlug": "officerare"},
-  {"id": "1111", "name": "Politiker", "urlSlug": "politiker"},
-  {"id": "1112", "name": "General-, landstings- och kommundirektörer m.fl.", "urlSlug": "generaldirektorer"},
-  {"id": "1113", "name": "Chefstjänstemän i intresseorganisationer", "urlSlug": "chefstjanstemän-intresseorganisationer"},
-  {"id": "1120", "name": "Verkställande direktörer m.fl.", "urlSlug": "verkställande-direktörer"},
-  {"id": "1210", "name": "Ekonomi- och finanschefer", "urlSlug": "ekonomichefer"},
-  {"id": "1220", "name": "Personal- och HR-chefer", "urlSlug": "hr-chefer"},
-  {"id": "1230", "name": "Förvaltnings- och planeringschefer", "urlSlug": "förvaltningschefer"},
-  {"id": "1240", "name": "Informations-, kommunikations- och PR-chefer", "urlSlug": "kommunikationschefer"},
-  {"id": "1250", "name": "Försäljnings- och marknadschefer", "urlSlug": "försäljningschefer"},
-  {"id": "1290", "name": "Övriga administrations- och servicechefer", "urlSlug": "administrationschefer"},
-  {"id": "1310", "name": "IT-chefer", "urlSlug": "it-chefer"},
-  {"id": "1320", "name": "Inköps-, logistik- och transportchefer", "urlSlug": "logistikchefer"},
-  {"id": "1330", "name": "Forsknings- och utvecklingschefer#", "urlSlug": "utvecklingschefer"},
-  {"id": "1340", "name": "Chefer inom arkitekt- och ingenjörsverksamhet", "urlSlug": "arkitekt-ingenjörschefer"},
-  {"id": "1350", "name": "Fastighets- och förvaltningschefer", "urlSlug": "fastighetschefer"},
-  {"id": "1360", "name": "Driftchefer inom bygg, anläggning och gruva", "urlSlug": "driftchefer-bygg"},
-  {"id": "1370", "name": "Produktionschefer inom tillverkning", "urlSlug": "produktionschefer"},
-  {"id": "1380", "name": "Förvaltare inom skogsbruk och lantbruk m.fl.", "urlSlug": "skogsbruk-lantbruk"},
-  {"id": "1410", "name": "Chefer inom grund- och gymnasieskola samt vuxenutbildning", "urlSlug": "skolchefer"},
-  {"id": "1420", "name": "Chefer inom förskoleverksamhet", "urlSlug": "förskolechefer"},
-  {"id": "1490", "name": "Övriga chefer inom utbildning", "urlSlug": "utbildningschefer"},
-  {"id": "1510", "name": "Chefer inom hälso- och sjukvård", "urlSlug": "sjukvårdschefer"},
-  {"id": "1520", "name": "Chefer inom socialt och kurativt arbete", "urlSlug": "sociala-chefer"},
-  {"id": "1530", "name": "Chefer inom äldreomsorg", "urlSlug": "äldreomsorgschefer"},
-  {"id": "1540", "name": "Chefer och ledare inom trossamfund", "urlSlug": "trossamfundsledare"},
-  {"id": "1590", "name": "Övriga chefer inom samhällsservice", "urlSlug": "samhällsservicechefer"},
-  {"id": "1610", "name": "Chefer inom bank, finans och försäkring", "urlSlug": "finanschefer"},
-  {"id": "1710", "name": "Hotell- och konferenschefer", "urlSlug": "hotellchefer"},
-  {"id": "1720", "name": "Restaurang- och kökschefer", "urlSlug": "restaurangchefer"},
-  {"id": "1730", "name": "Chefer inom handel", "urlSlug": "handelschefer"},
-  {"id": "1740", "name": "Chefer inom friskvård, sport och fritid", "urlSlug": "sportchefer"},
-  {"id": "1790", "name": "Övriga chefer inom övrig servicenäring", "urlSlug": "servicechefer"},
-  {"id": "210", "name": "Specialistofficerare", "urlSlug": "specialistofficerare"},
-  {"id": "2111", "name": "Fysiker och astronomer", "urlSlug": "fysiker-astronomer"},
-  {"id": "2112", "name": "Meteorologer", "urlSlug": "meteorologer"},
-  {"id": "2113", "name": "Kemister", "urlSlug": "kemister"},
-  {"id": "2114", "name": "Geologer och geofysiker m.fl.", "urlSlug": "geologer-geofysiker"},
-  {"id": "2121", "name": "Matematiker och aktuarier", "urlSlug": "matematiker-aktuarier"},
-  {"id": "2122", "name": "Statistiker", "urlSlug": "statistiker"},
-  {"id": "2131", "name": "Cell- och molekylärbiologer m.fl.", "urlSlug": "molekylärbiologer"},
-  {"id": "2132", "name": "Växt- och djurbiologer", "urlSlug": "biologer"},
-  {"id": "2133", "name": "Farmakologer och biomedicinare", "urlSlug": "farmakologer-biomedicinare"},
-  {"id": "2134", "name": "Specialister och rådgivare inom lantbruk m.m.", "urlSlug": "lantbruksspecialister"},
-  {"id": "2135", "name": "Specialister och rådgivare inom skogsbruk", "urlSlug": "skogsbruksspecialister"},
-  {"id": "2141", "name": "Civilingenjörsyrken inom logistik och produktionsplanering", "urlSlug": "civilingenjörer-logistik"},
-  {"id": "2142", "name": "Civilingenjörsyrken inom bygg och anläggning", "urlSlug": "civilingenjörer-bygg"},
-  {"id": "2143", "name": "Civilingenjörsyrken inom elektroteknik", "urlSlug": "civilingenjörer-elektro"},
-  {"id": "2144", "name": "Civilingenjörsyrken inom maskinteknik", "urlSlug": "civilingenjörer-maskin"},
-  {"id": "2145", "name": "Civilingenjörsyrken inom kemi och kemiteknik", "urlSlug": "civilingenjörer-kemi"},
-  {"id": "2146", "name": "Civilingenjörsyrken inom gruvteknik och metallurgi", "urlSlug": "civilingenjörer-gruva"},
-  {"id": "2149", "name": "Övriga civilingenjörsyrken", "urlSlug": "civilingenjörer-övriga"},
-  {"id": "2161", "name": "Arkitekter m.fl.", "urlSlug": "arkitekter"},
-  {"id": "2162", "name": "Landskapsarkitekter", "urlSlug": "landskapsarkitekter"},
-  {"id": "2163", "name": "Planeringsarkitekter m.fl.", "urlSlug": "planeringsarkitekter"},
-  {"id": "2164", "name": "Lantmätare", "urlSlug": "lantmätare"},
-  {"id": "2171", "name": "Industridesigner", "urlSlug": "industridesigner"},
-  {"id": "2172", "name": "Grafiska formgivare m.fl.", "urlSlug": "grafiska-formgivare"},
-  {"id": "2173", "name": "Designer inom spel och digitala medier", "urlSlug": "speldesigner"},
-  {"id": "2179", "name": "Övriga designer och formgivare", "urlSlug": "designer-formgivare"},
-  {"id": "2181", "name": "Arbetsmiljöingenjörer, yrkes- och miljöhygieniker", "urlSlug": "arbetsmiljöingenjörer"},
-  {"id": "2182", "name": "Miljö- och hälsoskyddsinspektörer", "urlSlug": "miljöinspektörer"},
-  {"id": "2183", "name": "Specialister inom miljöskydd och miljöteknik", "urlSlug": "miljöspecialister"},
-  {"id": "2211", "name": "Specialistläkare", "urlSlug": "specialistläkare"},
-  {"id": "2212", "name": "ST-läkare", "urlSlug": "st-läkare"},
-  {"id": "2213", "name": "AT-läkare", "urlSlug": "at-läkare"},
-  {"id": "2219", "name": "Övriga läkare", "urlSlug": "läkare"},
-  {"id": "2221", "name": "Grundutbildade sjuksköterskor", "urlSlug": "sjuksköterskor"},
-  {"id": "2222", "name": "Barnmorskor", "urlSlug": "barnmorskor"},
-  {"id": "2223", "name": "Anestesisjuksköterskor", "urlSlug": "anestesisjuksköterskor"},
-  {"id": "2224", "name": "Distriktssköterskor", "urlSlug": "distriktssköterskor"},
-  {"id": "2225", "name": "Psykiatrisjuksköterskor", "urlSlug": "psykiatrisjuksköterskor"},
-  {"id": "2226", "name": "Ambulanssjuksköterskor m.fl.", "urlSlug": "ambulanssjuksköterskor"},
-  {"id": "2227", "name": "Geriatriksjuksköterskor", "urlSlug": "geriatriksjuksköterskor"},
-  {"id": "2228", "name": "Intensivvårdssjuksköterskor", "urlSlug": "intensivvårdssjuksköterskor"},
-  {"id": "2231", "name": "Operationssjuksköterskor", "urlSlug": "operationssjuksköterskor"},
-  {"id": "2232", "name": "Barnsjuksköterskor", "urlSlug": "barnsjuksköterskor"},
-  {"id": "2233", "name": "Skolsköterskor", "urlSlug": "skolsköterskor"},
-  {"id": "2234", "name": "Företagssköterskor", "urlSlug": "företagssköterskor"},
-  {"id": "2235", "name": "Röntgensjuksköterskor", "urlSlug": "röntgensjuksköterskor"},
-  {"id": "2239", "name": "Övriga specialistsjuksköterskor", "urlSlug": "specialistsjuksköterskor"},
-  {"id": "2241", "name": "Psykologer", "urlSlug": "psykologer"},
-  {"id": "2242", "name": "Psykoterapeuter", "urlSlug": "psykoterapeuter"},
-  {"id": "2250", "name": "Veterinärer", "urlSlug": "veterinärer"},
-  {"id": "2260", "name": "Tandläkare", "urlSlug": "tandläkare"},
-  {"id": "2271", "name": "Kiropraktorer och naprapater m.fl.", "urlSlug": "kiropraktorer-naprapater"},
-  {"id": "2272", "name": "Fysioterapeuter och sjukgymnaster", "urlSlug": "fysioterapeuter"},
-  {"id": "2273", "name": "Arbetsterapeuter", "urlSlug": "arbetsterapeuter"},
-  {"id": "2281", "name": "Apotekare", "urlSlug": "apotekare"},
-  {"id": "2282", "name": "Dietister", "urlSlug": "dietister"},
-  {"id": "2283", "name": "Audionomer och logopeder", "urlSlug": "audionomer-logopeder"},
-  {"id": "2284", "name": "Optiker", "urlSlug": "optiker"},
-  {"id": "2289", "name": "Övriga specialister inom hälso- och sjukvård", "urlSlug": "hälsospecialister"},
-  {"id": "2311", "name": "Professorer", "urlSlug": "professorer"},
-  {"id": "2312", "name": "Universitets- och högskolelektorer", "urlSlug": "universitetslärarare"},
-  {"id": "2313", "name": "Forskarassistenter m.fl.", "urlSlug": "forskarassistenter"},
-  {"id": "2314", "name": "Doktorander", "urlSlug": "doktorander"},
-  {"id": "2319", "name": "Övriga universitets- och högskolelärare", "urlSlug": "högskolelärare"},
-  {"id": "2320", "name": "Lärare i yrkesämnen", "urlSlug": "yrkeslärare"},
-  {"id": "2330", "name": "Gymnasielärare", "urlSlug": "gymnasielärare"},
-  {"id": "2341", "name": "Grundskollärare", "urlSlug": "grundskollärare"},
-  {"id": "2342", "name": "Fritidspedagoger", "urlSlug": "fritidspedagoger"},
-  {"id": "2343", "name": "Förskollärare", "urlSlug": "förskollärare"},
-  {"id": "2351", "name": "Speciallärare och specialpedagoger m.fl.", "urlSlug": "speciallärare"},
-  {"id": "2352", "name": "Studie- och yrkesvägledare", "urlSlug": "studievägledare"},
-  {"id": "2359", "name": "Övriga pedagoger med teoretisk specialistkompetens", "urlSlug": "pedagoger-specialister"},
-  {"id": "2411", "name": "Revisorer m.fl.", "urlSlug": "revisorer"},
-  {"id": "2412", "name": "Controller", "urlSlug": "controller"},
-  {"id": "2413", "name": "Finansanalytiker och investeringsrådgivare m.fl.", "urlSlug": "finansanalytiker"},
-  {"id": "2414", "name": "Traders och fondförvaltare", "urlSlug": "traders-fondförvaltare"},
-  {"id": "2415", "name": "Nationalekonomer och makroanalytiker m.fl.", "urlSlug": "nationalekonomer"},
-  {"id": "2419", "name": "Övriga ekonomer", "urlSlug": "ekonomer"},
-  {"id": "2421", "name": "Lednings- och organisationsutvecklare", "urlSlug": "organisationsutvecklare"},
-  {"id": "2422", "name": "Planerare och utredare m.fl.", "urlSlug": "planerare-utredare"},
-  {"id": "2423", "name": "Personal- och HR-specialister", "urlSlug": "hr-specialister"},
-  {"id": "2431", "name": "Marknadsanalytiker och marknadsförare m.fl.", "urlSlug": "marknadsanalytiker"},
-  {"id": "2432", "name": "Informatörer, kommunikatörer och PR-specialister", "urlSlug": "informatörer-kommunikatörer"},
-  {"id": "2511", "name": "Systemanalytiker och IT-arkitekter m.fl.", "urlSlug": "systemanalytiker"},
-  {"id": "2512", "name": "Mjukvaru- och systemutvecklare m.fl.", "urlSlug": "mjukvaru-systemutvecklare"},
-  {"id": "2513", "name": "Utvecklare inom spel och digitala media", "urlSlug": "spelutvecklare"},
-  {"id": "2514", "name": "Systemtestare och testledare", "urlSlug": "systemtestare"},
-  {"id": "2515", "name": "Systemförvaltare m.fl.", "urlSlug": "systemförvaltare"},
-  {"id": "2516", "name": "IT-säkerhetsspecialister", "urlSlug": "it-säkerhetsspecialister"},
-  {"id": "2519", "name": "Övriga IT-specialister", "urlSlug": "it-specialister"},
-  {"id": "2611", "name": "Advokater", "urlSlug": "advokater"},
-  {"id": "2612", "name": "Domare", "urlSlug": "domare"},
-  {"id": "2613", "name": "Åklagare", "urlSlug": "åklagare"},
-  {"id": "2614", "name": "Affärs- och företagsjurister", "urlSlug": "företagsjurister"},
-  {"id": "2615", "name": "Förvaltnings- och organisationsjurister", "urlSlug": "förvaltningsjurister"},
-  {"id": "2619", "name": "Övriga jurister", "urlSlug": "jurister"},
-  {"id": "2621", "name": "Museiintendenter m.fl.", "urlSlug": "museiintendenter"},
-  {"id": "2622", "name": "Bibliotekarier och arkivarier", "urlSlug": "bibliotekarier"},
-  {"id": "2623", "name": "Arkeologer och specialister inom humaniora m.m.", "urlSlug": "arkeologer"},
-  {"id": "2641", "name": "Författare m.fl.", "urlSlug": "författare"},
-  {"id": "2642", "name": "Journalister m.fl.", "urlSlug": "journalister"},
-  {"id": "2643", "name": "Översättare, tolkar och lingvister m.fl.", "urlSlug": "översättare-tolkar"},
-  {"id": "2651", "name": "Bildkonstnärer m.fl.", "urlSlug": "bildkonstnärer"},
-  {"id": "2652", "name": "Musiker, sångare och kompositörer", "urlSlug": "musiker-sångare"},
-  {"id": "2653", "name": "Koreografer och dansare", "urlSlug": "koreografer-dansare"},
-  {"id": "2654", "name": "Regissörer och producenter av film, teater m.m.", "urlSlug": "regissörer-producenter"},
-  {"id": "2655", "name": "Skådespelare", "urlSlug": "skådespelare"},
-  {"id": "2661", "name": "Socialsekreterare", "urlSlug": "socialsekreterare"},
-  {"id": "2662", "name": "Kuratorer", "urlSlug": "kuratorer"},
-  {"id": "2663", "name": "Biståndsbedömare m.fl.", "urlSlug": "biståndsbedömare"},
-  {"id": "2669", "name": "Övriga yrken inom socialt arbete", "urlSlug": "socialt-arbete"},
-  {"id": "2671", "name": "Präster", "urlSlug": "präster"},
-  {"id": "2672", "name": "Diakoner", "urlSlug": "diakoner"},
-  {"id": "310", "name": "Soldater m.fl.", "urlSlug": "soldater"},
-  {"id": "3111", "name": "Ingenjörer och tekniker inom industri, logistik och produktionsplanering", "urlSlug": "ingenjörer-industri"},
-  {"id": "3112", "name": "Ingenjörer och tekniker inom bygg och anläggning", "urlSlug": "ingenjörer-bygg"},
-  {"id": "3113", "name": "Ingenjörer och tekniker inom elektroteknik", "urlSlug": "ingenjörer-elektro"},
-  {"id": "3114", "name": "Ingenjörer och tekniker inom maskinteknik", "urlSlug": "ingenjörer-maskin"},
-  {"id": "3115", "name": "Ingenjörer och tekniker inom kemi och kemiteknik", "urlSlug": "ingenjörer-kemi"},
-  {"id": "3116", "name": "Ingenjörer och tekniker inom gruvteknik och metallurgi", "urlSlug": "ingenjörer-gruva"},
-  {"id": "3117", "name": "GIS- och kartingenjörer", "urlSlug": "gis-kartingenjörer"},
-  {"id": "3119", "name": "Övriga ingenjörer och tekniker", "urlSlug": "ingenjörer-tekniker"},
-  {"id": "3121", "name": "Arbetsledare inom bygg, anläggning och gruva", "urlSlug": "arbetsledare-bygg"},
-  {"id": "3122", "name": "Arbetsledare inom tillverkning", "urlSlug": "arbetsledare-tillverkning"},
-  {"id": "3151", "name": "Maskinbefäl", "urlSlug": "maskinbefäl"},
-  {"id": "3152", "name": "Fartygsbefäl m.fl.", "urlSlug": "fartygsbefäl"},
-  {"id": "3153", "name": "Piloter m.fl.", "urlSlug": "piloter"},
-  {"id": "3154", "name": "Flygledare", "urlSlug": "flygledare"},
-  {"id": "3155", "name": "Flygtekniker", "urlSlug": "flygtekniker"},
-  {"id": "3211", "name": "Tekniker, bilddiagnostik och medicinteknisk utrustning", "urlSlug": "bilddiagnostik-tekniker"},
-  {"id": "3212", "name": "Biomedicinska analytiker m.fl.", "urlSlug": "biomedicinska-analytiker"},
-  {"id": "3213", "name": "Receptarier", "urlSlug": "receptarier"},
-  {"id": "3214", "name": "Tandtekniker och ortopedingenjörer m.fl.", "urlSlug": "tandtekniker"},
-  {"id": "3215", "name": "Laboratorieingenjörer", "urlSlug": "laboratorieingenjörer"},
-  {"id": "3230", "name": "Terapeuter inom alternativmedicin", "urlSlug": "alternativmedicin-terapeuter"},
-  {"id": "3240", "name": "Djursjukskötare m.fl.", "urlSlug": "djursjukskötare"},
-  {"id": "3250", "name": "Tandhygienister", "urlSlug": "tandhygienister"},
-  {"id": "3311", "name": "Mäklare inom finans", "urlSlug": "finansmäklare"},
-  {"id": "3312", "name": "Banktjänstemän", "urlSlug": "banktjänstemän"},
-  {"id": "3313", "name": "Redovisningsekonomer", "urlSlug": "redovisningsekonomer"},
-  {"id": "3314", "name": "Skadereglerare och värderare", "urlSlug": "skadereglerare"},
-  {"id": "3321", "name": "Försäkringssäljare och försäkringsrådgivare", "urlSlug": "försäkringssäljare"},
-  {"id": "3322", "name": "Företagssäljare", "urlSlug": "företagssäljare"},
-  {"id": "3323", "name": "Inköpare och upphandlare", "urlSlug": "inköpare"},
-  {"id": "3324", "name": "Ordersamordnare m.fl.", "urlSlug": "ordersamordnare"},
-  {"id": "3331", "name": "Speditörer och transportmäklare", "urlSlug": "speditörer"},
-  {"id": "3332", "name": "Evenemangs- och reseproducenter m.fl.", "urlSlug": "evenemangsproducenter"},
-  {"id": "3333", "name": "Arbetsförmedlare", "urlSlug": "arbetsförmedlare"},
-  {"id": "3334", "name": "Fastighetsmäklare", "urlSlug": "fastighetsmäklare"},
-  {"id": "3335", "name": "Fastighetsförvaltare", "urlSlug": "fastighetsförvaltare"},
-  {"id": "3339", "name": "Övriga förmedlare", "urlSlug": "förmedlare"},
-  {"id": "3341", "name": "Gruppledare för kontorspersonal", "urlSlug": "gruppledare-kontor"},
-  {"id": "3342", "name": "Domstols- och juristsekreterare m.fl.", "urlSlug": "domstolssekreterare"},
-  {"id": "3343", "name": "Chefssekreterare och VD-assistenter m.fl.", "urlSlug": "chefssekreterare"},
-  {"id": "3351", "name": "Tull- och kustbevakningstjänstemän", "urlSlug": "tull-kustbevakning"},
-  {"id": "3352", "name": "Skattehandläggare", "urlSlug": "skattehandläggare"},
-  {"id": "3353", "name": "Socialförsäkringshandläggare", "urlSlug": "socialförsäkringshandläggare"},
-  {"id": "3354", "name": "Säkerhetsinspektörer m.fl.", "urlSlug": "säkerhetsinspektörer"},
-  {"id": "3355", "name": "Brandingenjörer och byggnadsinspektörer m.fl.", "urlSlug": "brandingenjörer"},
-  {"id": "3359", "name": "Övriga handläggare", "urlSlug": "handläggare"},
-  {"id": "3360", "name": "Poliser", "urlSlug": "poliser"},
-  {"id": "3411", "name": "Behandlingsassistenter och socialpedagoger m.fl.", "urlSlug": "behandlingsassistenter"},
-  {"id": "3412", "name": "Pastorer m.fl.", "urlSlug": "pastorer"},
-  {"id": "3421", "name": "Professionella idrottsutövare", "urlSlug": "idrottsutövare"},
-  {"id": "3422", "name": "Idrottstränare och instruktörer m.fl.", "urlSlug": "idrottstränare"},
-  {"id": "3423", "name": "Fritidsledare m.fl.", "urlSlug": "fritidsledare"},
-  {"id": "3424", "name": "Friskvårdskonsulenter och hälsopedagoger m.fl.", "urlSlug": "friskvårdskonsulenter"},
-  {"id": "3431", "name": "Fotografer", "urlSlug": "fotografer"},
-  {"id": "3432", "name": "Inredare, dekoratörer och scenografer m.fl.", "urlSlug": "inredare"},
-  {"id": "3433", "name": "Inspicienter och scriptor m.fl.", "urlSlug": "inspicienter"},
-  {"id": "3439", "name": "Övriga yrken inom kultur och underhållning", "urlSlug": "kultur-underhållning"},
-  {"id": "3441", "name": "Trafiklärare", "urlSlug": "trafiklärare"},
-  {"id": "3449", "name": "Övriga utbildare och instruktörer", "urlSlug": "utbildare-instruktörer"},
-  {"id": "3451", "name": "Köksmästare och souschefer", "urlSlug": "köksmästare"},
-  {"id": "3452", "name": "Storhushållsföreståndare", "urlSlug": "storhushållsföreståndare"},
-  {"id": "3511", "name": "Drifttekniker, IT", "urlSlug": "drifttekniker-it"},
-  {"id": "3512", "name": "Supporttekniker, IT", "urlSlug": "supporttekniker-it"},
-  {"id": "3513", "name": "Systemadministratörer", "urlSlug": "systemadministratörer"},
-  {"id": "3514", "name": "Nätverks- och systemtekniker m.fl.", "urlSlug": "nätverkstekniker"},
-  {"id": "3515", "name": "Webbmaster och webbadministratörer", "urlSlug": "webbmaster"},
-  {"id": "3521", "name": "Bild- och sändningstekniker", "urlSlug": "sändningstekniker"},
-  {"id": "3522", "name": "Ljus-, ljud- och scentekniker", "urlSlug": "ljud-ljustekniker"},
-  {"id": "4111", "name": "Ekonomiassistenter m.fl.", "urlSlug": "ekonomiassistenter"},
-  {"id": "4112", "name": "Löne- och personaladministratörer", "urlSlug": "löneadministratörer"},
-  {"id": "4113", "name": "Backofficepersonal m.fl.", "urlSlug": "backofficepersonal"},
-  {"id": "4114", "name": "Marknads- och försäljningsassistenter", "urlSlug": "marknadsassistenter"},
-  {"id": "4115", "name": "Inköps- och orderassistenter", "urlSlug": "inköpsassistenter"},
-  {"id": "4116", "name": "Skolassistenter m.fl.", "urlSlug": "skolassistenter"},
-  {"id": "4117", "name": "Medicinska sekreterare, vårdadministratörer m.fl.", "urlSlug": "medicinska-sekreterare"},
-  {"id": "4119", "name": "Övriga kontorsassistenter och sekreterare", "urlSlug": "kontorsassistenter"},
-  {"id": "4211", "name": "Croupierer och oddssättare m.fl.", "urlSlug": "croupierer"},
-  {"id": "4212", "name": "Inkasserare och pantlånare m.fl.", "urlSlug": "inkasserare"},
-  {"id": "4221", "name": "Resesäljare och trafikassistenter m.fl.", "urlSlug": "resesäljare"},
-  {"id": "4222", "name": "Kundtjänstpersonal", "urlSlug": "kundtjänstpersonal"},
-  {"id": "4223", "name": "Telefonister", "urlSlug": "telefonister"},
-  {"id": "4224", "name": "Hotellreceptionister m.fl.", "urlSlug": "hotellreceptionister"},
-  {"id": "4225", "name": "Kontorsreceptionister", "urlSlug": "kontorsreceptionister"},
-  {"id": "4226", "name": "Marknadsundersökare och intervjuare", "urlSlug": "marknadsundersökare"},
-  {"id": "4321", "name": "Arbetsledare inom lager och terminal", "urlSlug": "lagerchefer"},
-  {"id": "4322", "name": "Lager- och terminalpersonal", "urlSlug": "lagerpersonal"},
-  {"id": "4323", "name": "Transportledare och transportsamordnare", "urlSlug": "transportledare"},
-  {"id": "4410", "name": "Arkiv- och biblioteksassistenter m.fl.", "urlSlug": "arkivassistenter"},
-  {"id": "4420", "name": "Brevbärare och postterminalarbetare", "urlSlug": "brevbärare"},
-  {"id": "5111", "name": "Kabinpersonal m.fl.", "urlSlug": "kabinpersonal"},
-  {"id": "5112", "name": "Tågvärdar och ombordansvariga m.fl.", "urlSlug": "tågvärdar"},
-  {"id": "5113", "name": "Guider och reseledare", "urlSlug": "guider-reseledare"},
-  {"id": "5120", "name": "Kockar och kallskänkor", "urlSlug": "kockar"},
-  {"id": "5131", "name": "Hovmästare och servitörer", "urlSlug": "hovmästare-servitörer"},
-  {"id": "5132", "name": "Bartendrar", "urlSlug": "bartendrar"},
-  {"id": "5141", "name": "Frisörer", "urlSlug": "frisörer"},
-  {"id": "5142", "name": "Hudterapeuter", "urlSlug": "hudterapeuter"},
-  {"id": "5143", "name": "Massörer och massageterapeuter", "urlSlug": "massörer"},
-  {"id": "5144", "name": "Fotterapeuter", "urlSlug": "fotterapeuter"},
-  {"id": "5149", "name": "Övriga skönhets- och kroppsterapeuter", "urlSlug": "skönhetsterapeuter"},
-  {"id": "5151", "name": "Städledare och husfruar", "urlSlug": "städledare"},
-  {"id": "5152", "name": "Fastighetsskötare", "urlSlug": "fastighetsskötare"},
-  {"id": "5161", "name": "Begravnings- och krematoriepersonal", "urlSlug": "begravningspersonal"},
-  {"id": "5169", "name": "Övrig servicepersonal", "urlSlug": "servicepersonal"},
-  {"id": "5221", "name": "Säljande butikschefer och avdelningschefer i butik", "urlSlug": "butikschefer"},
-  {"id": "5222", "name": "Butikssäljare, dagligvaror", "urlSlug": "butikssäljare-dagligvaror"},
-  {"id": "5223", "name": "Butikssäljare, fackhandel", "urlSlug": "butikssäljare-fackhandel"},
-  {"id": "5224", "name": "Optikerassistenter", "urlSlug": "optikerassistenter"},
-  {"id": "5225", "name": "Bensinstationspersonal", "urlSlug": "bensinstationspersonal"},
-  {"id": "5226", "name": "Uthyrare", "urlSlug": "uthyrare"},
-  {"id": "5227", "name": "Apotekstekniker", "urlSlug": "apotekstekniker"},
-  {"id": "5230", "name": "Kassapersonal m.fl.", "urlSlug": "kassapersonal"},
-  {"id": "5241", "name": "Eventsäljare och butiksdemonstratörer m.fl.", "urlSlug": "eventsäljare"},
-  {"id": "5242", "name": "Telefonförsäljare m.fl.", "urlSlug": "telefonförsäljare"},
-  {"id": "5311", "name": "Barnskötare", "urlSlug": "barnskötare"},
-  {"id": "5312", "name": "Elevassistenter m.fl.", "urlSlug": "elevassistenter"},
-  {"id": "5321", "name": "Undersköterskor, hemtjänst, hemsjukvård, äldreboende och habilitering", "urlSlug": "undersköterskor-hemtjänst"},
-  {"id": "5323", "name": "Undersköterskor, vård- och specialavdelning och mottagning", "urlSlug": "undersköterskor-vård"},
-  {"id": "5325", "name": "Barnsköterskor", "urlSlug": "barnsköterskor"},
-  {"id": "5326", "name": "Ambulanssjukvårdare", "urlSlug": "ambulanssjukvårdare"},
-  {"id": "5330", "name": "Vårdbiträden", "urlSlug": "vårdbiträden"},
-  {"id": "5341", "name": "Skötare", "urlSlug": "skötare"},
-  {"id": "5342", "name": "Vårdare, boendestödjare", "urlSlug": "vårdare"},
-  {"id": "5343", "name": "Personliga assistenter", "urlSlug": "personliga-assistenter"},
-  {"id": "5349", "name": "Övrig vård- och omsorgspersonal", "urlSlug": "vård-omsorgspersonal"},
-  {"id": "5350", "name": "Tandsköterskor", "urlSlug": "tandsköterskor"},
-  {"id": "5411", "name": "Brandmän", "urlSlug": "brandmän"},
-  {"id": "5412", "name": "Kriminalvårdare", "urlSlug": "kriminalvårdare"},
-  {"id": "5413", "name": "Väktare och ordningsvakter", "urlSlug": "väktare"},
-  {"id": "5414", "name": "SOS-operatörer m.fl.", "urlSlug": "sos-operatörer"},
-  {"id": "5419", "name": "Övrig bevaknings- och säkerhetspersonal", "urlSlug": "bevakningspersonal"},
-  {"id": "6111", "name": "Odlare av jordbruksväxter, frukt och bär", "urlSlug": "jordbruksodlare"},
-  {"id": "6112", "name": "Trädgårdsodlare", "urlSlug": "trädgårdsodlare"},
-  {"id": "6113", "name": "Trädgårdsanläggare m.fl.", "urlSlug": "trädgårdsanläggare"},
-  {"id": "6121", "name": "Uppfödare och skötare av lantbrukets husdjur", "urlSlug": "lantbruksdjur-skötare"},
-  {"id": "6122", "name": "Uppfödare och skötare av sällskapsdjur", "urlSlug": "sällskapsdjur-skötare"},
-  {"id": "6129", "name": "Övriga djuruppfödare och djurskötare", "urlSlug": "djuruppfödare"},
-  {"id": "6130", "name": "Växtodlare och djuruppfödare, blandad drift", "urlSlug": "växtodlare-djuruppfödare"},
-  {"id": "6210", "name": "Skogsarbetare", "urlSlug": "skogsarbetare"},
-  {"id": "6221", "name": "Fiskodlare", "urlSlug": "fiskodlare"},
-  {"id": "6222", "name": "Fiskare", "urlSlug": "fiskare"},
-  {"id": "7111", "name": "Träarbetare, snickare m.fl.", "urlSlug": "träarbetare-snickare"},
-  {"id": "7112", "name": "Murare m.fl.", "urlSlug": "murare"},
-  {"id": "7113", "name": "Betongarbetare", "urlSlug": "betongarbetare"},
-  {"id": "7114", "name": "Anläggningsarbetare", "urlSlug": "anläggningsarbetare"},
-  {"id": "7115", "name": "Anläggningsdykare", "urlSlug": "anläggningsdykare"},
-  {"id": "7116", "name": "Ställningsbyggare", "urlSlug": "ställningsbyggare"},
-  {"id": "7119", "name": "Övriga byggnads- och anläggningsarbetare", "urlSlug": "byggnadsarbetare"},
-  {"id": "7121", "name": "Takmontörer", "urlSlug": "takmontörer"},
-  {"id": "7122", "name": "Golvläggare", "urlSlug": "golvläggare"},
-  {"id": "7123", "name": "Isoleringsmontörer", "urlSlug": "isoleringsmontörer"},
-  {"id": "7124", "name": "Glastekniker", "urlSlug": "glastekniker"},
-  {"id": "7125", "name": "VVS-montörer m.fl.", "urlSlug": "vvs-montörer"},
-  {"id": "7126", "name": "Kyl- och värmepumpstekniker m.fl.", "urlSlug": "kyl-värmepumpstekniker"},
-  {"id": "7131", "name": "Målare", "urlSlug": "målare"},
-  {"id": "7132", "name": "Lackerare och industrimålare", "urlSlug": "lackerare"},
-  {"id": "7133", "name": "Skorstensfejare", "urlSlug": "skorstensfejare"},
-  {"id": "7134", "name": "Saneringsarbetare m.fl.", "urlSlug": "saneringsarbetare"},
-  {"id": "7211", "name": "Gjutare", "urlSlug": "gjutare"},
-  {"id": "7212", "name": "Svetsare och gasskärare", "urlSlug": "svetsare"},
-  {"id": "7213", "name": "Byggnads- och ventilationsplåtslagare", "urlSlug": "plåtslagare-ventilation"},
-  {"id": "7214", "name": "Tunnplåtslagare", "urlSlug": "tunnplåtslagare"},
-  {"id": "7215", "name": "Stålkonstruktionsmontörer och grovplåtsslagare", "urlSlug": "stålkonstruktionsmontörer"},
-  {"id": "7221", "name": "Smeder", "urlSlug": "smeder"},
-  {"id": "7222", "name": "Verktygsmakare", "urlSlug": "verktygsmakare"},
-  {"id": "7223", "name": "Maskinställare och maskinoperatörer, metallarbete", "urlSlug": "maskinställare-metall"},
-  {"id": "7224", "name": "Slipare m.fl.", "urlSlug": "slipare"},
-  {"id": "7231", "name": "Motorfordonsmekaniker och fordonsreparatörer", "urlSlug": "bilmekaniker"},
-  {"id": "7232", "name": "Flygmekaniker m.fl.", "urlSlug": "flygmekaniker"},
-  {"id": "7233", "name": "Underhållsmekaniker och maskinreparatörer", "urlSlug": "underhållsmekaniker"},
-  {"id": "7311", "name": "Finmekaniker", "urlSlug": "finmekaniker"},
-  {"id": "7312", "name": "Guld- och silversmeder", "urlSlug": "guldsmed-silversmeder"},
-  {"id": "7319", "name": "Musikinstrumentmakare och övriga konsthantverkare", "urlSlug": "musikinstrumentmakare"},
-  {"id": "7321", "name": "Prepresstekniker", "urlSlug": "prepresstekniker"},
-  {"id": "7322", "name": "Tryckare", "urlSlug": "tryckare"},
-  {"id": "7323", "name": "Bokbindare m.fl.", "urlSlug": "bokbindare"},
-  {"id": "7411", "name": "Installations- och serviceelektriker", "urlSlug": "installationselektriker"},
-  {"id": "7412", "name": "Industrielektriker", "urlSlug": "industrielektriker"},
-  {"id": "7413", "name": "Distributionselektriker", "urlSlug": "distributionselektriker"},
-  {"id": "7420", "name": "Elektronikreparatörer och kommunikationselektriker m.fl.", "urlSlug": "elektronikreparatörer"},
-  {"id": "7521", "name": "Manuella ytbehandlare, trä", "urlSlug": "ytbehandlare-trä"},
-  {"id": "7522", "name": "Fin-, inrednings- och möbelsnickare", "urlSlug": "möbelsnickare"},
-  {"id": "7523", "name": "Maskinsnickare och maskinoperatörer, träindustri", "urlSlug": "maskinsnickare"},
-  {"id": "7531", "name": "Skräddare och ateljésömmerskor m.fl.", "urlSlug": "skräddare"},
-  {"id": "7532", "name": "Sömmare", "urlSlug": "sömmare"},
-  {"id": "7533", "name": "Tapetserare", "urlSlug": "tapetserare"},
-  {"id": "7534", "name": "Läderhantverkare och skomakare", "urlSlug": "läderhantverkare-skomakare"},
-  {"id": "7611", "name": "Slaktare och styckare m.fl.", "urlSlug": "slaktare"},
-  {"id": "7612", "name": "Bagare och konditorer", "urlSlug": "bagare-konditorer"},
-  {"id": "7613", "name": "Provsmakare och kvalitetsbedömare", "urlSlug": "provsmakare"},
-  {"id": "8111", "name": "Gruv- och stenbrottsarbetare", "urlSlug": "gruvarbetare"},
-  {"id": "8112", "name": "Processoperatörer, stenkross- och malmförädling", "urlSlug": "processoperatörer-malmförädling"},
-  {"id": "8113", "name": "Brunnsborrare m.fl.", "urlSlug": "brunnsborrare"},
-  {"id": "8114", "name": "Maskinoperatörer, cement-, sten- och betongvaror", "urlSlug": "maskinoperatörer-cement"},
-  {"id": "8115", "name": "Bergsprängare", "urlSlug": "bergsprängare"},
-  {"id": "8116", "name": "Stenhuggare m.fl.", "urlSlug": "stenhuggare"},
-  {"id": "8121", "name": "Maskinoperatörer, ytbehandling", "urlSlug": "maskinoperatörer-ytbehandling"},
-  {"id": "8122", "name": "Valsverksoperatörer", "urlSlug": "valsverksoperatörer"},
-  {"id": "8129", "name": "Övriga maskin- och processoperatörer vid stål- och metallverk", "urlSlug": "maskinoperatörer-stål"},
-  {"id": "8131", "name": "Maskinoperatörer, farmaceutiska produkter", "urlSlug": "maskinoperatörer-farmaceutiska"},
-  {"id": "8132", "name": "Maskinoperatörer, kemisktekniska och fotografiska produkter", "urlSlug": "maskinoperatörer-kemiska"},
-  {"id": "8141", "name": "Maskinoperatörer, gummiindustri", "urlSlug": "maskinoperatörer-gummi"},
-  {"id": "8142", "name": "Maskinoperatörer, plastindustri", "urlSlug": "maskinoperatörer-plast"},
-  {"id": "8143", "name": "Maskinoperatörer, pappersvaruindustri", "urlSlug": "maskinoperatörer-pappersvaror"},
-  {"id": "8151", "name": "Maskinoperatörer, blekning, färgning och tvättning", "urlSlug": "maskinoperatörer-blekning"},
-  {"id": "8159", "name": "Övriga maskinoperatörer, textil-, skinn- och läderindustri", "urlSlug": "maskinoperatörer-textil"},
-  {"id": "8161", "name": "Maskinoperatörer, kött- och fiskberedningsindustri", "urlSlug": "maskinoperatörer-kött"},
-  {"id": "8162", "name": "Maskinoperatörer, mejeri", "urlSlug": "maskinoperatörer-mejeri"},
-  {"id": "8163", "name": "Maskinoperatörer, kvarn-, bageri- och konfektyrindustri", "urlSlug": "maskinoperatörer-bageri"},
-  {"id": "8169", "name": "Övriga maskinoperatörer, livsmedelsindustri m.m.", "urlSlug": "maskinoperatörer-livsmedel"},
-  {"id": "8171", "name": "Processoperatörer, pappersmassa", "urlSlug": "processoperatörer-pappersmassa"},
-  {"id": "8172", "name": "Processoperatörer, papper", "urlSlug": "processoperatörer-papper"},
-  {"id": "8173", "name": "Operatörer inom sågverk, hyvleri och plywood m.m.", "urlSlug": "operatörer-sågverk"},
-  {"id": "8174", "name": "Maskinoperatörer inom ytbehandling, trä", "urlSlug": "maskinoperatörer-träytbehandling"},
-  {"id": "8181", "name": "Maskinoperatörer, påfyllning, packning och märkning", "urlSlug": "maskinoperatörer-packning"},
-  {"id": "8189", "name": "Övriga process- och maskinoperatörer", "urlSlug": "processoperatörer"},
-  {"id": "8191", "name": "Drifttekniker vid värme- och vattenverk", "urlSlug": "drifttekniker-värme"},
-  {"id": "8192", "name": "Processövervakare, kemisk industri", "urlSlug": "processövervakare-kemi"},
-  {"id": "8193", "name": "Processövervakare, metallproduktion", "urlSlug": "processövervakare-metall"},
-  {"id": "8199", "name": "Övriga drifttekniker och processövervakare", "urlSlug": "drifttekniker-processövervakare"},
-  {"id": "8211", "name": "Fordonsmontörer", "urlSlug": "fordonsmontörer"},
-  {"id": "8212", "name": "Montörer, elektrisk och elektronisk utrustning", "urlSlug": "montörer-elektronik"},
-  {"id": "8213", "name": "Montörer, metall-, gummi- och plastprodukter", "urlSlug": "montörer-metall"},
-  {"id": "8214", "name": "Montörer, träprodukter", "urlSlug": "montörer-trä"},
-  {"id": "8219", "name": "Övriga montörer", "urlSlug": "montörer"},
-  {"id": "8311", "name": "Lokförare", "urlSlug": "lokförare"},
-  {"id": "8312", "name": "Bangårdspersonal", "urlSlug": "bangårdspersonal"},
-  {"id": "8321", "name": "Taxiförare m.fl.", "urlSlug": "taxiförare"},
-  {"id": "8329", "name": "Övriga bil-, motorcykel- och cykelförare", "urlSlug": "bilförare"},
-  {"id": "8331", "name": "Buss- och spårvagnsförare", "urlSlug": "bussförare"},
-  {"id": "8332", "name": "Lastbilsförare m.fl.", "urlSlug": "lastbilsförare"},
-  {"id": "8341", "name": "Förare av jordbruks- och skogsmaskiner", "urlSlug": "jordbruksmaskinförare"},
-  {"id": "8342", "name": "Anläggningsmaskinförare m.fl.", "urlSlug": "anläggningsmaskinförare"},
-  {"id": "8343", "name": "Kranförare m.fl.", "urlSlug": "kranförare"},
-  {"id": "8344", "name": "Truckförare", "urlSlug": "truckförare"},
-  {"id": "8350", "name": "Matroser och jungmän m.fl.", "urlSlug": "matroser"},
-  {"id": "9111", "name": "Städare", "urlSlug": "städare"},
-  {"id": "9119", "name": "Övrig hemservicepersonal m.fl.", "urlSlug": "hemservicepersonal"},
-  {"id": "9120", "name": "Bilrekonditionerare, fönsterputsare m.fl.", "urlSlug": "bilrekonditionerare"},
-  {"id": "9210", "name": "Bärplockare och plantörer m.fl.", "urlSlug": "bärplockare"},
-  {"id": "9310", "name": "Grovarbetare inom bygg och anläggning", "urlSlug": "grovarbetare-bygg"},
-  {"id": "9320", "name": "Handpaketerare och andra fabriksarbetare", "urlSlug": "handpaketerare"},
-  {"id": "9331", "name": "Hamnarbetare", "urlSlug": "hamnarbetare"},
-  {"id": "9332", "name": "Ramppersonal, flyttkarlar och varupåfyllare m.fl.", "urlSlug": "ramppersonal"},
-  {"id": "9411", "name": "Pizzabagare m.fl.", "urlSlug": "pizzabagare"},
-  {"id": "9412", "name": "Restaurang- och köksbiträden m.fl.", "urlSlug": "restaurangbiträden"},
-  {"id": "9413", "name": "Kafé- och konditoribiträden", "urlSlug": "kafébiträden"},
-  {"id": "9520", "name": "Torg- och marknadsförsäljare m.fl.", "urlSlug": "torgförsäljare"},
-  {"id": "9610", "name": "Renhållnings- och återvinningsarbetare", "urlSlug": "renhållningsarbetare"},
-  {"id": "9621", "name": "Reklamutdelare och tidningsdistributörer", "urlSlug": "reklamutdelare"},
-  {"id": "9622", "name": "Vaktmästare m.fl.", "urlSlug": "vaktmästare"},
-  {"id": "9629", "name": "Övriga servicearbetare", "urlSlug": "servicearbetare"}
+  { "id": "110", "name": "Officerare", "urlSlug": "officerare" },
+  { "id": "1111", "name": "Politiker", "urlSlug": "politiker" },
+  {
+    "id": "1112",
+    "name": "General-, landstings- och kommundirektörer m.fl.",
+    "urlSlug": "generaldirektorer"
+  },
+  {
+    "id": "1113",
+    "name": "Chefstjänstemän i intresseorganisationer",
+    "urlSlug": "chefstjanstemän-intresseorganisationer"
+  },
+  {
+    "id": "1120",
+    "name": "Verkställande direktörer m.fl.",
+    "urlSlug": "verkställande-direktörer"
+  },
+  {
+    "id": "1210",
+    "name": "Ekonomi- och finanschefer",
+    "urlSlug": "ekonomichefer"
+  },
+  { "id": "1220", "name": "Personal- och HR-chefer", "urlSlug": "hr-chefer" },
+  {
+    "id": "1230",
+    "name": "Förvaltnings- och planeringschefer",
+    "urlSlug": "förvaltningschefer"
+  },
+  {
+    "id": "1240",
+    "name": "Informations-, kommunikations- och PR-chefer",
+    "urlSlug": "kommunikationschefer"
+  },
+  {
+    "id": "1250",
+    "name": "Försäljnings- och marknadschefer",
+    "urlSlug": "försäljningschefer"
+  },
+  {
+    "id": "1290",
+    "name": "Övriga administrations- och servicechefer",
+    "urlSlug": "administrationschefer"
+  },
+  { "id": "1310", "name": "IT-chefer", "urlSlug": "it-chefer" },
+  {
+    "id": "1320",
+    "name": "Inköps-, logistik- och transportchefer",
+    "urlSlug": "logistikchefer"
+  },
+  {
+    "id": "1330",
+    "name": "Forsknings- och utvecklingschefer#",
+    "urlSlug": "utvecklingschefer"
+  },
+  {
+    "id": "1340",
+    "name": "Chefer inom arkitekt- och ingenjörsverksamhet",
+    "urlSlug": "arkitekt-ingenjörschefer"
+  },
+  {
+    "id": "1350",
+    "name": "Fastighets- och förvaltningschefer",
+    "urlSlug": "fastighetschefer"
+  },
+  {
+    "id": "1360",
+    "name": "Driftchefer inom bygg, anläggning och gruva",
+    "urlSlug": "driftchefer-bygg"
+  },
+  {
+    "id": "1370",
+    "name": "Produktionschefer inom tillverkning",
+    "urlSlug": "produktionschefer"
+  },
+  {
+    "id": "1380",
+    "name": "Förvaltare inom skogsbruk och lantbruk m.fl.",
+    "urlSlug": "skogsbruk-lantbruk"
+  },
+  {
+    "id": "1410",
+    "name": "Chefer inom grund- och gymnasieskola samt vuxenutbildning",
+    "urlSlug": "skolchefer"
+  },
+  {
+    "id": "1420",
+    "name": "Chefer inom förskoleverksamhet",
+    "urlSlug": "förskolechefer"
+  },
+  {
+    "id": "1490",
+    "name": "Övriga chefer inom utbildning",
+    "urlSlug": "utbildningschefer"
+  },
+  {
+    "id": "1510",
+    "name": "Chefer inom hälso- och sjukvård",
+    "urlSlug": "sjukvårdschefer"
+  },
+  {
+    "id": "1520",
+    "name": "Chefer inom socialt och kurativt arbete",
+    "urlSlug": "sociala-chefer"
+  },
+  {
+    "id": "1530",
+    "name": "Chefer inom äldreomsorg",
+    "urlSlug": "äldreomsorgschefer"
+  },
+  {
+    "id": "1540",
+    "name": "Chefer och ledare inom trossamfund",
+    "urlSlug": "trossamfundsledare"
+  },
+  {
+    "id": "1590",
+    "name": "Övriga chefer inom samhällsservice",
+    "urlSlug": "samhällsservicechefer"
+  },
+  {
+    "id": "1610",
+    "name": "Chefer inom bank, finans och försäkring",
+    "urlSlug": "finanschefer"
+  },
+  {
+    "id": "1710",
+    "name": "Hotell- och konferenschefer",
+    "urlSlug": "hotellchefer"
+  },
+  {
+    "id": "1720",
+    "name": "Restaurang- och kökschefer",
+    "urlSlug": "restaurangchefer"
+  },
+  { "id": "1730", "name": "Chefer inom handel", "urlSlug": "handelschefer" },
+  {
+    "id": "1740",
+    "name": "Chefer inom friskvård, sport och fritid",
+    "urlSlug": "sportchefer"
+  },
+  {
+    "id": "1790",
+    "name": "Övriga chefer inom övrig servicenäring",
+    "urlSlug": "servicechefer"
+  },
+  {
+    "id": "210",
+    "name": "Specialistofficerare",
+    "urlSlug": "specialistofficerare"
+  },
+  {
+    "id": "2111",
+    "name": "Fysiker och astronomer",
+    "urlSlug": "fysiker-astronomer"
+  },
+  { "id": "2112", "name": "Meteorologer", "urlSlug": "meteorologer" },
+  { "id": "2113", "name": "Kemister", "urlSlug": "kemister" },
+  {
+    "id": "2114",
+    "name": "Geologer och geofysiker m.fl.",
+    "urlSlug": "geologer-geofysiker"
+  },
+  {
+    "id": "2121",
+    "name": "Matematiker och aktuarier",
+    "urlSlug": "matematiker-aktuarier"
+  },
+  { "id": "2122", "name": "Statistiker", "urlSlug": "statistiker" },
+  {
+    "id": "2131",
+    "name": "Cell- och molekylärbiologer m.fl.",
+    "urlSlug": "molekylärbiologer"
+  },
+  { "id": "2132", "name": "Växt- och djurbiologer", "urlSlug": "biologer" },
+  {
+    "id": "2133",
+    "name": "Farmakologer och biomedicinare",
+    "urlSlug": "farmakologer-biomedicinare"
+  },
+  {
+    "id": "2134",
+    "name": "Specialister och rådgivare inom lantbruk m.m.",
+    "urlSlug": "lantbruksspecialister"
+  },
+  {
+    "id": "2135",
+    "name": "Specialister och rådgivare inom skogsbruk",
+    "urlSlug": "skogsbruksspecialister"
+  },
+  {
+    "id": "2141",
+    "name": "Civilingenjörsyrken inom logistik och produktionsplanering",
+    "urlSlug": "civilingenjörer-logistik"
+  },
+  {
+    "id": "2142",
+    "name": "Civilingenjörsyrken inom bygg och anläggning",
+    "urlSlug": "civilingenjörer-bygg"
+  },
+  {
+    "id": "2143",
+    "name": "Civilingenjörsyrken inom elektroteknik",
+    "urlSlug": "civilingenjörer-elektro"
+  },
+  {
+    "id": "2144",
+    "name": "Civilingenjörsyrken inom maskinteknik",
+    "urlSlug": "civilingenjörer-maskin"
+  },
+  {
+    "id": "2145",
+    "name": "Civilingenjörsyrken inom kemi och kemiteknik",
+    "urlSlug": "civilingenjörer-kemi"
+  },
+  {
+    "id": "2146",
+    "name": "Civilingenjörsyrken inom gruvteknik och metallurgi",
+    "urlSlug": "civilingenjörer-gruva"
+  },
+  {
+    "id": "2149",
+    "name": "Övriga civilingenjörsyrken",
+    "urlSlug": "civilingenjörer-övriga"
+  },
+  { "id": "2161", "name": "Arkitekter m.fl.", "urlSlug": "arkitekter" },
+  {
+    "id": "2162",
+    "name": "Landskapsarkitekter",
+    "urlSlug": "landskapsarkitekter"
+  },
+  {
+    "id": "2163",
+    "name": "Planeringsarkitekter m.fl.",
+    "urlSlug": "planeringsarkitekter"
+  },
+  { "id": "2164", "name": "Lantmätare", "urlSlug": "lantmätare" },
+  { "id": "2171", "name": "Industridesigner", "urlSlug": "industridesigner" },
+  {
+    "id": "2172",
+    "name": "Grafiska formgivare m.fl.",
+    "urlSlug": "grafiska-formgivare"
+  },
+  {
+    "id": "2173",
+    "name": "Designer inom spel och digitala medier",
+    "urlSlug": "speldesigner"
+  },
+  {
+    "id": "2179",
+    "name": "Övriga designer och formgivare",
+    "urlSlug": "designer-formgivare"
+  },
+  {
+    "id": "2181",
+    "name": "Arbetsmiljöingenjörer, yrkes- och miljöhygieniker",
+    "urlSlug": "arbetsmiljöingenjörer"
+  },
+  {
+    "id": "2182",
+    "name": "Miljö- och hälsoskyddsinspektörer",
+    "urlSlug": "miljöinspektörer"
+  },
+  {
+    "id": "2183",
+    "name": "Specialister inom miljöskydd och miljöteknik",
+    "urlSlug": "miljöspecialister"
+  },
+  { "id": "2211", "name": "Specialistläkare", "urlSlug": "specialistläkare" },
+  { "id": "2212", "name": "ST-läkare", "urlSlug": "st-läkare" },
+  { "id": "2213", "name": "AT-läkare", "urlSlug": "at-läkare" },
+  { "id": "2219", "name": "Övriga läkare", "urlSlug": "läkare" },
+  {
+    "id": "2221",
+    "name": "Grundutbildade sjuksköterskor",
+    "urlSlug": "sjuksköterskor"
+  },
+  { "id": "2222", "name": "Barnmorskor", "urlSlug": "barnmorskor" },
+  {
+    "id": "2223",
+    "name": "Anestesisjuksköterskor",
+    "urlSlug": "anestesisjuksköterskor"
+  },
+  {
+    "id": "2224",
+    "name": "Distriktssköterskor",
+    "urlSlug": "distriktssköterskor"
+  },
+  {
+    "id": "2225",
+    "name": "Psykiatrisjuksköterskor",
+    "urlSlug": "psykiatrisjuksköterskor"
+  },
+  {
+    "id": "2226",
+    "name": "Ambulanssjuksköterskor m.fl.",
+    "urlSlug": "ambulanssjuksköterskor"
+  },
+  {
+    "id": "2227",
+    "name": "Geriatriksjuksköterskor",
+    "urlSlug": "geriatriksjuksköterskor"
+  },
+  {
+    "id": "2228",
+    "name": "Intensivvårdssjuksköterskor",
+    "urlSlug": "intensivvårdssjuksköterskor"
+  },
+  {
+    "id": "2231",
+    "name": "Operationssjuksköterskor",
+    "urlSlug": "operationssjuksköterskor"
+  },
+  {
+    "id": "2232",
+    "name": "Barnsjuksköterskor",
+    "urlSlug": "barnsjuksköterskor"
+  },
+  { "id": "2233", "name": "Skolsköterskor", "urlSlug": "skolsköterskor" },
+  {
+    "id": "2234",
+    "name": "Företagssköterskor",
+    "urlSlug": "företagssköterskor"
+  },
+  {
+    "id": "2235",
+    "name": "Röntgensjuksköterskor",
+    "urlSlug": "röntgensjuksköterskor"
+  },
+  {
+    "id": "2239",
+    "name": "Övriga specialistsjuksköterskor",
+    "urlSlug": "specialistsjuksköterskor"
+  },
+  { "id": "2241", "name": "Psykologer", "urlSlug": "psykologer" },
+  { "id": "2242", "name": "Psykoterapeuter", "urlSlug": "psykoterapeuter" },
+  { "id": "2250", "name": "Veterinärer", "urlSlug": "veterinärer" },
+  { "id": "2260", "name": "Tandläkare", "urlSlug": "tandläkare" },
+  {
+    "id": "2271",
+    "name": "Kiropraktorer och naprapater m.fl.",
+    "urlSlug": "kiropraktorer-naprapater"
+  },
+  {
+    "id": "2272",
+    "name": "Fysioterapeuter och sjukgymnaster",
+    "urlSlug": "fysioterapeuter"
+  },
+  { "id": "2273", "name": "Arbetsterapeuter", "urlSlug": "arbetsterapeuter" },
+  { "id": "2281", "name": "Apotekare", "urlSlug": "apotekare" },
+  { "id": "2282", "name": "Dietister", "urlSlug": "dietister" },
+  {
+    "id": "2283",
+    "name": "Audionomer och logopeder",
+    "urlSlug": "audionomer-logopeder"
+  },
+  { "id": "2284", "name": "Optiker", "urlSlug": "optiker" },
+  {
+    "id": "2289",
+    "name": "Övriga specialister inom hälso- och sjukvård",
+    "urlSlug": "hälsospecialister"
+  },
+  { "id": "2311", "name": "Professorer", "urlSlug": "professorer" },
+  {
+    "id": "2312",
+    "name": "Universitets- och högskolelektorer",
+    "urlSlug": "universitetslärarare"
+  },
+  {
+    "id": "2313",
+    "name": "Forskarassistenter m.fl.",
+    "urlSlug": "forskarassistenter"
+  },
+  { "id": "2314", "name": "Doktorander", "urlSlug": "doktorander" },
+  {
+    "id": "2319",
+    "name": "Övriga universitets- och högskolelärare",
+    "urlSlug": "högskolelärare"
+  },
+  { "id": "2320", "name": "Lärare i yrkesämnen", "urlSlug": "yrkeslärare" },
+  { "id": "2330", "name": "Gymnasielärare", "urlSlug": "gymnasielärare" },
+  { "id": "2341", "name": "Grundskollärare", "urlSlug": "grundskollärare" },
+  { "id": "2342", "name": "Fritidspedagoger", "urlSlug": "fritidspedagoger" },
+  { "id": "2343", "name": "Förskollärare", "urlSlug": "förskollärare" },
+  {
+    "id": "2351",
+    "name": "Speciallärare och specialpedagoger m.fl.",
+    "urlSlug": "speciallärare"
+  },
+  {
+    "id": "2352",
+    "name": "Studie- och yrkesvägledare",
+    "urlSlug": "studievägledare"
+  },
+  {
+    "id": "2359",
+    "name": "Övriga pedagoger med teoretisk specialistkompetens",
+    "urlSlug": "pedagoger-specialister"
+  },
+  { "id": "2411", "name": "Revisorer m.fl.", "urlSlug": "revisorer" },
+  { "id": "2412", "name": "Controller", "urlSlug": "controller" },
+  {
+    "id": "2413",
+    "name": "Finansanalytiker och investeringsrådgivare m.fl.",
+    "urlSlug": "finansanalytiker"
+  },
+  {
+    "id": "2414",
+    "name": "Traders och fondförvaltare",
+    "urlSlug": "traders-fondförvaltare"
+  },
+  {
+    "id": "2415",
+    "name": "Nationalekonomer och makroanalytiker m.fl.",
+    "urlSlug": "nationalekonomer"
+  },
+  { "id": "2419", "name": "Övriga ekonomer", "urlSlug": "ekonomer" },
+  {
+    "id": "2421",
+    "name": "Lednings- och organisationsutvecklare",
+    "urlSlug": "organisationsutvecklare"
+  },
+  {
+    "id": "2422",
+    "name": "Planerare och utredare m.fl.",
+    "urlSlug": "planerare-utredare"
+  },
+  {
+    "id": "2423",
+    "name": "Personal- och HR-specialister",
+    "urlSlug": "hr-specialister"
+  },
+  {
+    "id": "2431",
+    "name": "Marknadsanalytiker och marknadsförare m.fl.",
+    "urlSlug": "marknadsanalytiker"
+  },
+  {
+    "id": "2432",
+    "name": "Informatörer, kommunikatörer och PR-specialister",
+    "urlSlug": "informatörer-kommunikatörer"
+  },
+  {
+    "id": "2511",
+    "name": "Systemanalytiker och IT-arkitekter m.fl.",
+    "urlSlug": "systemanalytiker"
+  },
+  {
+    "id": "2512",
+    "name": "Mjukvaru- och systemutvecklare m.fl.",
+    "urlSlug": "mjukvaru-systemutvecklare"
+  },
+  {
+    "id": "2513",
+    "name": "Utvecklare inom spel och digitala media",
+    "urlSlug": "spelutvecklare"
+  },
+  {
+    "id": "2514",
+    "name": "Systemtestare och testledare",
+    "urlSlug": "systemtestare"
+  },
+  {
+    "id": "2515",
+    "name": "Systemförvaltare m.fl.",
+    "urlSlug": "systemförvaltare"
+  },
+  {
+    "id": "2516",
+    "name": "IT-säkerhetsspecialister",
+    "urlSlug": "it-säkerhetsspecialister"
+  },
+  {
+    "id": "2519",
+    "name": "Övriga IT-specialister",
+    "urlSlug": "it-specialister"
+  },
+  { "id": "2611", "name": "Advokater", "urlSlug": "advokater" },
+  { "id": "2612", "name": "Domare", "urlSlug": "domare" },
+  { "id": "2613", "name": "Åklagare", "urlSlug": "åklagare" },
+  {
+    "id": "2614",
+    "name": "Affärs- och företagsjurister",
+    "urlSlug": "företagsjurister"
+  },
+  {
+    "id": "2615",
+    "name": "Förvaltnings- och organisationsjurister",
+    "urlSlug": "förvaltningsjurister"
+  },
+  { "id": "2619", "name": "Övriga jurister", "urlSlug": "jurister" },
+  {
+    "id": "2621",
+    "name": "Museiintendenter m.fl.",
+    "urlSlug": "museiintendenter"
+  },
+  {
+    "id": "2622",
+    "name": "Bibliotekarier och arkivarier",
+    "urlSlug": "bibliotekarier"
+  },
+  {
+    "id": "2623",
+    "name": "Arkeologer och specialister inom humaniora m.m.",
+    "urlSlug": "arkeologer"
+  },
+  { "id": "2641", "name": "Författare m.fl.", "urlSlug": "författare" },
+  { "id": "2642", "name": "Journalister m.fl.", "urlSlug": "journalister" },
+  {
+    "id": "2643",
+    "name": "Översättare, tolkar och lingvister m.fl.",
+    "urlSlug": "översättare-tolkar"
+  },
+  { "id": "2651", "name": "Bildkonstnärer m.fl.", "urlSlug": "bildkonstnärer" },
+  {
+    "id": "2652",
+    "name": "Musiker, sångare och kompositörer",
+    "urlSlug": "musiker-sångare"
+  },
+  {
+    "id": "2653",
+    "name": "Koreografer och dansare",
+    "urlSlug": "koreografer-dansare"
+  },
+  {
+    "id": "2654",
+    "name": "Regissörer och producenter av film, teater m.m.",
+    "urlSlug": "regissörer-producenter"
+  },
+  { "id": "2655", "name": "Skådespelare", "urlSlug": "skådespelare" },
+  { "id": "2661", "name": "Socialsekreterare", "urlSlug": "socialsekreterare" },
+  { "id": "2662", "name": "Kuratorer", "urlSlug": "kuratorer" },
+  {
+    "id": "2663",
+    "name": "Biståndsbedömare m.fl.",
+    "urlSlug": "biståndsbedömare"
+  },
+  {
+    "id": "2669",
+    "name": "Övriga yrken inom socialt arbete",
+    "urlSlug": "socialt-arbete"
+  },
+  { "id": "2671", "name": "Präster", "urlSlug": "präster" },
+  { "id": "2672", "name": "Diakoner", "urlSlug": "diakoner" },
+  { "id": "310", "name": "Soldater m.fl.", "urlSlug": "soldater" },
+  {
+    "id": "3111",
+    "name": "Ingenjörer och tekniker inom industri, logistik och produktionsplanering",
+    "urlSlug": "ingenjörer-industri"
+  },
+  {
+    "id": "3112",
+    "name": "Ingenjörer och tekniker inom bygg och anläggning",
+    "urlSlug": "ingenjörer-bygg"
+  },
+  {
+    "id": "3113",
+    "name": "Ingenjörer och tekniker inom elektroteknik",
+    "urlSlug": "ingenjörer-elektro"
+  },
+  {
+    "id": "3114",
+    "name": "Ingenjörer och tekniker inom maskinteknik",
+    "urlSlug": "ingenjörer-maskin"
+  },
+  {
+    "id": "3115",
+    "name": "Ingenjörer och tekniker inom kemi och kemiteknik",
+    "urlSlug": "ingenjörer-kemi"
+  },
+  {
+    "id": "3116",
+    "name": "Ingenjörer och tekniker inom gruvteknik och metallurgi",
+    "urlSlug": "ingenjörer-gruva"
+  },
+  {
+    "id": "3117",
+    "name": "GIS- och kartingenjörer",
+    "urlSlug": "gis-kartingenjörer"
+  },
+  {
+    "id": "3119",
+    "name": "Övriga ingenjörer och tekniker",
+    "urlSlug": "ingenjörer-tekniker"
+  },
+  {
+    "id": "3121",
+    "name": "Arbetsledare inom bygg, anläggning och gruva",
+    "urlSlug": "arbetsledare-bygg"
+  },
+  {
+    "id": "3122",
+    "name": "Arbetsledare inom tillverkning",
+    "urlSlug": "arbetsledare-tillverkning"
+  },
+  { "id": "3151", "name": "Maskinbefäl", "urlSlug": "maskinbefäl" },
+  { "id": "3152", "name": "Fartygsbefäl m.fl.", "urlSlug": "fartygsbefäl" },
+  { "id": "3153", "name": "Piloter m.fl.", "urlSlug": "piloter" },
+  { "id": "3154", "name": "Flygledare", "urlSlug": "flygledare" },
+  { "id": "3155", "name": "Flygtekniker", "urlSlug": "flygtekniker" },
+  {
+    "id": "3211",
+    "name": "Tekniker, bilddiagnostik och medicinteknisk utrustning",
+    "urlSlug": "bilddiagnostik-tekniker"
+  },
+  {
+    "id": "3212",
+    "name": "Biomedicinska analytiker m.fl.",
+    "urlSlug": "biomedicinska-analytiker"
+  },
+  { "id": "3213", "name": "Receptarier", "urlSlug": "receptarier" },
+  {
+    "id": "3214",
+    "name": "Tandtekniker och ortopedingenjörer m.fl.",
+    "urlSlug": "tandtekniker"
+  },
+  {
+    "id": "3215",
+    "name": "Laboratorieingenjörer",
+    "urlSlug": "laboratorieingenjörer"
+  },
+  {
+    "id": "3230",
+    "name": "Terapeuter inom alternativmedicin",
+    "urlSlug": "alternativmedicin-terapeuter"
+  },
+  {
+    "id": "3240",
+    "name": "Djursjukskötare m.fl.",
+    "urlSlug": "djursjukskötare"
+  },
+  { "id": "3250", "name": "Tandhygienister", "urlSlug": "tandhygienister" },
+  { "id": "3311", "name": "Mäklare inom finans", "urlSlug": "finansmäklare" },
+  { "id": "3312", "name": "Banktjänstemän", "urlSlug": "banktjänstemän" },
+  {
+    "id": "3313",
+    "name": "Redovisningsekonomer",
+    "urlSlug": "redovisningsekonomer"
+  },
+  {
+    "id": "3314",
+    "name": "Skadereglerare och värderare",
+    "urlSlug": "skadereglerare"
+  },
+  {
+    "id": "3321",
+    "name": "Försäkringssäljare och försäkringsrådgivare",
+    "urlSlug": "försäkringssäljare"
+  },
+  { "id": "3322", "name": "Företagssäljare", "urlSlug": "företagssäljare" },
+  { "id": "3323", "name": "Inköpare och upphandlare", "urlSlug": "inköpare" },
+  {
+    "id": "3324",
+    "name": "Ordersamordnare m.fl.",
+    "urlSlug": "ordersamordnare"
+  },
+  {
+    "id": "3331",
+    "name": "Speditörer och transportmäklare",
+    "urlSlug": "speditörer"
+  },
+  {
+    "id": "3332",
+    "name": "Evenemangs- och reseproducenter m.fl.",
+    "urlSlug": "evenemangsproducenter"
+  },
+  { "id": "3333", "name": "Arbetsförmedlare", "urlSlug": "arbetsförmedlare" },
+  { "id": "3334", "name": "Fastighetsmäklare", "urlSlug": "fastighetsmäklare" },
+  {
+    "id": "3335",
+    "name": "Fastighetsförvaltare",
+    "urlSlug": "fastighetsförvaltare"
+  },
+  { "id": "3339", "name": "Övriga förmedlare", "urlSlug": "förmedlare" },
+  {
+    "id": "3341",
+    "name": "Gruppledare för kontorspersonal",
+    "urlSlug": "gruppledare-kontor"
+  },
+  {
+    "id": "3342",
+    "name": "Domstols- och juristsekreterare m.fl.",
+    "urlSlug": "domstolssekreterare"
+  },
+  {
+    "id": "3343",
+    "name": "Chefssekreterare och VD-assistenter m.fl.",
+    "urlSlug": "chefssekreterare"
+  },
+  {
+    "id": "3351",
+    "name": "Tull- och kustbevakningstjänstemän",
+    "urlSlug": "tull-kustbevakning"
+  },
+  { "id": "3352", "name": "Skattehandläggare", "urlSlug": "skattehandläggare" },
+  {
+    "id": "3353",
+    "name": "Socialförsäkringshandläggare",
+    "urlSlug": "socialförsäkringshandläggare"
+  },
+  {
+    "id": "3354",
+    "name": "Säkerhetsinspektörer m.fl.",
+    "urlSlug": "säkerhetsinspektörer"
+  },
+  {
+    "id": "3355",
+    "name": "Brandingenjörer och byggnadsinspektörer m.fl.",
+    "urlSlug": "brandingenjörer"
+  },
+  { "id": "3359", "name": "Övriga handläggare", "urlSlug": "handläggare" },
+  { "id": "3360", "name": "Poliser", "urlSlug": "poliser" },
+  {
+    "id": "3411",
+    "name": "Behandlingsassistenter och socialpedagoger m.fl.",
+    "urlSlug": "behandlingsassistenter"
+  },
+  { "id": "3412", "name": "Pastorer m.fl.", "urlSlug": "pastorer" },
+  {
+    "id": "3421",
+    "name": "Professionella idrottsutövare",
+    "urlSlug": "idrottsutövare"
+  },
+  {
+    "id": "3422",
+    "name": "Idrottstränare och instruktörer m.fl.",
+    "urlSlug": "idrottstränare"
+  },
+  { "id": "3423", "name": "Fritidsledare m.fl.", "urlSlug": "fritidsledare" },
+  {
+    "id": "3424",
+    "name": "Friskvårdskonsulenter och hälsopedagoger m.fl.",
+    "urlSlug": "friskvårdskonsulenter"
+  },
+  { "id": "3431", "name": "Fotografer", "urlSlug": "fotografer" },
+  {
+    "id": "3432",
+    "name": "Inredare, dekoratörer och scenografer m.fl.",
+    "urlSlug": "inredare"
+  },
+  {
+    "id": "3433",
+    "name": "Inspicienter och scriptor m.fl.",
+    "urlSlug": "inspicienter"
+  },
+  {
+    "id": "3439",
+    "name": "Övriga yrken inom kultur och underhållning",
+    "urlSlug": "kultur-underhållning"
+  },
+  { "id": "3441", "name": "Trafiklärare", "urlSlug": "trafiklärare" },
+  {
+    "id": "3449",
+    "name": "Övriga utbildare och instruktörer",
+    "urlSlug": "utbildare-instruktörer"
+  },
+  {
+    "id": "3451",
+    "name": "Köksmästare och souschefer",
+    "urlSlug": "köksmästare"
+  },
+  {
+    "id": "3452",
+    "name": "Storhushållsföreståndare",
+    "urlSlug": "storhushållsföreståndare"
+  },
+  { "id": "3511", "name": "Drifttekniker, IT", "urlSlug": "drifttekniker-it" },
+  {
+    "id": "3512",
+    "name": "Supporttekniker, IT",
+    "urlSlug": "supporttekniker-it"
+  },
+  {
+    "id": "3513",
+    "name": "Systemadministratörer",
+    "urlSlug": "systemadministratörer"
+  },
+  {
+    "id": "3514",
+    "name": "Nätverks- och systemtekniker m.fl.",
+    "urlSlug": "nätverkstekniker"
+  },
+  {
+    "id": "3515",
+    "name": "Webbmaster och webbadministratörer",
+    "urlSlug": "webbmaster"
+  },
+  {
+    "id": "3521",
+    "name": "Bild- och sändningstekniker",
+    "urlSlug": "sändningstekniker"
+  },
+  {
+    "id": "3522",
+    "name": "Ljus-, ljud- och scentekniker",
+    "urlSlug": "ljud-ljustekniker"
+  },
+  {
+    "id": "4111",
+    "name": "Ekonomiassistenter m.fl.",
+    "urlSlug": "ekonomiassistenter"
+  },
+  {
+    "id": "4112",
+    "name": "Löne- och personaladministratörer",
+    "urlSlug": "löneadministratörer"
+  },
+  {
+    "id": "4113",
+    "name": "Backofficepersonal m.fl.",
+    "urlSlug": "backofficepersonal"
+  },
+  {
+    "id": "4114",
+    "name": "Marknads- och försäljningsassistenter",
+    "urlSlug": "marknadsassistenter"
+  },
+  {
+    "id": "4115",
+    "name": "Inköps- och orderassistenter",
+    "urlSlug": "inköpsassistenter"
+  },
+  {
+    "id": "4116",
+    "name": "Skolassistenter m.fl.",
+    "urlSlug": "skolassistenter"
+  },
+  {
+    "id": "4117",
+    "name": "Medicinska sekreterare, vårdadministratörer m.fl.",
+    "urlSlug": "medicinska-sekreterare"
+  },
+  {
+    "id": "4119",
+    "name": "Övriga kontorsassistenter och sekreterare",
+    "urlSlug": "kontorsassistenter"
+  },
+  {
+    "id": "4211",
+    "name": "Croupierer och oddssättare m.fl.",
+    "urlSlug": "croupierer"
+  },
+  {
+    "id": "4212",
+    "name": "Inkasserare och pantlånare m.fl.",
+    "urlSlug": "inkasserare"
+  },
+  {
+    "id": "4221",
+    "name": "Resesäljare och trafikassistenter m.fl.",
+    "urlSlug": "resesäljare"
+  },
+  {
+    "id": "4222",
+    "name": "Kundtjänstpersonal",
+    "urlSlug": "kundtjänstpersonal"
+  },
+  { "id": "4223", "name": "Telefonister", "urlSlug": "telefonister" },
+  {
+    "id": "4224",
+    "name": "Hotellreceptionister m.fl.",
+    "urlSlug": "hotellreceptionister"
+  },
+  {
+    "id": "4225",
+    "name": "Kontorsreceptionister",
+    "urlSlug": "kontorsreceptionister"
+  },
+  {
+    "id": "4226",
+    "name": "Marknadsundersökare och intervjuare",
+    "urlSlug": "marknadsundersökare"
+  },
+  {
+    "id": "4321",
+    "name": "Arbetsledare inom lager och terminal",
+    "urlSlug": "lagerchefer"
+  },
+  {
+    "id": "4322",
+    "name": "Lager- och terminalpersonal",
+    "urlSlug": "lagerpersonal"
+  },
+  {
+    "id": "4323",
+    "name": "Transportledare och transportsamordnare",
+    "urlSlug": "transportledare"
+  },
+  {
+    "id": "4410",
+    "name": "Arkiv- och biblioteksassistenter m.fl.",
+    "urlSlug": "arkivassistenter"
+  },
+  {
+    "id": "4420",
+    "name": "Brevbärare och postterminalarbetare",
+    "urlSlug": "brevbärare"
+  },
+  { "id": "5111", "name": "Kabinpersonal m.fl.", "urlSlug": "kabinpersonal" },
+  {
+    "id": "5112",
+    "name": "Tågvärdar och ombordansvariga m.fl.",
+    "urlSlug": "tågvärdar"
+  },
+  {
+    "id": "5113",
+    "name": "Guider och reseledare",
+    "urlSlug": "guider-reseledare"
+  },
+  { "id": "5120", "name": "Kockar och kallskänkor", "urlSlug": "kockar" },
+  {
+    "id": "5131",
+    "name": "Hovmästare och servitörer",
+    "urlSlug": "hovmästare-servitörer"
+  },
+  { "id": "5132", "name": "Bartendrar", "urlSlug": "bartendrar" },
+  { "id": "5141", "name": "Frisörer", "urlSlug": "frisörer" },
+  { "id": "5142", "name": "Hudterapeuter", "urlSlug": "hudterapeuter" },
+  {
+    "id": "5143",
+    "name": "Massörer och massageterapeuter",
+    "urlSlug": "massörer"
+  },
+  { "id": "5144", "name": "Fotterapeuter", "urlSlug": "fotterapeuter" },
+  {
+    "id": "5149",
+    "name": "Övriga skönhets- och kroppsterapeuter",
+    "urlSlug": "skönhetsterapeuter"
+  },
+  { "id": "5151", "name": "Städledare och husfruar", "urlSlug": "städledare" },
+  { "id": "5152", "name": "Fastighetsskötare", "urlSlug": "fastighetsskötare" },
+  {
+    "id": "5161",
+    "name": "Begravnings- och krematoriepersonal",
+    "urlSlug": "begravningspersonal"
+  },
+  {
+    "id": "5169",
+    "name": "Övrig servicepersonal",
+    "urlSlug": "servicepersonal"
+  },
+  {
+    "id": "5221",
+    "name": "Säljande butikschefer och avdelningschefer i butik",
+    "urlSlug": "butikschefer"
+  },
+  {
+    "id": "5222",
+    "name": "Butikssäljare, dagligvaror",
+    "urlSlug": "butikssäljare-dagligvaror"
+  },
+  {
+    "id": "5223",
+    "name": "Butikssäljare, fackhandel",
+    "urlSlug": "butikssäljare-fackhandel"
+  },
+  {
+    "id": "5224",
+    "name": "Optikerassistenter",
+    "urlSlug": "optikerassistenter"
+  },
+  {
+    "id": "5225",
+    "name": "Bensinstationspersonal",
+    "urlSlug": "bensinstationspersonal"
+  },
+  { "id": "5226", "name": "Uthyrare", "urlSlug": "uthyrare" },
+  { "id": "5227", "name": "Apotekstekniker", "urlSlug": "apotekstekniker" },
+  { "id": "5230", "name": "Kassapersonal m.fl.", "urlSlug": "kassapersonal" },
+  {
+    "id": "5241",
+    "name": "Eventsäljare och butiksdemonstratörer m.fl.",
+    "urlSlug": "eventsäljare"
+  },
+  {
+    "id": "5242",
+    "name": "Telefonförsäljare m.fl.",
+    "urlSlug": "telefonförsäljare"
+  },
+  { "id": "5311", "name": "Barnskötare", "urlSlug": "barnskötare" },
+  {
+    "id": "5312",
+    "name": "Elevassistenter m.fl.",
+    "urlSlug": "elevassistenter"
+  },
+  {
+    "id": "5321",
+    "name": "Undersköterskor, hemtjänst, hemsjukvård, äldreboende och habilitering",
+    "urlSlug": "undersköterskor-hemtjänst"
+  },
+  {
+    "id": "5323",
+    "name": "Undersköterskor, vård- och specialavdelning och mottagning",
+    "urlSlug": "undersköterskor-vård"
+  },
+  { "id": "5325", "name": "Barnsköterskor", "urlSlug": "barnsköterskor" },
+  {
+    "id": "5326",
+    "name": "Ambulanssjukvårdare",
+    "urlSlug": "ambulanssjukvårdare"
+  },
+  { "id": "5330", "name": "Vårdbiträden", "urlSlug": "vårdbiträden" },
+  { "id": "5341", "name": "Skötare", "urlSlug": "skötare" },
+  { "id": "5342", "name": "Vårdare, boendestödjare", "urlSlug": "vårdare" },
+  {
+    "id": "5343",
+    "name": "Personliga assistenter",
+    "urlSlug": "personliga-assistenter"
+  },
+  {
+    "id": "5349",
+    "name": "Övrig vård- och omsorgspersonal",
+    "urlSlug": "vård-omsorgspersonal"
+  },
+  { "id": "5350", "name": "Tandsköterskor", "urlSlug": "tandsköterskor" },
+  { "id": "5411", "name": "Brandmän", "urlSlug": "brandmän" },
+  { "id": "5412", "name": "Kriminalvårdare", "urlSlug": "kriminalvårdare" },
+  { "id": "5413", "name": "Väktare och ordningsvakter", "urlSlug": "väktare" },
+  { "id": "5414", "name": "SOS-operatörer m.fl.", "urlSlug": "sos-operatörer" },
+  {
+    "id": "5419",
+    "name": "Övrig bevaknings- och säkerhetspersonal",
+    "urlSlug": "bevakningspersonal"
+  },
+  {
+    "id": "6111",
+    "name": "Odlare av jordbruksväxter, frukt och bär",
+    "urlSlug": "jordbruksodlare"
+  },
+  { "id": "6112", "name": "Trädgårdsodlare", "urlSlug": "trädgårdsodlare" },
+  {
+    "id": "6113",
+    "name": "Trädgårdsanläggare m.fl.",
+    "urlSlug": "trädgårdsanläggare"
+  },
+  {
+    "id": "6121",
+    "name": "Uppfödare och skötare av lantbrukets husdjur",
+    "urlSlug": "lantbruksdjur-skötare"
+  },
+  {
+    "id": "6122",
+    "name": "Uppfödare och skötare av sällskapsdjur",
+    "urlSlug": "sällskapsdjur-skötare"
+  },
+  {
+    "id": "6129",
+    "name": "Övriga djuruppfödare och djurskötare",
+    "urlSlug": "djuruppfödare"
+  },
+  {
+    "id": "6130",
+    "name": "Växtodlare och djuruppfödare, blandad drift",
+    "urlSlug": "växtodlare-djuruppfödare"
+  },
+  { "id": "6210", "name": "Skogsarbetare", "urlSlug": "skogsarbetare" },
+  { "id": "6221", "name": "Fiskodlare", "urlSlug": "fiskodlare" },
+  { "id": "6222", "name": "Fiskare", "urlSlug": "fiskare" },
+  {
+    "id": "7111",
+    "name": "Träarbetare, snickare m.fl.",
+    "urlSlug": "träarbetare-snickare"
+  },
+  { "id": "7112", "name": "Murare m.fl.", "urlSlug": "murare" },
+  { "id": "7113", "name": "Betongarbetare", "urlSlug": "betongarbetare" },
+  {
+    "id": "7114",
+    "name": "Anläggningsarbetare",
+    "urlSlug": "anläggningsarbetare"
+  },
+  { "id": "7115", "name": "Anläggningsdykare", "urlSlug": "anläggningsdykare" },
+  { "id": "7116", "name": "Ställningsbyggare", "urlSlug": "ställningsbyggare" },
+  {
+    "id": "7119",
+    "name": "Övriga byggnads- och anläggningsarbetare",
+    "urlSlug": "byggnadsarbetare"
+  },
+  { "id": "7121", "name": "Takmontörer", "urlSlug": "takmontörer" },
+  { "id": "7122", "name": "Golvläggare", "urlSlug": "golvläggare" },
+  {
+    "id": "7123",
+    "name": "Isoleringsmontörer",
+    "urlSlug": "isoleringsmontörer"
+  },
+  { "id": "7124", "name": "Glastekniker", "urlSlug": "glastekniker" },
+  { "id": "7125", "name": "VVS-montörer m.fl.", "urlSlug": "vvs-montörer" },
+  {
+    "id": "7126",
+    "name": "Kyl- och värmepumpstekniker m.fl.",
+    "urlSlug": "kyl-värmepumpstekniker"
+  },
+  { "id": "7131", "name": "Målare", "urlSlug": "målare" },
+  {
+    "id": "7132",
+    "name": "Lackerare och industrimålare",
+    "urlSlug": "lackerare"
+  },
+  { "id": "7133", "name": "Skorstensfejare", "urlSlug": "skorstensfejare" },
+  {
+    "id": "7134",
+    "name": "Saneringsarbetare m.fl.",
+    "urlSlug": "saneringsarbetare"
+  },
+  { "id": "7211", "name": "Gjutare", "urlSlug": "gjutare" },
+  { "id": "7212", "name": "Svetsare och gasskärare", "urlSlug": "svetsare" },
+  {
+    "id": "7213",
+    "name": "Byggnads- och ventilationsplåtslagare",
+    "urlSlug": "plåtslagare-ventilation"
+  },
+  { "id": "7214", "name": "Tunnplåtslagare", "urlSlug": "tunnplåtslagare" },
+  {
+    "id": "7215",
+    "name": "Stålkonstruktionsmontörer och grovplåtsslagare",
+    "urlSlug": "stålkonstruktionsmontörer"
+  },
+  { "id": "7221", "name": "Smeder", "urlSlug": "smeder" },
+  { "id": "7222", "name": "Verktygsmakare", "urlSlug": "verktygsmakare" },
+  {
+    "id": "7223",
+    "name": "Maskinställare och maskinoperatörer, metallarbete",
+    "urlSlug": "maskinställare-metall"
+  },
+  { "id": "7224", "name": "Slipare m.fl.", "urlSlug": "slipare" },
+  {
+    "id": "7231",
+    "name": "Motorfordonsmekaniker och fordonsreparatörer",
+    "urlSlug": "bilmekaniker"
+  },
+  { "id": "7232", "name": "Flygmekaniker m.fl.", "urlSlug": "flygmekaniker" },
+  {
+    "id": "7233",
+    "name": "Underhållsmekaniker och maskinreparatörer",
+    "urlSlug": "underhållsmekaniker"
+  },
+  { "id": "7311", "name": "Finmekaniker", "urlSlug": "finmekaniker" },
+  {
+    "id": "7312",
+    "name": "Guld- och silversmeder",
+    "urlSlug": "guldsmed-silversmeder"
+  },
+  {
+    "id": "7319",
+    "name": "Musikinstrumentmakare och övriga konsthantverkare",
+    "urlSlug": "musikinstrumentmakare"
+  },
+  { "id": "7321", "name": "Prepresstekniker", "urlSlug": "prepresstekniker" },
+  { "id": "7322", "name": "Tryckare", "urlSlug": "tryckare" },
+  { "id": "7323", "name": "Bokbindare m.fl.", "urlSlug": "bokbindare" },
+  {
+    "id": "7411",
+    "name": "Installations- och serviceelektriker",
+    "urlSlug": "installationselektriker"
+  },
+  {
+    "id": "7412",
+    "name": "Industrielektriker",
+    "urlSlug": "industrielektriker"
+  },
+  {
+    "id": "7413",
+    "name": "Distributionselektriker",
+    "urlSlug": "distributionselektriker"
+  },
+  {
+    "id": "7420",
+    "name": "Elektronikreparatörer och kommunikationselektriker m.fl.",
+    "urlSlug": "elektronikreparatörer"
+  },
+  {
+    "id": "7521",
+    "name": "Manuella ytbehandlare, trä",
+    "urlSlug": "ytbehandlare-trä"
+  },
+  {
+    "id": "7522",
+    "name": "Fin-, inrednings- och möbelsnickare",
+    "urlSlug": "möbelsnickare"
+  },
+  {
+    "id": "7523",
+    "name": "Maskinsnickare och maskinoperatörer, träindustri",
+    "urlSlug": "maskinsnickare"
+  },
+  {
+    "id": "7531",
+    "name": "Skräddare och ateljésömmerskor m.fl.",
+    "urlSlug": "skräddare"
+  },
+  { "id": "7532", "name": "Sömmare", "urlSlug": "sömmare" },
+  { "id": "7533", "name": "Tapetserare", "urlSlug": "tapetserare" },
+  {
+    "id": "7534",
+    "name": "Läderhantverkare och skomakare",
+    "urlSlug": "läderhantverkare-skomakare"
+  },
+  {
+    "id": "7611",
+    "name": "Slaktare och styckare m.fl.",
+    "urlSlug": "slaktare"
+  },
+  {
+    "id": "7612",
+    "name": "Bagare och konditorer",
+    "urlSlug": "bagare-konditorer"
+  },
+  {
+    "id": "7613",
+    "name": "Provsmakare och kvalitetsbedömare",
+    "urlSlug": "provsmakare"
+  },
+  {
+    "id": "8111",
+    "name": "Gruv- och stenbrottsarbetare",
+    "urlSlug": "gruvarbetare"
+  },
+  {
+    "id": "8112",
+    "name": "Processoperatörer, stenkross- och malmförädling",
+    "urlSlug": "processoperatörer-malmförädling"
+  },
+  { "id": "8113", "name": "Brunnsborrare m.fl.", "urlSlug": "brunnsborrare" },
+  {
+    "id": "8114",
+    "name": "Maskinoperatörer, cement-, sten- och betongvaror",
+    "urlSlug": "maskinoperatörer-cement"
+  },
+  { "id": "8115", "name": "Bergsprängare", "urlSlug": "bergsprängare" },
+  { "id": "8116", "name": "Stenhuggare m.fl.", "urlSlug": "stenhuggare" },
+  {
+    "id": "8121",
+    "name": "Maskinoperatörer, ytbehandling",
+    "urlSlug": "maskinoperatörer-ytbehandling"
+  },
+  {
+    "id": "8122",
+    "name": "Valsverksoperatörer",
+    "urlSlug": "valsverksoperatörer"
+  },
+  {
+    "id": "8129",
+    "name": "Övriga maskin- och processoperatörer vid stål- och metallverk",
+    "urlSlug": "maskinoperatörer-stål"
+  },
+  {
+    "id": "8131",
+    "name": "Maskinoperatörer, farmaceutiska produkter",
+    "urlSlug": "maskinoperatörer-farmaceutiska"
+  },
+  {
+    "id": "8132",
+    "name": "Maskinoperatörer, kemisktekniska och fotografiska produkter",
+    "urlSlug": "maskinoperatörer-kemiska"
+  },
+  {
+    "id": "8141",
+    "name": "Maskinoperatörer, gummiindustri",
+    "urlSlug": "maskinoperatörer-gummi"
+  },
+  {
+    "id": "8142",
+    "name": "Maskinoperatörer, plastindustri",
+    "urlSlug": "maskinoperatörer-plast"
+  },
+  {
+    "id": "8143",
+    "name": "Maskinoperatörer, pappersvaruindustri",
+    "urlSlug": "maskinoperatörer-pappersvaror"
+  },
+  {
+    "id": "8151",
+    "name": "Maskinoperatörer, blekning, färgning och tvättning",
+    "urlSlug": "maskinoperatörer-blekning"
+  },
+  {
+    "id": "8159",
+    "name": "Övriga maskinoperatörer, textil-, skinn- och läderindustri",
+    "urlSlug": "maskinoperatörer-textil"
+  },
+  {
+    "id": "8161",
+    "name": "Maskinoperatörer, kött- och fiskberedningsindustri",
+    "urlSlug": "maskinoperatörer-kött"
+  },
+  {
+    "id": "8162",
+    "name": "Maskinoperatörer, mejeri",
+    "urlSlug": "maskinoperatörer-mejeri"
+  },
+  {
+    "id": "8163",
+    "name": "Maskinoperatörer, kvarn-, bageri- och konfektyrindustri",
+    "urlSlug": "maskinoperatörer-bageri"
+  },
+  {
+    "id": "8169",
+    "name": "Övriga maskinoperatörer, livsmedelsindustri m.m.",
+    "urlSlug": "maskinoperatörer-livsmedel"
+  },
+  {
+    "id": "8171",
+    "name": "Processoperatörer, pappersmassa",
+    "urlSlug": "processoperatörer-pappersmassa"
+  },
+  {
+    "id": "8172",
+    "name": "Processoperatörer, papper",
+    "urlSlug": "processoperatörer-papper"
+  },
+  {
+    "id": "8173",
+    "name": "Operatörer inom sågverk, hyvleri och plywood m.m.",
+    "urlSlug": "operatörer-sågverk"
+  },
+  {
+    "id": "8174",
+    "name": "Maskinoperatörer inom ytbehandling, trä",
+    "urlSlug": "maskinoperatörer-träytbehandling"
+  },
+  {
+    "id": "8181",
+    "name": "Maskinoperatörer, påfyllning, packning och märkning",
+    "urlSlug": "maskinoperatörer-packning"
+  },
+  {
+    "id": "8189",
+    "name": "Övriga process- och maskinoperatörer",
+    "urlSlug": "processoperatörer"
+  },
+  {
+    "id": "8191",
+    "name": "Drifttekniker vid värme- och vattenverk",
+    "urlSlug": "drifttekniker-värme"
+  },
+  {
+    "id": "8192",
+    "name": "Processövervakare, kemisk industri",
+    "urlSlug": "processövervakare-kemi"
+  },
+  {
+    "id": "8193",
+    "name": "Processövervakare, metallproduktion",
+    "urlSlug": "processövervakare-metall"
+  },
+  {
+    "id": "8199",
+    "name": "Övriga drifttekniker och processövervakare",
+    "urlSlug": "drifttekniker-processövervakare"
+  },
+  { "id": "8211", "name": "Fordonsmontörer", "urlSlug": "fordonsmontörer" },
+  {
+    "id": "8212",
+    "name": "Montörer, elektrisk och elektronisk utrustning",
+    "urlSlug": "montörer-elektronik"
+  },
+  {
+    "id": "8213",
+    "name": "Montörer, metall-, gummi- och plastprodukter",
+    "urlSlug": "montörer-metall"
+  },
+  { "id": "8214", "name": "Montörer, träprodukter", "urlSlug": "montörer-trä" },
+  { "id": "8219", "name": "Övriga montörer", "urlSlug": "montörer" },
+  { "id": "8311", "name": "Lokförare", "urlSlug": "lokförare" },
+  { "id": "8312", "name": "Bangårdspersonal", "urlSlug": "bangårdspersonal" },
+  { "id": "8321", "name": "Taxiförare m.fl.", "urlSlug": "taxiförare" },
+  {
+    "id": "8329",
+    "name": "Övriga bil-, motorcykel- och cykelförare",
+    "urlSlug": "bilförare"
+  },
+  {
+    "id": "8331",
+    "name": "Buss- och spårvagnsförare",
+    "urlSlug": "bussförare"
+  },
+  { "id": "8332", "name": "Lastbilsförare m.fl.", "urlSlug": "lastbilsförare" },
+  {
+    "id": "8341",
+    "name": "Förare av jordbruks- och skogsmaskiner",
+    "urlSlug": "jordbruksmaskinförare"
+  },
+  {
+    "id": "8342",
+    "name": "Anläggningsmaskinförare m.fl.",
+    "urlSlug": "anläggningsmaskinförare"
+  },
+  { "id": "8343", "name": "Kranförare m.fl.", "urlSlug": "kranförare" },
+  { "id": "8344", "name": "Truckförare", "urlSlug": "truckförare" },
+  { "id": "8350", "name": "Matroser och jungmän m.fl.", "urlSlug": "matroser" },
+  { "id": "9111", "name": "Städare", "urlSlug": "städare" },
+  {
+    "id": "9119",
+    "name": "Övrig hemservicepersonal m.fl.",
+    "urlSlug": "hemservicepersonal"
+  },
+  {
+    "id": "9120",
+    "name": "Bilrekonditionerare, fönsterputsare m.fl.",
+    "urlSlug": "bilrekonditionerare"
+  },
+  {
+    "id": "9210",
+    "name": "Bärplockare och plantörer m.fl.",
+    "urlSlug": "bärplockare"
+  },
+  {
+    "id": "9310",
+    "name": "Grovarbetare inom bygg och anläggning",
+    "urlSlug": "grovarbetare-bygg"
+  },
+  {
+    "id": "9320",
+    "name": "Handpaketerare och andra fabriksarbetare",
+    "urlSlug": "handpaketerare"
+  },
+  { "id": "9331", "name": "Hamnarbetare", "urlSlug": "hamnarbetare" },
+  {
+    "id": "9332",
+    "name": "Ramppersonal, flyttkarlar och varupåfyllare m.fl.",
+    "urlSlug": "ramppersonal"
+  },
+  { "id": "9411", "name": "Pizzabagare m.fl.", "urlSlug": "pizzabagare" },
+  {
+    "id": "9412",
+    "name": "Restaurang- och köksbiträden m.fl.",
+    "urlSlug": "restaurangbiträden"
+  },
+  {
+    "id": "9413",
+    "name": "Kafé- och konditoribiträden",
+    "urlSlug": "kafébiträden"
+  },
+  {
+    "id": "9520",
+    "name": "Torg- och marknadsförsäljare m.fl.",
+    "urlSlug": "torgförsäljare"
+  },
+  {
+    "id": "9610",
+    "name": "Renhållnings- och återvinningsarbetare",
+    "urlSlug": "renhållningsarbetare"
+  },
+  {
+    "id": "9621",
+    "name": "Reklamutdelare och tidningsdistributörer",
+    "urlSlug": "reklamutdelare"
+  },
+  { "id": "9622", "name": "Vaktmästare m.fl.", "urlSlug": "vaktmästare" },
+  {
+    "id": "9629",
+    "name": "Övriga servicearbetare",
+    "urlSlug": "servicearbetare"
+  }
 ]

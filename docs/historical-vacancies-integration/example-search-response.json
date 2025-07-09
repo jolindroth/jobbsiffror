@@ -1,14 +1,14 @@
 {
-    "total": {
-      "value": 6753960
-    },
-    "positions": 12778204,
-    "query_time_in_millis": 383,
-    "result_time_in_millis": 393,
-    "stats": [],
-    "freetext_concepts": {},
-    "hits": [
-{
+  "total": {
+    "value": 6753960
+  },
+  "positions": 12778204,
+  "query_time_in_millis": 383,
+  "result_time_in_millis": 393,
+  "stats": [],
+  "freetext_concepts": {},
+  "hits": [
+    {
       "relevance": 1,
       "id": "49c402b8a1d02edd6e65028de94592fe864e45bf",
       "external_id": null,
@@ -101,10 +101,7 @@
         "street_address": "Storgatan 9",
         "postcode": "68332",
         "city": "Hagfors",
-        "coordinates": [
-          13.69460639600943,
-          60.03535406714136
-        ]
+        "coordinates": [13.69460639600943, 60.03535406714136]
       },
       "must_have": {
         "skills": [],

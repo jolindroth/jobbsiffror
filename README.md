@@ -67,23 +67,26 @@ src/
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommended package manager)
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd jobbsiffror
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Create environment file:
+
 ```bash
 cp env.example.txt .env.local
 ```
@@ -91,6 +94,7 @@ cp env.example.txt .env.local
 4. Configure environment variables in `.env.local`
 
 5. Start development server:
+
 ```bash
 pnpm dev
 ```

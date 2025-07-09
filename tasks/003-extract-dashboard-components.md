@@ -1,9 +1,11 @@
 # Task 003: Extract Dashboard Components
 
 ## Goal
+
 Move existing dashboard components from the parallel routes structure to shared, reusable components that can accept data via props.
 
 ## What You'll Build
+
 - Reusable chart components in `components/charts/`
 - A unified `VacancyDashboard` component
 - Updated component interfaces to accept data props
@@ -11,22 +13,27 @@ Move existing dashboard components from the parallel routes structure to shared,
 ## Steps
 
 ### 1. Move Chart Components
+
 Move these files from `src/features/overview/components/` to `src/components/charts/`, using MV. Literally move them.
 
 **Move Files:**
+
 - `area-graph.tsx` → `src/components/charts/area-chart.tsx`
-- `bar-graph.tsx` → `src/components/charts/bar-chart.tsx`  
+- `bar-graph.tsx` → `src/components/charts/bar-chart.tsx`
 - `pie-graph.tsx` → `src/components/charts/pie-chart.tsx`
 - `recent-sales.tsx` → `src/components/charts/recent-postings.tsx`
 
 **Update each component to:**
+
 1. Remove hardcoded mock data
 2. Accept data via props
 3. Update import paths
 4. Keep same chart configuration and styling
 
 ### 2. Update Area Chart Component
+
 **File**: `src/components/charts/area-chart.tsx`
+
 ```typescript
 interface AreaChartProps {
   data: Array<{
@@ -44,8 +51,10 @@ export function AreaChart({ data, title, description }: AreaChartProps) {
 }
 ```
 
-### 3. Update Bar Chart Component  
+### 3. Update Bar Chart Component
+
 **File**: `src/components/charts/bar-chart.tsx`
+
 ```typescript
 interface BarChartProps {
   data: Array<{
@@ -64,7 +73,9 @@ export function BarChart({ data, title, description }: BarChartProps) {
 ```
 
 ### 4. Update Pie Chart Component
+
 **File**: `src/components/charts/pie-chart.tsx`
+
 ```typescript
 interface PieChartProps {
   data: Array<{
@@ -84,7 +95,9 @@ export function PieChart({ data, title, description }: PieChartProps) {
 ```
 
 ### 5. Create Recent Postings Component
+
 **File**: `src/components/charts/recent-postings.tsx`
+
 ```typescript
 interface RecentPostingsProps {
   data: Array<{
@@ -104,7 +117,9 @@ export function RecentPostings({ data }: RecentPostingsProps) {
 ```
 
 ### 6. Create Data Transformation Utilities
+
 **File**: `src/lib/chart-data-transformers.ts`
+
 ```typescript
 import { VacancyRecord } from '@/types/vacancy-record';
 
@@ -117,15 +132,15 @@ export function transformToAreaChart(records: VacancyRecord[]): Array<{
   // Each record represents one month's total for specific region/occupation
   const result = records
     .sort((a, b) => a.month.localeCompare(b.month))
-    .map(record => ({
+    .map((record) => ({
       month: record.month,
       total: record.count
     }));
-  
+
   return result;
 }
 
-// Transform VacancyRecord[] to bar chart format (category comparison)  
+// Transform VacancyRecord[] to bar chart format (category comparison)
 export function transformToBarChart(records: VacancyRecord[]): Array<{
   category: string;
   count: number;
@@ -133,8 +148,8 @@ export function transformToBarChart(records: VacancyRecord[]): Array<{
   // For bar charts, we get records with different regions or occupations
   // Group by the non-'all' dimension
   return records
-    .filter(record => record.region !== 'all' || record.occupation !== 'all')
-    .map(record => ({
+    .filter((record) => record.region !== 'all' || record.occupation !== 'all')
+    .map((record) => ({
       category: record.region !== 'all' ? record.region : record.occupation,
       count: record.count
     }))
@@ -150,12 +165,12 @@ export function transformToPieChart(records: VacancyRecord[]): Array<{
 }> {
   const colors = [
     'hsl(var(--chart-1))',
-    'hsl(var(--chart-2))', 
+    'hsl(var(--chart-2))',
     'hsl(var(--chart-3))',
     'hsl(var(--chart-4))',
     'hsl(var(--chart-5))'
   ];
-  
+
   return transformToBarChart(records)
     .slice(0, 5) // Top 5 for pie chart
     .map((item, index) => ({
@@ -165,18 +180,20 @@ export function transformToPieChart(records: VacancyRecord[]): Array<{
 }
 ```
 
-### 7. Create Unified Dashboard Component  
+### 7. Create Unified Dashboard Component
+
 **File**: `src/components/vacancy-dashboard.tsx`
+
 ```typescript
 import { VacancyRecord } from '@/types/vacancy-record';
 import { AreaChart } from './charts/area-chart';
 import { BarChart } from './charts/bar-chart';
 import { PieChart } from './charts/pie-chart';
 import { RecentPostings } from './charts/recent-postings';
-import { 
-  transformToAreaChart, 
-  transformToBarChart, 
-  transformToPieChart 
+import {
+  transformToAreaChart,
+  transformToBarChart,
+  transformToPieChart
 } from '@/lib/chart-data-transformers';
 
 interface VacancyDashboardProps {
@@ -190,50 +207,50 @@ export function VacancyDashboard({ timeSeriesData, region, occupation }: Vacancy
   const latestMonthData = timeSeriesData[timeSeriesData.length - 1];
   const totalVacancies = latestMonthData?.count || 0;
   const monthOverMonthChange = calculateMonthOverMonth(timeSeriesData);
-  
+
   // Transform data for charts
   const areaChartData = transformToAreaChart(timeSeriesData);
-  
+
   // Note: For bar/pie charts showing comparisons (regions/occupations),
   // the parent component will need to make additional API calls
   // This component focuses on time series visualization
-  
+
   return (
     <div className="space-y-8">
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard 
+        <StatCard
           title="Totala Lediga Jobb"
           value={totalVacancies.toLocaleString('sv-SE')}
           change={monthOverMonthChange}
         />
-        <StatCard 
+        <StatCard
           title="Mest Aktiva Region"
           value={mostActiveRegion}
         />
-        <StatCard 
+        <StatCard
           title="Mest Aktiva Yrke"
           value={mostActiveOccupation}
         />
-        <StatCard 
+        <StatCard
           title="Senaste Uppdatering"
           value={new Date().toLocaleDateString('sv-SE')}
         />
       </div>
-      
+
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <AreaChart 
+        <AreaChart
           data={areaChartData}
           title="Lediga Jobb Över Tid"
           description="Månadsvis trend av lediga jobb"
         />
-        <BarChart 
+        <BarChart
           data={barChartData}
           title={region ? "Jobb per Yrke" : "Jobb per Region"}
           description="Fördelning av lediga jobb"
         />
-        <PieChart 
+        <PieChart
           data={pieChartData}
           title="Fördelning av Jobb"
           description="Procentuell fördelning"
@@ -260,7 +277,7 @@ function findMostActive(data: VacancyRecord[], field: 'region' | 'occupation'): 
     const key = record[field];
     counts.set(key, (counts.get(key) || 0) + record.count);
   }
-  
+
   let maxCount = 0;
   let mostActive = '';
   for (const [key, count] of counts) {
@@ -269,7 +286,7 @@ function findMostActive(data: VacancyRecord[], field: 'region' | 'occupation'): 
       mostActive = key;
     }
   }
-  
+
   return mostActive;
 }
 
@@ -278,7 +295,7 @@ function getRecentPostings() {
   return [
     {
       company: "Spotify",
-      title: "Senior Utvecklare", 
+      title: "Senior Utvecklare",
       location: "Stockholm",
       posted_date: "2024-01-15"
     }
@@ -287,7 +304,9 @@ function getRecentPostings() {
 ```
 
 ### 8. Create Stat Card Component
+
 **File**: `src/components/stat-card.tsx`
+
 ```typescript
 interface StatCardProps {
   title: string;
@@ -317,15 +336,18 @@ export function StatCard({ title, value, change, icon }: StatCardProps) {
 ```
 
 ### 9. Update Import/Export Structure
+
 **File**: `src/components/charts/index.ts`
+
 ```typescript
 export { AreaChart } from './area-chart';
-export { BarChart } from './bar-chart'; 
+export { BarChart } from './bar-chart';
 export { PieChart } from './pie-chart';
 export { RecentPostings } from './recent-postings';
 ```
 
 **File**: `src/components/index.ts`
+
 ```typescript
 export { VacancyDashboard } from './vacancy-dashboard';
 export { StatCard } from './stat-card';
@@ -333,6 +355,7 @@ export * from './charts';
 ```
 
 ## Acceptance Criteria
+
 - [ ] All chart components moved from features/overview to components/charts
 - [ ] Components accept data via props instead of using hardcoded data
 - [ ] VacancyDashboard component renders all charts with real data
@@ -342,6 +365,7 @@ export * from './charts';
 - [ ] Components maintain existing styling and responsiveness
 
 ## Files Created/Moved
+
 - `src/components/charts/area-chart.tsx` (moved)
 - `src/components/charts/bar-chart.tsx` (moved)
 - `src/components/charts/pie-chart.tsx` (moved)
@@ -353,7 +377,9 @@ export * from './charts';
 - `src/lib/chart-data-transformers.ts` (new)
 
 ## Next Steps
+
 After this task:
+
 - Task 004 will create the URL routing structure
 - Task 005 will build client filter components
 - Components will be ready to integrate with real vacancy data

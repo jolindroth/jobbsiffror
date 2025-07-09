@@ -1,9 +1,11 @@
 # Task 005: Build Client Filter Components
 
 ## Goal
+
 Create interactive filter components that allow users to change date ranges, regions, and occupations by updating the URL (which triggers server re-renders).
 
 ## What You'll Build
+
 - `VacancyFilters` client component with date pickers and selectors
 - URL-based state management (no client state)
 - Smooth navigation between filter combinations
@@ -11,7 +13,9 @@ Create interactive filter components that allow users to change date ranges, reg
 ## Steps
 
 ### 1. Create Main Filter Component
+
 **File**: `src/components/vacancy-filters.tsx`
+
 ```typescript
 'use client';
 
@@ -35,16 +39,16 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
 
   const handleRegionChange = (newRegion: string) => {
     setIsNavigating(true);
-    const url = buildFilterUrl({ 
+    const url = buildFilterUrl({
       region: newRegion === 'all' ? undefined : newRegion,
-      occupation: currentOccupation 
+      occupation: currentOccupation
     });
     router.push(url);
   };
 
   const handleOccupationChange = (newOccupation: string) => {
     setIsNavigating(true);
-    const url = buildFilterUrl({ 
+    const url = buildFilterUrl({
       region: currentRegion,
       occupation: newOccupation === 'all' ? undefined : newOccupation
     });
@@ -67,8 +71,8 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
                 <MapPin className="h-4 w-4" />
                 Region
               </label>
-              <RegionSelect 
-                value={currentRegion || 'all'} 
+              <RegionSelect
+                value={currentRegion || 'all'}
                 onValueChange={handleRegionChange}
                 disabled={isNavigating}
               />
@@ -80,8 +84,8 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
                 <Briefcase className="h-4 w-4" />
                 Yrkesgrupp
               </label>
-              <OccupationSelect 
-                value={currentOccupation || 'all'} 
+              <OccupationSelect
+                value={currentOccupation || 'all'}
                 onValueChange={handleOccupationChange}
                 disabled={isNavigating}
               />
@@ -89,7 +93,7 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
 
             {/* Date Range Filter */}
             <div className="space-y-2">
-              <DateRangePicker 
+              <DateRangePicker
                 from={searchParams.from ? new Date(searchParams.from) : undefined}
                 to={searchParams.to ? new Date(searchParams.to) : undefined}
                 onDateRangeChange={handleDateRangeChange}
@@ -100,8 +104,8 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
           {/* Action Buttons */}
           <div className="flex gap-2">
             {(currentRegion || currentOccupation || searchParams.from || searchParams.to) && (
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => {
                   handleClearFilters();
                   setSearchParams({ from: null, to: null });
@@ -120,19 +124,19 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
             <div className="flex flex-wrap gap-2">
               <span className="text-sm text-muted-foreground">Aktiva filter:</span>
               {currentRegion && (
-                <FilterTag 
+                <FilterTag
                   label={capitalizeFirst(currentRegion)}
                   onRemove={() => handleRegionChange('all')}
                 />
               )}
               {currentOccupation && (
-                <FilterTag 
+                <FilterTag
                   label={capitalizeFirst(currentOccupation)}
                   onRemove={() => handleOccupationChange('all')}
                 />
               )}
               {(searchParams.from || searchParams.to) && (
-                <FilterTag 
+                <FilterTag
                   label="Datumfilter"
                   onRemove={() => setSearchParams({ from: null, to: null })}
                 />
@@ -141,7 +145,7 @@ export function VacancyFilters({ currentRegion, currentOccupation }: VacancyFilt
           </div>
         )}
       </div>
-      
+
       {/* Loading overlay */}
       {isNavigating && (
         <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center rounded-lg">
@@ -161,7 +165,9 @@ function capitalizeFirst(str: string): string {
 ```
 
 ### 2. Create Region Select Component
+
 **File**: `src/components/region-select.tsx`
+
 ```typescript
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { SWEDISH_REGIONS } from '@/constants/swedish-regions';
@@ -184,7 +190,7 @@ export function RegionSelect({ value, onValueChange, disabled }: RegionSelectPro
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">Alla regioner</SelectItem>
-        
+
         {sortedRegions.map((region) => (
           <SelectItem key={region.code} value={region.urlSlug}>
             {region.name}
@@ -197,7 +203,9 @@ export function RegionSelect({ value, onValueChange, disabled }: RegionSelectPro
 ```
 
 ### 3. Create Occupation Select Component
+
 **File**: `src/components/occupation-select.tsx`
+
 ```typescript
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { OCCUPATION_GROUPS } from '@/constants/occupation-groups';
@@ -232,7 +240,9 @@ export function OccupationSelect({ value, onValueChange, disabled }: OccupationS
 ```
 
 ### 4. Create Filter Tag Component
+
 **File**: `src/components/filter-tag.tsx`
+
 ```typescript
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -260,7 +270,9 @@ export function FilterTag({ label, onRemove }: FilterTagProps) {
 ```
 
 ### 5. Create Date Range Picker Component
+
 **File**: `src/components/date-range-picker.tsx`
+
 ```typescript
 'use client';
 
@@ -384,7 +396,9 @@ export function DateRangePicker({ from, to, onDateRangeChange }: DateRangePicker
 ```
 
 ### 6. Update Filter URL Builder
+
 **File**: `src/lib/filter-parser.ts` (add to existing file)
+
 ```typescript
 export interface FilterUrlOptions {
   region?: string;
@@ -396,16 +410,16 @@ export interface FilterUrlOptions {
 export function buildFilterUrl(options: FilterUrlOptions): string {
   const segments: string[] = [];
   const searchParams = new URLSearchParams();
-  
+
   // Add region and occupation to path
   if (options.region) {
     segments.push(options.region);
   }
-  
+
   if (options.occupation) {
     segments.push(options.occupation);
   }
-  
+
   // Add date parameters as query params if custom range
   if (options.dateFrom || options.dateTo) {
     if (options.dateFrom) {
@@ -415,16 +429,18 @@ export function buildFilterUrl(options: FilterUrlOptions): string {
       searchParams.set('to', options.dateTo);
     }
   }
-  
+
   const basePath = `/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
   const queryString = searchParams.toString();
-  
+
   return basePath + (queryString ? '?' + queryString : '');
 }
 ```
 
 ### 7. Add Loading States to Filters
+
 **File**: `src/components/vacancy-filters.tsx` (update existing)
+
 ```typescript
 // Add loading overlay when navigating
 {isNavigating && (
@@ -438,7 +454,9 @@ export function buildFilterUrl(options: FilterUrlOptions): string {
 ```
 
 ### 8. Add Filter Analytics
+
 **File**: `src/lib/filter-analytics.ts`
+
 ```typescript
 // Track popular filter combinations
 export function trackFilterUsage(filters: {
@@ -447,14 +465,16 @@ export function trackFilterUsage(filters: {
 }) {
   // Log for analytics (implement with your analytics provider)
   console.log('Filter used:', filters);
-  
+
   // Could send to analytics service:
   // analytics.track('filter_applied', filters);
 }
 ```
 
 ### 9. Create Filter Presets Component
+
 **File**: `src/components/filter-presets.tsx`
+
 ```typescript
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -489,16 +509,19 @@ export function FilterPresets() {
 ```
 
 ### 10. Update Main Vacancy Page
+
 **File**: `src/app/vacancies/[[...filters]]/page.tsx` (add filters component)
+
 ```typescript
 // Add this before the dashboard content
-<VacancyFilters 
+<VacancyFilters
   currentRegion={region}
   currentOccupation={occupation}
 />
 ```
 
 ## Acceptance Criteria
+
 - [ ] Region dropdown shows all Swedish regions (counties)
 - [ ] Occupation dropdown shows all occupation groups alphabetically
 - [ ] Changing filters navigates to new URL and triggers server re-render
@@ -510,6 +533,7 @@ export function FilterPresets() {
 - [ ] All text and labels are in Swedish
 
 ## Files Created
+
 - `src/components/vacancy-filters.tsx`
 - `src/components/region-select.tsx`
 - `src/components/occupation-select.tsx`
@@ -519,12 +543,15 @@ export function FilterPresets() {
 - `src/lib/filter-analytics.ts`
 
 ## Files Updated
+
 - `src/lib/filter-parser.ts` (add buildFilterUrl function)
 - `src/app/vacancies/[[...filters]]/page.tsx` (add VacancyFilters component)
 
 ## Next Steps
+
 After this task, the complete vacancy filtering system will be functional:
+
 - Users can filter by region and occupation using dropdowns
-- Filter changes trigger URL navigation and server re-renders  
+- Filter changes trigger URL navigation and server re-renders
 - Popular filter combinations are easily accessible
 - All filter state is preserved in URLs for sharing and SEO

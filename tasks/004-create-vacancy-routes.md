@@ -1,33 +1,41 @@
 # Task 004: Create Dynamic Vacancies Route ✅ COMPLETED
 
 ## Goal
+
 Create dynamic vacancies route with filtering capabilities for SEO-friendly vacancy pages, compatible with Next.js 15.
 
 ## What Was Built
+
 - Dynamic vacancies route at `/dashboard/vacancies/[[...filters]]/`
 - URL parsing for filters (region/occupation) via filter-parser.ts
 - SEO metadata generation and static params
 - Complete data fetching and chart integration
 
 ## Status: ✅ COMPLETED
+
 **Remaining**: Fix generateStaticParams to use real region/occupation slugs instead of hardcoded values.
 
 ## Steps
 
 ### 1. Rename and Move Route Files
+
 **From**: `src/app/dashboard/overview/`
 **To**: `src/app/vacancies/[[...filters]]/`
 
 Move these files:
+
 - `page.tsx` → `src/app/vacancies/[[...filters]]/page.tsx`
 - `error.tsx` → `src/app/vacancies/[[...filters]]/error.tsx`
 
 Create these additional files:
+
 - `loading.tsx` - Loading state
 - `not-found.tsx` - 404 page
 
 ### 2. Create Filter Parser
+
 **File**: `src/lib/filter-parser.ts`
+
 ```typescript
 import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 
@@ -38,19 +46,19 @@ export interface ParsedFilters {
 
 export function parseFilters(filters: string[] | undefined): ParsedFilters {
   const result: ParsedFilters = {};
-  
+
   if (!filters || filters.length === 0) {
     return result;
   }
-  
+
   // URL patterns:
   // /vacancies/stockholm → region only
-  // /vacancies/systemutvecklare → occupation only  
+  // /vacancies/systemutvecklare → occupation only
   // /vacancies/stockholm/systemutvecklare → both
-  
+
   if (filters.length === 1) {
     const filter = filters[0];
-    
+
     // Check if it's a region or occupation using our validation functions
     if (validateRegion(filter)) {
       result.region = filter;
@@ -60,25 +68,28 @@ export function parseFilters(filters: string[] | undefined): ParsedFilters {
   } else if (filters.length === 2) {
     // Assume first is region, second is occupation
     const [possibleRegion, possibleOccupation] = filters;
-    
+
     if (validateRegion(possibleRegion)) {
       result.region = possibleRegion;
     }
-    
+
     if (validateOccupation(possibleOccupation)) {
       result.occupation = possibleOccupation;
     }
   }
-  
+
   return result;
 }
 ```
 
 ### 3. Update Main Page Component
+
 **File**: `src/app/vacancies/[[...filters]]/page.tsx` (moved from dashboard)
 
 **Changes to make to the existing dashboard page**:
+
 1. **Update interface** to handle both params and searchParams:
+
 ```typescript
 interface VacanciesPageProps {
   params: Promise<{ filters?: string[] }>;
@@ -90,37 +101,39 @@ interface VacanciesPageProps {
 ```
 
 2. **Add filter parsing** at the start of the component:
+
 ```typescript
-export default async function VacanciesPage({ 
-  params: paramsPromise, 
-  searchParams: searchParamsPromise 
+export default async function VacanciesPage({
+  params: paramsPromise,
+  searchParams: searchParamsPromise
 }: VacanciesPageProps) {
   // Await params and searchParams for Next.js 15 compatibility
   const params = await paramsPromise;
   const searchParams = await searchParamsPromise;
-  
+
   const { region, occupation } = parseFilters(params.filters);
-  
+
   // Validate filters
   if (region && !validateRegion(region)) {
     notFound();
   }
-  
+
   if (occupation && !validateOccupation(occupation)) {
     notFound();
   }
-  
+
   // Get date range from search params or use defaults (last 12 months)
   const dateFrom = searchParams.from || getDefaultFromDate();
   const dateTo = searchParams.to || getDefaultToDate();
 
   // Pass region and occupation to existing GetVacancies call
   const dashboardData = await GetVacancies(dateFrom, dateTo, region, occupation);
-  
+
   // Rest of the existing code stays the same...
 ```
 
 3. **Update page title** to be dynamic:
+
 ```typescript
 <h2 className='text-2xl font-bold tracking-tight'>
   {buildPageTitle(region, occupation)}
@@ -128,6 +141,7 @@ export default async function VacanciesPage({
 ```
 
 4. **Add imports** at the top:
+
 ```typescript
 import { notFound } from 'next/navigation';
 import { parseFilters } from '@/lib/filter-parser';
@@ -135,6 +149,7 @@ import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 ```
 
 5. **Add helper functions** at the bottom:
+
 ```typescript
 function buildPageTitle(region?: string, occupation?: string): string {
   if (region && occupation) {
@@ -156,7 +171,9 @@ function capitalizeFirst(str: string): string {
 **Note**: Keep ALL existing data fetching, chart components, and styling exactly as they are. Only add the filtering logic on top.
 
 ### 4. Create Loading Component
+
 **File**: `src/app/vacancies/[[...filters]]/loading.tsx`
+
 ```typescript
 import { Skeleton } from '@/components/ui/skeleton';
 import PageContainer from '@/components/layout/page-container';
@@ -168,7 +185,7 @@ export default function Loading() {
         <div className="mb-8">
           <Skeleton className="h-10 w-96 mb-2" />
         </div>
-        
+
         {/* Stats cards skeleton */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
           {[...Array(4)].map((_, i) => (
@@ -179,7 +196,7 @@ export default function Loading() {
             </div>
           ))}
         </div>
-        
+
         {/* Charts skeleton */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
           <div className="col-span-4">
@@ -202,9 +219,11 @@ export default function Loading() {
 ```
 
 ### 5. Move Error Component
+
 **File**: `src/app/vacancies/[[...filters]]/error.tsx` (moved from dashboard)
 
 **Update the existing dashboard error.tsx file**:
+
 ```typescript
 'use client';
 
@@ -246,7 +265,9 @@ export default function Error({ error, reset }: ErrorProps) {
 ```
 
 ### 6. Create Not Found Component
+
 **File**: `src/app/vacancies/[[...filters]]/not-found.tsx`
+
 ```typescript
 import { Button } from '@/components/ui/button';
 import PageContainer from '@/components/layout/page-container';
@@ -271,23 +292,27 @@ export default function NotFound() {
 ```
 
 ### 7. Add SEO Metadata Generation
+
 **Add to**: `src/app/vacancies/[[...filters]]/page.tsx`
+
 ```typescript
-export async function generateMetadata({ params: paramsPromise }: VacanciesPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params: paramsPromise
+}: VacanciesPageProps): Promise<Metadata> {
   const params = await paramsPromise;
   const { region, occupation } = parseFilters(params.filters);
-  
+
   const title = buildPageTitle(region, occupation);
   const description = buildPageDescription(region, occupation);
-  
+
   return {
     title: `${title} - Jobbsiffror`,
     description,
     openGraph: {
       title,
       description,
-      type: 'website',
-    },
+      type: 'website'
+    }
   };
 }
 
@@ -305,7 +330,9 @@ function buildPageDescription(region?: string, occupation?: string): string {
 ```
 
 ### 8. Add Static Generation for Popular Routes
+
 **Add to**: `src/app/vacancies/[[...filters]]/page.tsx`
+
 ```typescript
 export async function generateStaticParams() {
   // Generate static pages for popular combinations
@@ -318,7 +345,7 @@ export async function generateStaticParams() {
     { filters: ['sjukskoterska'] },
     { filters: ['stockholm', 'systemutvecklare'] },
     { filters: ['goteborg', 'systemutvecklare'] },
-    { filters: ['stockholm', 'sjukskoterska'] },
+    { filters: ['stockholm', 'sjukskoterska'] }
   ];
 
   return popularCombinations;
@@ -326,13 +353,16 @@ export async function generateStaticParams() {
 ```
 
 ### 9. Remove Dashboard Navigation
+
 **Update**: Remove dashboard from navigation and routing
 
 1. **Update main navigation** in `src/constants/data.ts`:
+
    - Remove or update dashboard links to point to `/vacancies`
    - Update any menu items that reference the dashboard
 
 2. **Update root redirect** in `src/app/page.tsx`:
+
    - Change redirect from `/dashboard` to `/vacancies`
 
 3. **Remove dashboard layout** (optional):
@@ -340,6 +370,7 @@ export async function generateStaticParams() {
    - Or update it to redirect to vacancies
 
 ## Acceptance Criteria
+
 - [ ] Dashboard files successfully moved to `/vacancies/[[...filters]]/`
 - [ ] `/vacancies` shows all vacancies (no filters)
 - [ ] `/vacancies/stockholm` shows Stockholm vacancies
@@ -353,21 +384,27 @@ export async function generateStaticParams() {
 - [ ] No broken links or imports after the move
 
 ## Files Moved/Created
+
 **Moved Files:**
+
 - `src/app/dashboard/overview/page.tsx` → `src/app/vacancies/[[...filters]]/page.tsx`
 - `src/app/dashboard/overview/error.tsx` → `src/app/vacancies/[[...filters]]/error.tsx`
 
 **Created Files:**
+
 - `src/app/vacancies/[[...filters]]/loading.tsx`
 - `src/app/vacancies/[[...filters]]/not-found.tsx`
 - `src/lib/filter-parser.ts`
 
 **Updated Files:**
+
 - `src/constants/data.ts` (navigation updates)
 - `src/app/page.tsx` (redirect updates)
 
 ## Next Steps
+
 After this task:
+
 - Task 005 will add client filter components for interactivity
 - All existing dashboard functionality will work at the new `/vacancies/` routes
 - SEO-optimized URLs will be fully functional with Next.js 15 compatibility
