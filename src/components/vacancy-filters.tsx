@@ -8,7 +8,6 @@ import { parseAsString, useQueryStates } from 'nuqs';
 import { DateRangePicker } from './date-range-picker';
 import { RegionSelect } from './region-select';
 import { OccupationSelect } from './occupation-select';
-import { FilterTag } from './filter-tag';
 
 interface VacancyFiltersProps {
   currentRegion?: string;
@@ -70,10 +69,6 @@ export function VacancyFilters({
       from: from ? from.toISOString().split('T')[0] : null,
       to: to ? to.toISOString().split('T')[0] : null
     });
-  };
-
-  const capitalizeFirst = (str: string): string => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
   return (
@@ -138,38 +133,6 @@ export function VacancyFilters({
             )}
           </div>
         </div>
-
-        {/* Active Filters Display */}
-        {(currentRegion ||
-          currentOccupation ||
-          searchParams.from ||
-          searchParams.to) && (
-          <div className='mt-4 border-t pt-4'>
-            <div className='flex flex-wrap gap-2'>
-              <span className='text-muted-foreground text-sm'>
-                Aktiva filter:
-              </span>
-              {currentRegion && (
-                <FilterTag
-                  label={capitalizeFirst(currentRegion)}
-                  onRemove={() => handleRegionChange('all')}
-                />
-              )}
-              {currentOccupation && (
-                <FilterTag
-                  label={capitalizeFirst(currentOccupation)}
-                  onRemove={() => handleOccupationChange('all')}
-                />
-              )}
-              {(searchParams.from || searchParams.to) && (
-                <FilterTag
-                  label='Datumfilter'
-                  onRemove={() => setSearchParams({ from: null, to: null })}
-                />
-              )}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Loading overlay */}

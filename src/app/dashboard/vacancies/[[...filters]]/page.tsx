@@ -24,7 +24,6 @@ import {
   calculateSummaryStats
 } from '@/lib/chart-data-transformers';
 import { parseFilters } from '@/lib/filter-parser';
-import { validateRegion, validateOccupation } from '@/lib/taxonomy-mappings';
 import { SWEDISH_REGIONS } from '@/constants/swedish-regions';
 import { OCCUPATION_GROUPS } from '@/constants/occupation-groups';
 import { VacancyFilters } from '@/components/vacancy-filters';

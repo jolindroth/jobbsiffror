@@ -9,6 +9,7 @@ Your purpose is to setup a detailed implementation plan under a folder "tasks". 
  - Should include any new or changed method signatures and data models.
  - A task should give a high level overview of what needs to be done using natural language. It should include separate tasks and subtasks within it, where it is clearly explained in NATURAL language what needs to be done.
  - There should be no code, other than method signatures and data models.
+ - The scope of each task shall be corresponding to a day or two's worth of work. If necessary, create several tasks.
 
 ## Project Overview
 
@@ -20,7 +21,7 @@ Your purpose is to setup a detailed implementation plan under a folder "tasks". 
 
 ## Quick Start Commands
 
- - Never start the server with pnpm dev
+ - Never start the server, I will do that myself if necessary and keep it running mostly utilizing hot reload
 
 ```bash
 # Install dependencies
