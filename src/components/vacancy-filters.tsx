@@ -25,7 +25,6 @@ export function VacancyFilters({
   currentOccupation
 }: VacancyFiltersProps) {
   const router = useRouter();
-  const [isNavigating, setIsNavigating] = useState(false);
 
   // Use nuqs for URL search param management
   const [searchParams, setSearchParams] = useQueryStates({
@@ -33,8 +32,12 @@ export function VacancyFilters({
     to: parseAsString
   });
 
+  const currentQuery = new URLSearchParams();
+  if (searchParams.from) currentQuery.set('from', searchParams.from);
+  if (searchParams.to) currentQuery.set('to', searchParams.to);
+  const queryString = currentQuery.toString();
+
   const handleRegionChange = (newRegion: string) => {
-    setIsNavigating(true);
     const segments = [];
 
     if (newRegion !== 'all') {
@@ -45,12 +48,13 @@ export function VacancyFilters({
       segments.push(currentOccupation);
     }
 
-    const url = `/dashboard/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
-    router.push(url);
+    const path = `/dashboard/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
+
+    const finalUrl = `${path}${queryString ? `?${queryString}` : ''}`;
+    router.push(finalUrl);
   };
 
   const handleOccupationChange = (newOccupation: string) => {
-    setIsNavigating(true);
     const segments = [];
 
     if (currentRegion) {
@@ -61,13 +65,13 @@ export function VacancyFilters({
       segments.push(newOccupation);
     }
 
-    const url = `/dashboard/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
-    router.push(url);
+    const path = `/dashboard/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
+
+    const finalUrl = `${path}${queryString ? `?${queryString}` : ''}`;
+    router.push(finalUrl);
   };
 
   const handleClearFilters = async () => {
-    setIsNavigating(true);
-
     // Clear search params first
     await setSearchParams({ from: null, to: null });
 
@@ -101,7 +105,6 @@ export function VacancyFilters({
                   <RegionCombobox
                     value={currentRegion || 'all'}
                     onValueChange={handleRegionChange}
-                    disabled={isNavigating}
                   />
                 </div>
               </div>
@@ -116,7 +119,6 @@ export function VacancyFilters({
                   <OccupationCombobox
                     value={currentOccupation || 'all'}
                     onValueChange={handleOccupationChange}
-                    disabled={isNavigating}
                   />
                 </div>
               </div>
@@ -139,11 +141,7 @@ export function VacancyFilters({
                 currentOccupation ||
                 searchParams.from ||
                 searchParams.to) && (
-                <Button
-                  variant='outline'
-                  onClick={handleClearFilters}
-                  disabled={isNavigating}
-                >
+                <Button variant='outline' onClick={handleClearFilters}>
                   Rensa filter
                 </Button>
               )}
@@ -151,16 +149,6 @@ export function VacancyFilters({
           </div>
         </CardContent>
       </Card>
-
-      {/* Loading overlay */}
-      {isNavigating && (
-        <div className='bg-background/80 absolute inset-0 flex items-center justify-center rounded-lg backdrop-blur-sm'>
-          <div className='text-muted-foreground flex items-center gap-2 text-sm'>
-            <div className='border-primary h-4 w-4 animate-spin rounded-full border-2 border-t-transparent' />
-            Laddar...
-          </div>
-        </div>
-      )}
     </div>
   );
 }
