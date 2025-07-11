@@ -206,20 +206,20 @@ export default async function VacanciesPage({
           {/* Charts Grid */}
           <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
             <div className='col-span-4'>
-              <BarGraph
-                data={barChartData}
-                title={region ? 'Jobb per Yrke' : 'Jobb per Region'}
-                description={`Fördelning av lediga jobb ${region ? 'inom olika yrken' : 'över regioner'}`}
+              <AreaGraph
+                data={areaChartData}
+                title='Lediga Jobb Över Tid'
+                description='Månadsvis utveckling av jobbmarknaden'
               />
             </div>
             <div className='col-span-4 md:col-span-3'>
               <RecentSales />
             </div>
             <div className='col-span-4'>
-              <AreaGraph
-                data={areaChartData}
-                title='Lediga Jobb Över Tid'
-                description='Månadsvis utveckling av jobbmarknaden'
+              <BarGraph
+                data={barChartData}
+                title={region ? 'Jobb per Yrke' : 'Jobb per Region'}
+                description={`Fördelning av lediga jobb ${region ? 'inom olika yrken' : 'över regioner'}`}
               />
             </div>
             <div className='col-span-4 md:col-span-3'>
