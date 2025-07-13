@@ -8,6 +8,7 @@ import { cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import './theme.css';
 
@@ -70,6 +71,7 @@ export default async function RootLayout({
               <Toaster />
               {children}
               <SpeedInsights />
+              <Analytics />
             </Providers>
           </ThemeProvider>
         </NuqsAdapter>
