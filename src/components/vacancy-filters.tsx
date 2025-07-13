@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { MapPin, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -27,10 +26,15 @@ export function VacancyFilters({
   const router = useRouter();
 
   // Use nuqs for URL search param management
-  const [searchParams, setSearchParams] = useQueryStates({
-    from: parseAsString,
-    to: parseAsString
-  });
+  const [searchParams, setSearchParams] = useQueryStates(
+    {
+      from: parseAsString,
+      to: parseAsString
+    },
+    {
+      shallow: false
+    }
+  );
 
   const currentQuery = new URLSearchParams();
   if (searchParams.from) currentQuery.set('from', searchParams.from);
@@ -51,6 +55,7 @@ export function VacancyFilters({
     const path = `/dashboard/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
 
     const finalUrl = `${path}${queryString ? `?${queryString}` : ''}`;
+    console.log('finalUrl', finalUrl);
     router.push(finalUrl);
   };
 
