@@ -102,7 +102,7 @@ export function AreaGraph({
               Utveckling av lediga jobb <IconTrendingUp className='h-4 w-4' />
             </div>
             <div className='text-muted-foreground flex items-center gap-2 leading-none'>
-              Senaste 12 månader
+              Källa: Arbetsförmedlingen
             </div>
           </div>
         </div>

@@ -37,3 +37,40 @@ export function formatDateForDisplay(dateStr: string): string {
   // Convert "2024-01-01T00:00:00" to readable format using parseISO
   return format(parseISO(dateStr), 'MMM yyyy');
 }
+
+export function formatMonthForDisplay(monthStr: string): string {
+  // Convert "2024-01" to "Jan 2024"
+  const [year, month] = monthStr.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+  return format(date, 'MMM yyyy');
+}
+
+export function getDefaultFromMonth(): string {
+  // Default to 12 months ago in YYYY-MM format
+  const today = new Date();
+  const date = subMonths(today, 12);
+  return format(date, 'yyyy-MM');
+}
+
+export function getDefaultToMonth(): string {
+  // Default to current month in YYYY-MM format
+  const today = new Date();
+  return format(today, 'yyyy-MM');
+}
+
+export function validateMonthFormat(monthStr: string): boolean {
+  // Validate YYYY-MM format
+  const regex = /^\d{4}-\d{2}$/;
+  if (!regex.test(monthStr)) return false;
+
+  const [year, month] = monthStr.split('-');
+  const yearNum = parseInt(year);
+  const monthNum = parseInt(month);
+
+  return (
+    yearNum >= 2006 &&
+    yearNum <= new Date().getFullYear() + 1 &&
+    monthNum >= 1 &&
+    monthNum <= 12
+  );
+}

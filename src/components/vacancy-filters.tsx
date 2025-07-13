@@ -10,7 +10,7 @@ import {
   CardHeader
 } from '@/components/ui/card';
 import { parseAsString, useQueryStates } from 'nuqs';
-import { DateRangePicker } from './date-range-picker';
+import { MonthRangePicker } from './month-range-picker';
 import { RegionCombobox } from './region-combobox';
 import { OccupationCombobox } from './occupation-combobox';
 
@@ -28,8 +28,8 @@ export function VacancyFilters({
   // Use nuqs for URL search param management
   const [searchParams, setSearchParams] = useQueryStates(
     {
-      from: parseAsString,
-      to: parseAsString
+      fromMonth: parseAsString,
+      toMonth: parseAsString
     },
     {
       shallow: false
@@ -37,8 +37,9 @@ export function VacancyFilters({
   );
 
   const currentQuery = new URLSearchParams();
-  if (searchParams.from) currentQuery.set('from', searchParams.from);
-  if (searchParams.to) currentQuery.set('to', searchParams.to);
+  if (searchParams.fromMonth)
+    currentQuery.set('fromMonth', searchParams.fromMonth);
+  if (searchParams.toMonth) currentQuery.set('toMonth', searchParams.toMonth);
   const queryString = currentQuery.toString();
 
   const handleRegionChange = (newRegion: string) => {
@@ -55,7 +56,6 @@ export function VacancyFilters({
     const path = `/dashboard/vacancies${segments.length > 0 ? '/' + segments.join('/') : ''}`;
 
     const finalUrl = `${path}${queryString ? `?${queryString}` : ''}`;
-    console.log('finalUrl', finalUrl);
     router.push(finalUrl);
   };
 
@@ -78,16 +78,16 @@ export function VacancyFilters({
 
   const handleClearFilters = async () => {
     // Clear search params first
-    await setSearchParams({ from: null, to: null });
+    await setSearchParams({ fromMonth: null, toMonth: null });
 
     // Navigate to clean URL
     router.replace('/dashboard/vacancies');
   };
 
-  const handleDateRangeChange = (from?: Date, to?: Date) => {
+  const handleMonthRangeChange = (fromMonth?: string, toMonth?: string) => {
     setSearchParams({
-      from: from ? from.toISOString().split('T')[0] : null,
-      to: to ? to.toISOString().split('T')[0] : null
+      fromMonth: fromMonth || null,
+      toMonth: toMonth || null
     });
   };
 
@@ -128,14 +128,12 @@ export function VacancyFilters({
                 </div>
               </div>
 
-              {/* Date Range Filter */}
+              {/* Month Range Filter */}
               <div className='w-full'>
-                <DateRangePicker
-                  from={
-                    searchParams.from ? new Date(searchParams.from) : undefined
-                  }
-                  to={searchParams.to ? new Date(searchParams.to) : undefined}
-                  onDateRangeChange={handleDateRangeChange}
+                <MonthRangePicker
+                  fromMonth={searchParams.fromMonth || undefined}
+                  toMonth={searchParams.toMonth || undefined}
+                  onMonthRangeChange={handleMonthRangeChange}
                 />
               </div>
             </div>
@@ -144,8 +142,8 @@ export function VacancyFilters({
             <div className='flex gap-2'>
               {(currentRegion ||
                 currentOccupation ||
-                searchParams.from ||
-                searchParams.to) && (
+                searchParams.fromMonth ||
+                searchParams.toMonth) && (
                 <Button variant='outline' onClick={handleClearFilters}>
                   Rensa filter
                 </Button>

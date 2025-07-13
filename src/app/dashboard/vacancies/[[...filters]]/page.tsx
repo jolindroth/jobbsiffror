@@ -16,7 +16,11 @@ import { BarGraph } from '@/features/overview/components/bar-graph';
 import { PieGraph } from '@/features/overview/components/pie-graph';
 import { RecentSales } from '@/features/overview/components/recent-sales';
 import { GetHistoricalVacanciesByRange } from '@/services/jobtech-api';
-import { getDefaultFromDate, getDefaultToDate } from '@/lib/date-utils';
+import {
+  getDefaultFromDate,
+  getDefaultToDate,
+  monthToDateRange
+} from '@/lib/date-utils';
 import {
   transformToAreaChart,
   transformToBarChart,
@@ -31,6 +35,9 @@ import { VacancyFilters } from '@/components/vacancy-filters';
 interface VacanciesPageProps {
   params: Promise<{ filters?: string[] }>;
   searchParams: Promise<{
+    fromMonth?: string;
+    toMonth?: string;
+    // Legacy support for old date format
     from?: string;
     to?: string;
   }>;
@@ -51,8 +58,20 @@ export default async function VacanciesPage({
   }
 
   // Get date range from search params or use defaults (last 12 months)
-  const dateFrom = searchParams.from || getDefaultFromDate();
-  const dateTo = searchParams.to || getDefaultToDate();
+  let dateFrom: string;
+  let dateTo: string;
+
+  if (searchParams.fromMonth && searchParams.toMonth) {
+    // Use month-based parameters (new format)
+    const fromRange = monthToDateRange(searchParams.fromMonth);
+    const toRange = monthToDateRange(searchParams.toMonth);
+    dateFrom = fromRange.from;
+    dateTo = toRange.to;
+  } else {
+    // Use defaults (last 12 months)
+    dateFrom = getDefaultFromDate();
+    dateTo = getDefaultToDate();
+  }
 
   try {
     // Single API call for dashboard data using enhanced GetVacancies
