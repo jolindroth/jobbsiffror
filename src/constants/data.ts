@@ -16,7 +16,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Jobbsiffror',
     url: '/dashboard/vacancies',
-    icon: 'dashboard',
+    icon: 'chart',
     isActive: false,
     shortcut: ['d', 'd'],
     items: [] // Empty array as there are no child items for Dashboard

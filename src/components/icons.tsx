@@ -4,7 +4,6 @@ import {
   IconCheck,
   IconChevronLeft,
   IconChevronRight,
-  IconCommand,
   IconCreditCard,
   IconFile,
   IconFileText,
@@ -17,6 +16,7 @@ import {
   IconProps,
   IconShoppingBag,
   IconMoon,
+  IconChartInfographic,
   IconDotsVertical,
   IconPizza,
   IconPlus,
@@ -29,15 +29,16 @@ import {
   IconUserEdit,
   IconUserX,
   IconX,
-  IconBrandGithub,
-  IconChartBarPopular
+  IconTimeline,
+  IconBrandGithub
 } from '@tabler/icons-react';
 
 export type Icon = React.ComponentType<IconProps>;
 
 export const Icons = {
   dashboard: IconLayoutDashboard,
-  logo: IconChartBarPopular,
+  logo: IconChartInfographic,
+  chart: IconTimeline,
   login: IconLogin,
   close: IconX,
   product: IconShoppingBag,
