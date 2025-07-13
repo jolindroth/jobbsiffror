@@ -2,8 +2,6 @@ import React from 'react';
 import { SidebarTrigger } from '../ui/sidebar';
 import { Separator } from '../ui/separator';
 import { Breadcrumbs } from '../breadcrumbs';
-import { ThemeSelector } from '../theme-selector';
-import { ModeToggle } from './ThemeToggle/theme-toggle';
 
 export default function Header() {
   return (
@@ -20,8 +18,6 @@ export default function Header() {
           <SearchInput />
         </div> */}
         {/* <UserNav /> */}
-        <ModeToggle />
-        <ThemeSelector />
       </div>
     </header>
   );

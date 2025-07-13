@@ -4,7 +4,6 @@ import { fontVariables } from '@/lib/font';
 import ThemeProvider from '@/components/layout/ThemeToggle/theme-provider';
 import { cn } from '@/lib/utils';
 import type { Metadata, Viewport } from 'next';
-import { cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -18,8 +17,8 @@ const META_THEME_COLORS = {
 };
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'Jobbsiffror - information om sveriges arbetsmarknad',
+  description: 'Data och analyser om sveriges arbetsmarknad'
 };
 
 export const viewport: Viewport = {
@@ -31,9 +30,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const activeThemeValue = cookieStore.get('active_theme')?.value;
-  const isScaled = activeThemeValue?.endsWith('-scaled');
+  // Force blue theme for all users
+  const activeThemeValue = 'blue';
+  const isScaled = false;
 
   return (
     <html lang='en' suppressHydrationWarning>
@@ -42,7 +41,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                   document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
                 }
               } catch (_) {}
@@ -63,11 +62,11 @@ export default async function RootLayout({
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
+            forcedTheme='system'
             enableSystem
-            disableTransitionOnChange
             enableColorScheme
           >
-            <Providers activeThemeValue={activeThemeValue as string}>
+            <Providers>
               <Toaster />
               {children}
               <SpeedInsights />
