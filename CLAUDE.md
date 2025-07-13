@@ -14,11 +14,11 @@ Your purpose is to setup a detailed implementation plan under a folder "tasks". 
 
 ## Project Overview
 
-**Jobbsiffror** is a read-only Swedish job statistics dashboard that displays employment data from Swedish government APIs. The application provides interactive visualizations and analytics to help users understand employment trends across Sweden.
+**Jobbsiffror** is a public Swedish job statistics dashboard that displays employment data from Swedish government APIs. The application provides interactive visualizations and analytics to help users understand employment trends across Sweden.
 
 - **Live Site**: https://jobbsiffror.se
 - **Purpose**: Display Swedish economic data, primarily job numbers by profession and region
-- **Status**: Read-only data visualization application (no user-generated content)
+- **Status**: Public read-only data visualization application (no authentication required)
 
 ## Quick Start Commands
 
@@ -116,7 +116,7 @@ src/
 
 1. Copy `env.example.txt` to `.env.local`
 2. Configure optional Sentry settings
-3. Authentication (Clerk) is present but disabled for this read-only app
+3. No authentication needed - this is a public application
 
 ## Key Features & Pages
 
@@ -124,8 +124,6 @@ src/
 
 - **Vacancies** (`/dashboard/vacancies`): Main job statistics dashboard with dynamic filtering
 - **Product** (`/dashboard/product`): Data management interface
-- **Kanban** (`/dashboard/kanban`): Task management (if enabled)
-- **Profile** (`/dashboard/profile`): User profile (if auth enabled)
 
 ### Vacancies Dashboard Components
 
@@ -151,8 +149,6 @@ src/
 
 - `src/features/overview/` - Dashboard overview components
 - `src/features/products/` - Product management
-- `src/features/kanban/` - Kanban board functionality
-- `src/features/auth/` - Authentication (currently disabled)
 
 ### Component Library
 
@@ -162,10 +158,9 @@ src/
 
 ## Authentication Status
 
-- **Current State**: Disabled (commented out in code)
-- **Provider**: Clerk (configured but not active)
-- **Reason**: Read-only application for public Swedish economic data
-- **Future**: May be enabled if app becomes SaaS product
+- **Current State**: Completely removed
+- **Reason**: Public application for Swedish economic data - no authentication needed
+- **Future**: Can be added later if needed for admin features
 
 ## Performance & SEO
 

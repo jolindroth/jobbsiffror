@@ -46,7 +46,6 @@ src/
 │   ├── dashboard/         # Dashboard pages and layouts
 │   │   ├── vacancies/     # Main job statistics with dynamic filtering
 │   │   ├── product/       # Data management
-│   │   ├── kanban/        # Task management
 │   │   └── profile/       # User profile
 │   └── auth/              # Authentication pages
 ├── components/            # Shared UI components
@@ -55,7 +54,6 @@ src/
 ├── features/             # Feature-specific modules
 │   ├── overview/         # Chart components and data visualization
 │   ├── products/         # Data management
-│   └── kanban/           # Task management
 ├── lib/                  # Core utilities and API services
 ├── hooks/                # Custom React hooks
 ├── types/                # TypeScript definitions
