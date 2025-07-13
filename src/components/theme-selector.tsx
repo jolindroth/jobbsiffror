@@ -15,12 +15,12 @@ import {
 
 const DEFAULT_THEMES = [
   {
-    name: 'Default',
-    value: 'default'
-  },
-  {
     name: 'Blue',
     value: 'blue'
+  },
+  {
+    name: 'Gray',
+    value: 'default'
   },
   {
     name: 'Green',
@@ -34,12 +34,12 @@ const DEFAULT_THEMES = [
 
 const SCALED_THEMES = [
   {
-    name: 'Default',
-    value: 'default-scaled'
-  },
-  {
     name: 'Blue',
     value: 'blue-scaled'
+  },
+  {
+    name: 'Gray',
+    value: 'default-scaled'
   }
 ];
 
