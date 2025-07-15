@@ -1,13 +1,14 @@
 import KBar from '@/components/kbar';
 import AppSidebar from '@/components/layout/app-sidebar';
+import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn Dashboard Starter',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'Jobbsiffror - Sveriges arbetsmarknad',
+  description: 'Data och analyser om sveriges arbetsmarknad'
 };
 
 export default async function DashboardLayout({
@@ -25,8 +26,9 @@ export default async function DashboardLayout({
         <SidebarInset>
           <Header />
           {/* page main content */}
-          {children}
+          <main className='min-h-[calc(100vh-4rem)] flex-1'>{children}</main>
           {/* page main content ends */}
+          <Footer />
         </SidebarInset>
       </SidebarProvider>
     </KBar>

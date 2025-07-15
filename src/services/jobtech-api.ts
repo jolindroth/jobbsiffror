@@ -48,6 +48,9 @@ async function GetHistoricalVacanciesByMonth(
     const response = await fetch(
       `https://historical.api.jobtechdev.se/search?${params}`,
       {
+        headers: {
+          'User-Agent': 'Jobbsiffror/1.0 (+https://jobbsiffror.se)'
+        },
         next: { revalidate: 3600 * 24 * 30 } // 30 day cache
       }
     );
