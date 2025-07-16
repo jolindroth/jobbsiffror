@@ -64,6 +64,8 @@ export function MonthRangePicker({
     toMonth
   });
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const [tempRange, setTempRange] = useState<{
     fromYear?: string;
     fromMonthValue?: string;
@@ -114,6 +116,7 @@ export function MonthRangePicker({
     if (onMonthRangeChange) {
       onMonthRangeChange(newRange.fromMonth, newRange.toMonth);
     }
+    setIsOpen(false);
   };
 
   // Handle "From" year change and clear invalid "To" selections
@@ -166,6 +169,7 @@ export function MonthRangePicker({
       fromMonth: newFromMonth,
       toMonth: newToMonth
     });
+    setIsOpen(false);
   };
 
   const handlePreset = (monthsBack: number) => {
@@ -180,6 +184,7 @@ export function MonthRangePicker({
       fromMonth: fromFormatted,
       toMonth: toFormatted
     });
+    setIsOpen(false);
   };
 
   const formatDisplayDate = (monthStr?: string) => {
@@ -205,7 +210,7 @@ export function MonthRangePicker({
         <CalendarDays className='h-4 w-4' />
         Tidsperiod
       </label>
-      <Popover>
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button
             variant='outline'
@@ -330,7 +335,6 @@ export function MonthRangePicker({
                 </Select>
               </div>
             </div>
-
             <Button className='w-full' onClick={handleApply}>
               Tillämpa
             </Button>
