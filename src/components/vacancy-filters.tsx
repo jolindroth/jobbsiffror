@@ -97,7 +97,7 @@ export function VacancyFilters({
         <CardHeader>
           <CardDescription>Filtrera sökningen</CardDescription>
         </CardHeader>
-        <CardContent className='flex h-full px-8 py-4'>
+        <CardContent className='flex h-full px-8 pt-4'>
           <div className='flex w-full flex-col gap-4'>
             <div className='grid flex-1 grid-cols-1 gap-4'>
               {/* Region Filter */}
@@ -139,7 +139,7 @@ export function VacancyFilters({
             </div>
 
             {/* Action Buttons */}
-            <div className='flex gap-2'>
+            <div className='flex h-10'>
               {(currentRegion ||
                 currentOccupation ||
                 searchParams.fromMonth ||
