@@ -40,6 +40,9 @@ export function AreaGraph({
   title = 'Lediga Jobb Över Tid',
   description = 'Månadsvis trend av lediga jobb'
 }: AreaGraphProps) {
+  // Check if data spans multiple years to determine label format
+  const years = new Set(data.map((d) => d.month.split('-')[0]));
+  const hasMultipleYears = years.size > 1;
   return (
     <Card className='@container/card'>
       <CardHeader>
@@ -79,7 +82,15 @@ export function AreaGraph({
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => {
+                if (hasMultipleYears) {
+                  // Convert "jul 2023" to "jul 23"
+                  const parts = value.split(' ');
+                  return `${parts[0]} ${parts[1].slice(-2)}`;
+                } else {
+                  return value.slice(0, 3);
+                }
+              }}
             />
             <ChartTooltip
               cursor={false}
