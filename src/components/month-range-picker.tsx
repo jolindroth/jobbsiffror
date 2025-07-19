@@ -219,7 +219,6 @@ export function MonthRangePicker({
               !monthRange.fromMonth && 'text-muted-foreground'
             )}
           >
-            <CalendarDays className='mr-2 h-4 w-4' />
             {displayText()}
           </Button>
         </PopoverTrigger>

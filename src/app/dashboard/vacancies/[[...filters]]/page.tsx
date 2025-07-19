@@ -86,6 +86,7 @@ export default async function VacanciesPage({
 
     if (needsAllRegions) {
       // Fetch all regions for map visualization
+      // (cutoff filtering happens automatically inside API functions)
       mapData = await GetHistoricalVacanciesByRegions(
         dateFrom,
         dateTo,
@@ -93,6 +94,7 @@ export default async function VacanciesPage({
       );
 
       // For other charts, we still need aggregated data
+      // (cutoff filtering happens automatically inside API functions)
       dashboardData = await GetHistoricalVacanciesByRange(
         dateFrom,
         dateTo,
@@ -101,6 +103,7 @@ export default async function VacanciesPage({
       );
     } else {
       // Single region selected - use existing API for everything
+      // (cutoff filtering happens automatically inside API functions)
       dashboardData = await GetHistoricalVacanciesByRange(
         dateFrom,
         dateTo,

@@ -91,6 +91,24 @@ export async function GetHistoricalVacanciesByRange(
   occupation?: string
 ): Promise<VacancyRecord[]> {
   try {
+    // Apply intelligent cutoff filtering automatically
+    const { getCachedCutoffDate } = await import('./data-cutoff-cache');
+    const { filterDateRangeByAvailability } = await import(
+      './date-range-filter'
+    );
+
+    const cutoff = await getCachedCutoffDate();
+
+    if (cutoff) {
+      // Apply cutoff filtering before making API calls
+      const filterResult = await filterDateRangeByAvailability(
+        dateFrom,
+        dateTo
+      );
+      dateFrom = filterResult.adjustedDateFrom;
+      dateTo = filterResult.adjustedDateTo;
+    }
+
     // Parse date strings using date-fns
     const startDate = parseISO(
       dateFrom.includes('T') ? dateFrom.split('T')[0] : dateFrom
@@ -190,6 +208,24 @@ export async function GetHistoricalVacanciesByRegions(
   occupation?: string
 ): Promise<VacancyRecord[]> {
   try {
+    // Apply intelligent cutoff filtering automatically
+    const { getCachedCutoffDate } = await import('./data-cutoff-cache');
+    const { filterDateRangeByAvailability } = await import(
+      './date-range-filter'
+    );
+
+    const cutoff = await getCachedCutoffDate();
+
+    if (cutoff) {
+      // Apply cutoff filtering before making API calls
+      const filterResult = await filterDateRangeByAvailability(
+        dateFrom,
+        dateTo
+      );
+      dateFrom = filterResult.adjustedDateFrom;
+      dateTo = filterResult.adjustedDateTo;
+    }
+
     // Parse date strings using date-fns
     const startDate = parseISO(
       dateFrom.includes('T') ? dateFrom.split('T')[0] : dateFrom
