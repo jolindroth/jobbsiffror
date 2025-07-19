@@ -12,10 +12,13 @@ import {
 } from '@/components/ui/card';
 import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
 import { AreaGraph } from '@/features/overview/components/area-graph';
-import { BarGraph } from '@/features/overview/components/bar-graph';
 import { PieGraph } from '@/features/overview/components/pie-graph';
 import { RecentSales } from '@/features/overview/components/recent-sales';
-import { GetHistoricalVacanciesByRange } from '@/services/jobtech-api';
+import {
+  GetHistoricalVacanciesByRange,
+  GetHistoricalVacanciesByRegions,
+  shouldFetchAllRegions
+} from '@/services/jobtech-api';
 import {
   getDefaultFromDate,
   getDefaultToDate,
@@ -23,14 +26,15 @@ import {
 } from '@/lib/date-utils';
 import {
   transformToAreaChart,
-  transformToBarChart,
   transformToPieChart,
-  calculateSummaryStats
+  calculateSummaryStats,
+  transformToMapChart
 } from '@/lib/chart-data-transformers';
 import { parseFilters } from '@/lib/filter-parser';
 import { SWEDISH_REGIONS } from '@/constants/swedish-regions';
 import { OCCUPATION_GROUPS } from '@/constants/occupation-groups';
 import { VacancyFilters } from '@/components/vacancy-filters';
+import { SwedenMap } from '@/components/sweden-map';
 
 interface VacanciesPageProps {
   params: Promise<{ filters?: string[] }>;
@@ -74,24 +78,49 @@ export default async function VacanciesPage({
   }
 
   try {
-    // Single API call for dashboard data using enhanced GetVacancies
-    const dashboardData = await GetHistoricalVacanciesByRange(
-      dateFrom,
-      dateTo,
-      region,
-      occupation
-    );
+    // Determine which API to use based on whether we need multi-region data
+    const needsAllRegions = shouldFetchAllRegions(region);
+
+    let dashboardData;
+    let mapData;
+
+    if (needsAllRegions) {
+      // Fetch all regions for map visualization
+      mapData = await GetHistoricalVacanciesByRegions(
+        dateFrom,
+        dateTo,
+        occupation
+      );
+
+      // For other charts, we still need aggregated data
+      dashboardData = await GetHistoricalVacanciesByRange(
+        dateFrom,
+        dateTo,
+        region,
+        occupation
+      );
+    } else {
+      // Single region selected - use existing API for everything
+      dashboardData = await GetHistoricalVacanciesByRange(
+        dateFrom,
+        dateTo,
+        region,
+        occupation
+      );
+
+      // For map, we'll show only the selected region
+      mapData = dashboardData;
+    }
 
     // Transform data for different chart types
     const areaChartData = transformToAreaChart(dashboardData);
-    const barChartData = transformToBarChart(
-      dashboardData,
-      region ? 'occupation' : 'region'
-    );
     const pieChartData = transformToPieChart(
       dashboardData,
       region ? 'occupation' : 'region'
     );
+
+    // Transform data for map visualization
+    const mapChartData = transformToMapChart(mapData);
 
     // Calculate summary statistics
     const stats = calculateSummaryStats(dashboardData);
@@ -232,14 +261,15 @@ export default async function VacanciesPage({
               />
             </div>
             <div className='col-span-4 md:col-span-3'>
-              <RecentSales />
+              <SwedenMap
+                data={mapChartData}
+                currentRegion={region}
+                title={region ? 'Jobb per Yrke' : 'Jobb per Region'}
+                description={`Geografisk fördelning av lediga jobb ${region ? 'inom olika yrken' : 'över regioner'}`}
+              />
             </div>
             <div className='col-span-4'>
-              <BarGraph
-                data={barChartData}
-                title={region ? 'Jobb per Yrke' : 'Jobb per Region'}
-                description={`Fördelning av lediga jobb ${region ? 'inom olika yrken' : 'över regioner'}`}
-              />
+              <RecentSales />
             </div>
             <div className='col-span-4 md:col-span-3'>
               <PieGraph

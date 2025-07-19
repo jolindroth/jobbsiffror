@@ -164,3 +164,12 @@ function findMostActive(counts: Map<string, number>): string {
 
   return capitalizeFirst(mostActive);
 }
+
+// Re-export map transformation functions for easy access
+export {
+  transformToMapChart,
+  aggregateRegionalData,
+  calculateColorIntensity,
+  getLeafletStyle,
+  getLeafletHoverStyle
+} from './map-data-transformers';

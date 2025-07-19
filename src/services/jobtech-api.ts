@@ -152,6 +152,81 @@ export async function GetHistoricalVacanciesByRange(
   }
 }
 
+// Helper function to determine if we should fetch all regions
+export function shouldFetchAllRegions(region?: string): boolean {
+  return !region || region === 'all';
+}
+
+// Get all regions data for a specific month (for map visualization)
+async function GetAllRegionsDataForMonth(
+  month: string, // Format: "2024-01"
+  occupation?: string
+): Promise<VacancyRecord[]> {
+  const { SWEDISH_REGIONS } = await import('@/constants/swedish-regions');
+
+  // Create promises for all 21 regions
+  const regionPromises = SWEDISH_REGIONS.map((region) =>
+    GetHistoricalVacanciesByMonth(month, region.urlSlug, occupation)
+  );
+
+  try {
+    // Execute all API calls in parallel - atomic operation
+    const results = await Promise.all(regionPromises);
+    return results;
+  } catch (error) {
+    // If any regional call fails, the entire operation fails
+    throw new JobTechAPIError(
+      `Failed to fetch regional data for month ${month}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      0,
+      { month, occupation, regionCount: SWEDISH_REGIONS.length }
+    );
+  }
+}
+
+// Enhanced function to get vacancy data for all regions (for map visualization)
+export async function GetHistoricalVacanciesByRegions(
+  dateFrom: string,
+  dateTo: string,
+  occupation?: string
+): Promise<VacancyRecord[]> {
+  try {
+    // Parse date strings using date-fns
+    const startDate = parseISO(
+      dateFrom.includes('T') ? dateFrom.split('T')[0] : dateFrom
+    );
+    const endDate = parseISO(
+      dateTo.includes('T') ? dateTo.split('T')[0] : dateTo
+    );
+
+    // Generate array of months between start and end dates
+    const months = eachMonthOfInterval({
+      start: startOfMonth(startDate),
+      end: startOfMonth(endDate)
+    });
+
+    // Make API calls for each month to get all regional data
+    const monthlyPromises = months.map((monthDate) => {
+      const monthString = format(monthDate, 'yyyy-MM');
+      return GetAllRegionsDataForMonth(monthString, occupation);
+    });
+
+    // Execute all monthly calls - atomic operation
+    const monthlyResults = await Promise.all(monthlyPromises);
+
+    // Flatten the results (each month returns array of regions)
+    const allRecords: VacancyRecord[] = monthlyResults.flat();
+
+    // Sort by month to ensure proper chronological order
+    return allRecords.sort((a, b) => a.month.localeCompare(b.month));
+  } catch (error) {
+    throw new JobTechAPIError(
+      `Failed to fetch regional vacancy data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      0,
+      { dateFrom, dateTo, occupation }
+    );
+  }
+}
+
 // Real mapping functions using taxonomy mappings
 function getRegionCode(region: string): string {
   const code = getRegionCodeFromSlug(region);
