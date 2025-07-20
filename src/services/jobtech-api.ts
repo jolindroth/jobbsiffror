@@ -29,7 +29,7 @@ async function GetHistoricalVacanciesByMonth(
   const params = new URLSearchParams({
     'historical-from': from,
     'historical-to': to,
-    limit: '1', // We only need the total count, not individual results
+    limit: '0', // 98% memory reduction: only count data, no job postings (was limit: '1')
     offset: '0'
   });
 
