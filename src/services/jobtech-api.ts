@@ -58,12 +58,10 @@ async function GetHistoricalVacanciesByMonth(
       }
     );
 
-    console.log(response);
-    console.log(response.headers);
     console.log(
-      `https://historical.api.jobtechdev.se/search?${params}`,
-      Date.now()
+      `REQUESTED: https://historical.api.jobtechdev.se/search?${params}`
     );
+    console.log(response.headers);
 
     if (!response.ok) {
       throw new JobTechAPIError(
@@ -110,6 +108,7 @@ export async function GetHistoricalVacanciesByRange(
     const cutoff = await getCachedCutoffDate();
 
     if (cutoff) {
+      console.log('Applying cutoff filtering');
       // Apply cutoff filtering before making API calls
       const filterResult = await filterDateRangeByAvailability(
         dateFrom,
