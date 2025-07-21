@@ -58,6 +58,13 @@ async function GetHistoricalVacanciesByMonth(
       }
     );
 
+    console.log(response);
+    console.log(response.headers);
+    console.log(
+      `https://historical.api.jobtechdev.se/search?${params}`,
+      Date.now()
+    );
+
     if (!response.ok) {
       throw new JobTechAPIError(
         `API request failed: ${response.status}`,
